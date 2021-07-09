@@ -1,0 +1,15 @@
+.container {
+	min-height: 100vh;
+	padding: 0 0.5rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	justify-items: center;
+	align-items: center;
+	height: 100%;
+	width: 100vw;
+}
+
+.background_image {
+	z-index: 0;
+}

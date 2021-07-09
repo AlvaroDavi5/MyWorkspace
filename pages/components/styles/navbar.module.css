@@ -1,0 +1,40 @@
+.navbar {
+	background-color: rgba(0, 0, 70, 0.596);
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	position: fixed;
+	top: 0;
+	left: 0;
+}
+.nav_options {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	justify-items: center;
+	align-items: center;
+	left: 50%;
+}
+.nav_options li {
+	color: white;
+	padding: 25px;
+	margin: 8px;
+}
+.nav_options li::marker {
+	color: rgba(255, 255, 255, 0);
+	display: none;
+}
+
+.nasa_logo {
+	width: 110px;
+	height: auto;
+	margin: 8px;
+}
+.logo {
+	align-items: center;
+}
+
+.github {
+	display: flex;
+	flex-direction: column;
+}
