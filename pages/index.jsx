@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import Image from 'next/image' 
+import DocumentHead from "./components/_document.jsx"
 import Navbar from "./components/navbar.jsx"
 import Home from "./home/index.jsx"
 import styles from "./styles/index.module.css"
@@ -13,7 +14,7 @@ export default function MainIndex() {
 				<title>Nasa: Unofficial Site</title>
 				<meta name="description" content="Rebuild of Nasa site"/>
 				<link rel="icon" href="/favicon.ico"/>
-				<meta name="viewport" content="width=device-width, initial-scale=1"/>
+				<DocumentHead/>
 			</Head>
 
 			<Image
