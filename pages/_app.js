@@ -1,6 +1,6 @@
 //import 'bootstrap/dist/css/bootstrap.css'
 import { ChakraProvider, ColorModeProvider } from '@chakra-ui/react'
-import theme from "../utils/theme.ts"
+import theme from "../config/theme.ts"
 import "./styles/globals.css"
 
 
