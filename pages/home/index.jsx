@@ -6,7 +6,7 @@ export default function Home() {
 	return (
 		<div>
 			<Head>
-				<title>Home - Nasa: Unofficial Site</title>
+				<title>Home - MyWorkspace</title>
 			</Head>
 
 			<main className={styles.main}>

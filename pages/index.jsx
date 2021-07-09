@@ -1,4 +1,3 @@
-import Head from 'next/head'
 import Image from 'next/image' 
 import DocumentHead from "./components/_document.jsx"
 import Navbar from "./components/navbar.jsx"
@@ -10,12 +9,7 @@ import bgd_img from "./assets/background-universe.jpg"
 export default function MainIndex() {
 	return (
 		<div className={styles.container}>
-			<Head>
-				<title>Nasa: Unofficial Site</title>
-				<meta name="description" content="Rebuild of Nasa site"/>
-				<link rel="icon" href="/favicon.ico"/>
-				<DocumentHead/>
-			</Head>
+			<DocumentHead title="MyWorkspace"/>
 
 			<Image
 				alt="background_universe"
