@@ -1050,7 +1050,7 @@
   dependencies:
     "@chakra-ui/utils" "1.8.1"
 
-"@chakra-ui/icons@^1.0.13":
+"@chakra-ui/icons@^1.0.14":
   version "1.0.14"
   resolved "https://registry.yarnpkg.com/@chakra-ui/icons/-/icons-1.0.14.tgz#8d402074dabdb410af36e6f1af047bb186973053"
   integrity sha512-VM21FkQc4rWcES1D6ddNIq6VYaCnTwWBIaqM9GRQZ7FpsLeVNk6UFYiE8MMtGWVIXq3k9jEYLbQHm7YdEF9yLQ==
@@ -1210,7 +1210,7 @@
   dependencies:
     "@chakra-ui/utils" "^1.7.0"
 
-"@chakra-ui/react@^1.6.3":
+"@chakra-ui/react@^1.6.5":
   version "1.6.5"
   resolved "https://registry.yarnpkg.com/@chakra-ui/react/-/react-1.6.5.tgz#f8d05b2bb7f98d73c9606b6abe02cec9598541e6"
   integrity sha512-kvBNX3gkg2CCbdaj585I8m7Wd+PGMLTpEM15WbII3t6E26lhKWwD5OXMomhWhsnBMCM9uSQ790dunhffcruUUg==
@@ -3729,7 +3729,7 @@ next-pwa@^5.2.23:
     workbox-webpack-plugin "^6.1.5"
     workbox-window "^6.1.5"
 
-next@11.0.1:
+next@^11.0.1:
   version "11.0.1"
   resolved "https://registry.yarnpkg.com/next/-/next-11.0.1.tgz#b8e3914d153aaf7143cb98c09bcd3c8230eeb17a"
   integrity sha512-yR7be7asNbvpVNpi6xxEg28wZ7Gqmj1nOt0sABH9qORmF3+pms2KZ7Cng33oK5nqPIzEEFJD0pp2PCe3/ueMIg==
@@ -4166,7 +4166,7 @@ react-clientside-effect@^1.2.2:
   dependencies:
     "@babel/runtime" "^7.12.13"
 
-react-dom@17.0.2:
+react-dom@^17.0.2:
   version "17.0.2"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-17.0.2.tgz#ecffb6845e3ad8dbfcdc498f0d0a939736502c23"
   integrity sha512-s4h96KtLDUQlsENhMn1ar8t2bEa+q/YAtj8pPPdIjPDGBDIVNsrD9aXNWqspUe6AzKCIG0C1HZZLqLV7qpOBGA==
@@ -4240,7 +4240,7 @@ react-style-singleton@^2.1.0:
     invariant "^2.2.4"
     tslib "^1.0.0"
 
-react@17.0.2:
+react@^17.0.2:
   version "17.0.2"
   resolved "https://registry.yarnpkg.com/react/-/react-17.0.2.tgz#d0b5cc516d29eb3eee383f75b62864cfb6800037"
   integrity sha512-gnhPt75i/dq/z3/6q/0asP78D0u592D5L1pd7M8P+dck6Fu/jJeL6iVVK23fptSUZj8Vjf++7wXA8UNclGQcbA==
