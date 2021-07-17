@@ -5,11 +5,13 @@ import { createBreakpoints } from '@chakra-ui/theme-tools'
 const fonts = { mono: `'Menlo', monospace` }
 
 const colors = {
-	light: "#d3e4db",
-	dark: "#002b13",
+	clear_lake: "#aef0d1",
+	dark_forest: "#015249",
 	primary: "#229052",
-	secondary: "#5eb383",
-	terciary: "#03652e",
+	secondary: "#03652e",
+	marine: "#57bc90",
+	feather: "#77c9d4",
+	sleek_grey: "#a5a5af",
 	highlight: "#d885db",
 	accent: "#0901a7",
 	success: "#2ddf00",

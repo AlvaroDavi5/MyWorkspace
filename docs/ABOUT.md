@@ -10,26 +10,42 @@ Approaching areas such as: development techniques, design patterns, mapping of d
 **General Description:** The idea of ​​the project is to create a platform aimed at teachers, so that they can organize their tasks, projects and academic content of study.
 <br/><br/>
 
-**Technical Detail:** The platform will be accessed via the web, but it will be available to be installed as a webapp, allowing the larger user versatility, comfort in your desktop environment, quick access via icons, optimized navigation, greater fluidity, less concern with web connection (offline support), integration with hardware and firmware features (camera, location, contacts), and interaction by notifications.
+**Technical Detail:** The platform will be accessed via the web, but it will be available to be installed as a webapp (PWA), allowing the larger user versatility, comfort in your desktop environment, quick access via icons, optimized navigation, greater fluidity, less concern with web connection (offline support), integration with hardware and firmware features (camera, location, contacts), and interaction by notifications.
+<br/><br/>
+
+## Technology:
+**Laguages:** JavaScript / TypeScript / JSX + HTML + CSS  
+**Framework:** Next.js  
+**UI-Tool:** Chakra-UI
 <br/><br/>
 
 ## Color Palette:
-```
-light: #D3E4DB
-dark: #002B13
-primary: #229052
-secondary: #5EB383
-terciary: #03652E
-```
-<img src="../img/palette.png" alt="palette in shades of green"/>
-<br/><br/>
+<span style="color:#AEF0D1">clear_lake</span><br>
+<span style="color:#015249">dark_forest</span><br>
+<span style="color:#229052">primary</span><br>
+<span style="color:#03652E">secondary</span><br>
+<span style="color:#57BC90">marine</span><br>
+<span style="color:#77C9D4">feather</span><br>
+<span style="color:#A5A5AF">sleek_grey</span>
 
+```
+clear_lake: #AEF0D1
+dark_forest: #015249
+primary: #229052
+secondary: #03652E
+marine: #57BC90
+feather: #77C9D4
+sleek_grey: #A5A5AF
+```
 
 #### Figma/MockFlow Link:
-	*
-
+[Click Here!](https://wireframepro.mockflow.com/view/M6865e8225ab76c72f2773456e696b6fa1626432534880)
+<br><br>
 
 ### Database:
 	Type: Relational
 	DBMS/RDBMS: PostgreSQL
+<br>
 
+### Used API:
+[IBGE](https://servicodados.ibge.gov.br/api/docs)
