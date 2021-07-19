@@ -1,61 +1,95 @@
-import { Button } from '@chakra-ui/react'
+import React from 'react'
+import {
+	useDisclosure,
+	Box, Center, Button,
+	Drawer,
+	DrawerHeader, DrawerBody, DrawerFooter,
+	DrawerOverlay, DrawerContent, DrawerCloseButton
+} from '@chakra-ui/react'
+import { MdMenu } from "react-icons/md"
 import { DiGithubBadge } from 'react-icons/di'
-import styles from "./styles/navbar.module.css"
-import logo from "../assets/nasa-logo.svg"
 
 
-export default function Navbar() {
+function MenuDrawer() {
+	const { isOpen, onOpen, onClose } = useDisclosure()
+	const btnRef = React.useRef()
+
 	return (
-		<div className={styles.navbar}>
-			<div className={styles.nasa_logo}>
-				<img
-					className={styles.logo}
-					src={logo}
-					alt="logo"
-				/>
-			</div>
+		<>
+		<Button
+			ref={btnRef}
+			colorScheme='teal'
+			color='black'
+			onClick={onOpen}
+			height='10'
+		>
+			<MdMenu size='30'/>
+		</Button>
 
-			<ul className={styles.nav_options}>
-				<li>Missions</li>
-				<li>Galleries</li>
-				<li>NASA Journal</li>
-				<li>NASA TV</li>
-				<li>Downloads</li>
-				<li>
+		<Drawer
+			isOpen={isOpen}
+			placement="right"
+			onClose={onClose}
+			finalFocusRef={btnRef}
+		>
+			<DrawerOverlay/>
+			<DrawerContent>
+				<DrawerCloseButton/>
+				<DrawerHeader background='dark_forest'>
+					Create your account
+				</DrawerHeader>
+
+				<DrawerBody size="xs" background='dark_forest'>
 					<a href="https://api.nasa.gov/">
 						<Button
 							size='lg'
-							color='primary'
 							variant='solid'
 							bg='secondary'
 						>
 							API
 						</Button>
 					</a>
-				</li>
-				<li>
-					<a href="/others/about">About</a>
-				</li>
-				<li>
-					<a href="/others/contact">Contact</a>
-				</li>
-				<li>
-					<a href="https://github.com/AlvaroDavi5/NextJS-first_webapp">
-						<Button
-							className={styles.github}
-							size='xl'
-							color='white'
-							variant='solid'
-							bg='black'
-							padding='5px'
-						>
-							<DiGithubBadge size='60'/>
-							Project Repo
-						</Button>
-					</a>
-				</li>
-			</ul>
+				</DrawerBody>
 
-		</div>
+				<DrawerFooter background='dark_forest'/>
+			</DrawerContent>
+		</Drawer>
+		</>
+	)
+}
+
+export default function Navbar() {
+	return (
+		<Box
+			bg='primary'
+			w="100%"
+			p={5}
+			color="black"
+		>
+			<a href="https://github.com/AlvaroDavi5/NextJS-first_webapp">
+				<Button
+					size='xl'
+					color='white'
+					variant='solid'
+					bg='black'
+					padding='5px'
+					justifySelf='start'
+				>
+					<DiGithubBadge size='60'/>
+					Project Repo
+				</Button>
+			</a>
+
+			<Center
+				h="100px"
+				color="white"
+				display='inline'
+				justifySelf='center'
+			>
+				This is the Center
+			</Center>
+
+			<MenuDrawer/>
+		</Box>
 	)
 }
