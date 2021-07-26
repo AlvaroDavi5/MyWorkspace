@@ -6,7 +6,9 @@ import {
 	DrawerHeader, DrawerBody, DrawerFooter,
 	DrawerOverlay, DrawerContent, DrawerCloseButton
 } from '@chakra-ui/react'
-import { MdMenu } from "react-icons/md"
+import { MdMenu } from 'react-icons/md'
+import { CgArrowsExchange } from 'react-icons/cg'
+import { BiSun, BiMoon } from 'react-icons/bi'
 import { DiGithubBadge } from 'react-icons/di'
 
 
@@ -18,8 +20,10 @@ function MenuDrawer() {
 		<>
 		<Button
 			ref={btnRef}
-			colorScheme='teal'
+			variant='ghost'
 			color='black'
+			bg='marine'
+			boxShadow='1px 1px 2px 2px rgba(0, 0, 0, 0.3)'
 			onClick={onOpen}
 			height='10'
 		>
@@ -34,62 +38,96 @@ function MenuDrawer() {
 		>
 			<DrawerOverlay/>
 			<DrawerContent>
-				<DrawerCloseButton/>
-				<DrawerHeader background='dark_forest'>
-					Create your account
+				<DrawerCloseButton
+					boxShadow='1px 1px 2px 2px rgba(0, 0, 0, 0.3)'
+				/>
+				<DrawerHeader background='marine'>
+					Menu
 				</DrawerHeader>
 
-				<DrawerBody size="xs" background='dark_forest'>
+				<DrawerBody size="xs" background='marine'>
 					<a href="https://api.nasa.gov/">
 						<Button
 							size='lg'
-							variant='solid'
-							bg='secondary'
+							bg='clear_lake'
+							boxShadow='1px 1px 2px 2px rgba(0, 0, 0, 0.3)'
+							variant='ghost'
 						>
 							API
 						</Button>
 					</a>
 				</DrawerBody>
 
-				<DrawerFooter background='dark_forest'/>
+				<DrawerFooter background='marine'/>
 			</DrawerContent>
 		</Drawer>
 		</>
 	)
 }
 
-export default function Navbar() {
+export default function Navbar(props) {
 	return (
 		<Box
-			bg='primary'
-			w="100%"
+			bg='marine'
+			w='100%'
+			h='100px'
 			p={5}
-			color="black"
+			color='black'
+			boxShadow='1px 1px 2px 2px rgba(0, 0, 0, 0.3)'
+			boxSizing='border-box'
+			padding='10px 15px'
+			display='flex'
+			justifyContent='space-between'
+			alignItems='center'
 		>
-			<a href="https://github.com/AlvaroDavi5/NextJS-first_webapp">
-				<Button
-					size='xl'
-					color='white'
-					variant='solid'
-					bg='black'
-					padding='5px'
-					justifySelf='start'
+			<div
+				className="logo"
+			>
+				<a href="https://github.com/AlvaroDavi5/MyWorkspace"
 				>
-					<DiGithubBadge size='60'/>
-					Project Repo
-				</Button>
-			</a>
+					<Button
+						size='xl'
+						boxShadow='1px 1px 2px 2px rgba(0, 0, 0, 0.3)'
+						color='white'
+						variant='solid'
+						bg='black'
+						padding='5px'
+						display='list-item'
+					>
+						<DiGithubBadge size='60'/>
+					</Button>
+				</a>
+			</div>
 
 			<Center
-				h="100px"
-				color="white"
-				display='inline'
+				color="black"
+				display='inline-block'
 				justifySelf='center'
+				textAlign='center'
+				margin='5px'
+				fontSize='xx-large'
 			>
-				This is the Center
+				{props.pageName}
 			</Center>
 
-			<MenuDrawer/>
+			<div
+				className="menu-button"
+				flex='1'
+			>
+				<Button
+					variant='ghost'
+					backgroundColor='marine'
+					color='black'
+					marginRight='50px'
+					boxShadow='1px 1px 2px 2px rgba(0, 0, 0, 0.3)'
+				>
+					<BiSun size='20'/>
+					<CgArrowsExchange size='20'/>
+					<BiMoon size='20'/>
+				</Button>
+
+				<MenuDrawer/>
+			</div>
 		</Box>
 	)
 }

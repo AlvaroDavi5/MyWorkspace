@@ -1,4 +1,4 @@
-import Image from 'next/image' 
+import { Box } from '@chakra-ui/react'
 import DocumentHead from "./components/document_head.jsx"
 import Navbar from "./components/navbar.jsx"
 import Home from "./home/index.jsx"
@@ -6,12 +6,14 @@ import Home from "./home/index.jsx"
 
 export default function MainIndex() {
 	return (
-		<div className="container">
+		<Box
+			className="homepage"
+		>
 			<DocumentHead title="Home"/>
-			<Navbar/>
-			<body>
-				<Home/>
-			</body>
-		</div>
+
+			<Navbar pageName="Área de Trabalho"/>
+
+			<Home/>
+		</Box>
 	)
 }

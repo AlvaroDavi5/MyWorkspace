@@ -32,7 +32,7 @@ const breakpoints = createBreakpoints(
 const theme = extendTheme(
 	{
 		useSystemColorMode: true,
-		//initialColorMode: "light",
+		//initialColorMode: 'light',
 		colors: colors,
 		fonts,
 		breakpoints: breakpoints,
