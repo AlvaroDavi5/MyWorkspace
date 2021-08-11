@@ -38,13 +38,14 @@ feather: #77C9D4
 sleek_grey: #A5A5AF
 ```
 
-#### Figma/MockFlow Link:
-[Click Here!](https://wireframepro.mockflow.com/view/M6865e8225ab76c72f2773456e696b6fa1626432534880)
+#### Pages:
+[MockFlow Pages Scheme](https://wireframepro.mockflow.com/view/M6865e8225ab76c72f2773456e696b6fa1626432534880)
 <br><br>
 
 ### Database:
 	Type: Relational
 	DBMS/RDBMS: PostgreSQL
+[DBDesigner Scheme](https://app.dbdesigner.net/designer/schema/439570)
 <br>
 
 ### Used API:
