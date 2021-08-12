@@ -1,4 +1,4 @@
-require('dotenv')
+require('dotenv') // use environment variables to save sesitive data like API key
 
 
 // API data request
@@ -9,5 +9,12 @@ function getApodImages(count:String, date:String, start_date:String, end_date:St
 	return query
 }
 
+async function getIBGEPublications(category:String) {
+	const publicationsRequest = await fetch(`http://servicodados.ibge.gov.br/api/v1/publicacoes/${category}`)
+	const publicationsJson = await publicationsRequest.json()
 
-export { getApodImages }
+	return publicationsJson
+}
+
+
+export { getApodImages, getIBGEPublications }

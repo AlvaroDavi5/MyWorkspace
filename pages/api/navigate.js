@@ -1,32 +1,38 @@
-import { Op } from 'sequelize';
+import { AxiosAdapter } from 'axios'
+import { Op } from 'sequelize'
 
 
-export default async function handler(req, res) {
+export default async function handler(request, response) {
 	try {
-		switch (req.method) {
+		switch (request.method) {
+			/* get data from api */
 			case 'GET':
-
-				return res.status(200).json(
-					{ success: true, data: processes }
+				return response.status(200).json(
+					{
+						success: true,
+						data: {
+							date: (new Date()).toLocaleDateString(),
+							pubs: "tecnologia"
+						}
+					}
 				);
 
-
+			/* post new data on api */
 			case 'POST':
-
-				return res.status(201).json(
+				return response.status(201).json(
 					{
 						success: true,
 						data: { name: "John Smith" }
 					}
 				);
 
-
 			default:
 				break;
 		}
 	}
 	catch ({ message }) {
-		return res.status(200).json(
+			/* return error */
+			return response.status(200).json(
 			{ success: false, data: message }
 		);
 	}
