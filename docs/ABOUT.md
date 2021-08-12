@@ -45,7 +45,7 @@ sleek_grey: #A5A5AF
 ### Database:
 	Type: Relational
 	DBMS/RDBMS: PostgreSQL
-[DBDesigner Scheme](https://app.dbdesigner.net/designer/schema/439570)
+[DBDesigner Schema](https://dbdesigner.page.link/iNEUbGRhqXn19HYz9)
 <br>
 
 ### Used API:
