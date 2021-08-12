@@ -10,7 +10,7 @@ Approaching areas such as: development techniques, design patterns, mapping of d
 **General Description:** The idea of ​​the project is to create a platform aimed at teachers, so that they can organize their tasks, projects and academic content of study.
 <br/><br/>
 
-**Technical Detail:** The platform will be accessed via the web, but it will be available to be installed as a webapp (PWA), allowing the larger user versatility, comfort in your desktop environment, quick access via icons, optimized navigation, greater fluidity, less concern with web connection (offline support), integration with hardware and firmware features (camera, location, contacts), and interaction by notifications.
+**Technical Details:** The platform will be accessed via the web, but it will be available to be installed as a webapp (PWA), allowing the larger user versatility, comfort in your desktop environment, quick access via icons, optimized navigation, greater fluidity, less concern with web connection (offline support), integration with hardware and firmware features (camera, location, contacts), and interaction by notifications.
 <br/><br/>
 
 ## Technology:
@@ -38,13 +38,14 @@ feather: #77C9D4
 sleek_grey: #A5A5AF
 ```
 
-#### Figma/MockFlow Link:
-[Click Here!](https://wireframepro.mockflow.com/view/M6865e8225ab76c72f2773456e696b6fa1626432534880)
+#### Pages:
+[MockFlow Pages Scheme](https://wireframepro.mockflow.com/view/M6865e8225ab76c72f2773456e696b6fa1626432534880)
 <br><br>
 
 ### Database:
 	Type: Relational
 	DBMS/RDBMS: PostgreSQL
+[DBDesigner Schema](https://dbdesigner.page.link/iNEUbGRhqXn19HYz9)
 <br>
 
 ### Used API:
