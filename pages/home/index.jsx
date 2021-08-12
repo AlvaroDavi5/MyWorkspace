@@ -29,7 +29,7 @@ function Card(props) {
 					src={props.imgSource}
 				/>
 				<Box
-					marginTop='20px'
+					marginTop='15px'
 				>
 					{props.cardName}
 				</Box>
