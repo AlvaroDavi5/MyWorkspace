@@ -4,6 +4,7 @@ import { createBreakpoints } from '@chakra-ui/theme-tools'
 
 const fonts = { mono: `'Menlo', monospace` }
 
+/* color palette */
 const colors = {
 	clear_lake: "#aef0d1",
 	dark_forest: "#015249",

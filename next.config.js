@@ -5,6 +5,7 @@ const withPwa = require('next-pwa')
 
 module.exports = withPlugins([
 	[
+		/* allow import images from any dir */
 		withImages,
 		{
 			webpack: (config, options) => {
@@ -18,6 +19,7 @@ module.exports = withPlugins([
 		}
 	],
 	[
+		/* run web pages as progressive webapp */
 		withPwa,
 		{
 			pwa: {
