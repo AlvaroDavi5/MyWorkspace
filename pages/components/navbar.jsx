@@ -1,61 +1,133 @@
-import { Button } from '@chakra-ui/react'
+import React from 'react'
+import {
+	useDisclosure,
+	useColorMode,
+	Box, Center, Button, IconButton,
+	Drawer,
+	DrawerHeader, DrawerBody, DrawerFooter,
+	DrawerOverlay, DrawerContent, DrawerCloseButton
+} from '@chakra-ui/react'
+import { MdMenu } from 'react-icons/md'
+import { CgArrowsExchange } from 'react-icons/cg'
+import { BiSun, BiMoon } from 'react-icons/bi'
 import { DiGithubBadge } from 'react-icons/di'
-import styles from "./styles/navbar.module.css"
-import logo from "../assets/nasa-logo.svg"
 
 
-export default function Navbar() {
+function MenuDrawer() {
+	const { isOpen, onOpen, onClose } = useDisclosure()
+	const btnRef = React.useRef()
+
 	return (
-		<div className={styles.navbar}>
-			<div className={styles.nasa_logo}>
-				<img
-					className={styles.logo}
-					src={logo}
-					alt="logo"
-				/>
-			</div>
+		<>
+		<Button
+			ref={btnRef}
+			variant='ghost'
+			color='black'
+			bg='marine'
+			boxShadow='1px 1px 2px 2px rgba(0, 0, 0, 0.3)'
+			onClick={onOpen}
+			height='10'
+		>
+			<MdMenu size='30'/>
+		</Button>
 
-			<ul className={styles.nav_options}>
-				<li>Missions</li>
-				<li>Galleries</li>
-				<li>NASA Journal</li>
-				<li>NASA TV</li>
-				<li>Downloads</li>
-				<li>
+		<Drawer
+			isOpen={isOpen}
+			placement="right"
+			onClose={onClose}
+			finalFocusRef={btnRef}
+		>
+			<DrawerOverlay/>
+			<DrawerContent>
+				<DrawerCloseButton
+					boxShadow='1px 1px 2px 2px rgba(0, 0, 0, 0.3)'
+				/>
+				<DrawerHeader background='marine'>
+					Menu
+				</DrawerHeader>
+
+				<DrawerBody size="xs" background='marine'>
 					<a href="https://api.nasa.gov/">
 						<Button
 							size='lg'
-							color='primary'
-							variant='solid'
-							bg='secondary'
+							bg='clear_lake'
+							boxShadow='1px 1px 2px 2px rgba(0, 0, 0, 0.3)'
+							variant='ghost'
 						>
 							API
 						</Button>
 					</a>
-				</li>
-				<li>
-					<a href="/others/about">About</a>
-				</li>
-				<li>
-					<a href="/others/contact">Contact</a>
-				</li>
-				<li>
-					<a href="https://github.com/AlvaroDavi5/NextJS-first_webapp">
-						<Button
-							className={styles.github}
-							size='xl'
-							color='white'
-							variant='solid'
-							bg='black'
-							padding='5px'
-						>
-							<DiGithubBadge size='60'/>
-							Project Repo
-						</Button>
-					</a>
-				</li>
-			</ul>
+				</DrawerBody>
 
-		</div>
+				<DrawerFooter background='marine'/>
+			</DrawerContent>
+		</Drawer>
+		</>
+	)
+}
+
+export default function Navbar(props) {
+	const { colorMode,  toggleColorMode } = useColorMode()
+
+	return (
+		<Box
+			bg='marine'
+			w='100%'
+			h='100px'
+			p={5}
+			color='black'
+			boxShadow='1px 1px 2px 2px rgba(0, 0, 0, 0.3)'
+			boxSizing='border-box'
+			padding='10px 15px'
+			display='flex'
+			justifyContent='space-between'
+			alignItems='center'
+		>
+			<div
+				className="logo"
+			>
+				<a href="https://github.com/AlvaroDavi5/MyWorkspace"
+				>
+					<Button
+						size='xl'
+						boxShadow='1px 1px 2px 2px rgba(0, 0, 0, 0.3)'
+						color='white'
+						variant='solid'
+						bg='black'
+						padding='5px'
+						display='list-item'
+					>
+						<DiGithubBadge size='60'/>
+					</Button>
+				</a>
+			</div>
+
+			<Center
+				color="black"
+				display='inline-block'
+				justifySelf='center'
+				textAlign='center'
+				margin='5px'
+				fontSize='xx-large'
+			>
+				{props.pageName}
+			</Center>
+
+			<div
+				className="menu-button"
+				flex='1'
+			>
+				<IconButton
+					icon={colorMode == 'light'? <BiMoon size='30'/> : <BiSun size='30'/>}
+					variant='ghost'
+					backgroundColor='marine'
+					color='black'
+					marginRight='50px'
+					boxShadow='1px 1px 2px 2px rgba(0, 0, 0, 0.3)'
+					onClick={toggleColorMode}
+				/>
+				<MenuDrawer/>
+			</div>
+		</Box>
 	)
 }
