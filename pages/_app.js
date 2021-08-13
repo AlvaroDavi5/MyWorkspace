@@ -10,7 +10,7 @@ function MyApp({ Component, pageProps }) {
 				<ColorModeProvider
 					options={ {} }
 				>
-					<ColorModeScript initialColorMode='light'/>
+					<ColorModeScript/>
 
 					<Component {...pageProps}/>
 				</ColorModeProvider>

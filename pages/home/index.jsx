@@ -49,17 +49,17 @@ export default function Home() {
 			>
 				<Card
 					cardName="Projetos"
-					pageHref="projetos"
+					pageHref="projects"
 					imgSource="https://tecnopressure.com.br/wp-content/uploads/2019/10/Tecno-Pressure-Estudo-de-Viabilidade-T%C3%A9cnico-Econ%C3%B4mica-Projeto-Engenharia-Seguran%C3%A7a-Qualidade-NR-13.jpg"
 				/>
 				<Card
 					cardName="Tarefas"
-					pageHref="tarefas"
+					pageHref="tasks"
 					imgSource="https://st2.depositphotos.com/1579454/8355/i/600/depositphotos_83553642-stock-photo-checklist-paper-and-pen.jpg"
 				/>
 				<Card
 					cardName="Consultas Bibliográficas"
-					pageHref="bibliografia"
+					pageHref="bibliography"
 					imgSource="https://video-images.vice.com/articles/5d44c9622980b0000824a7e3/lede/1564789576071-GettyImages-949118068.jpeg?crop=1xw:0.8419xh;0xw,0.1581xh"
 				/>
 			</Flex>

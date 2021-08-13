@@ -2,7 +2,7 @@ import React from 'react'
 import {
 	useDisclosure,
 	useColorMode,
-	Box, Center, Button,
+	Box, Center, Button, IconButton,
 	Drawer,
 	DrawerHeader, DrawerBody, DrawerFooter,
 	DrawerOverlay, DrawerContent, DrawerCloseButton
@@ -117,19 +117,15 @@ export default function Navbar(props) {
 				className="menu-button"
 				flex='1'
 			>
-				<Button
+				<IconButton
+					icon={colorMode == 'light'? <BiMoon size='30'/> : <BiSun size='30'/>}
 					variant='ghost'
 					backgroundColor='marine'
 					color='black'
 					marginRight='50px'
 					boxShadow='1px 1px 2px 2px rgba(0, 0, 0, 0.3)'
 					onClick={toggleColorMode}
-				>
-					<BiSun size='20'/>
-					<CgArrowsExchange size='20'/>
-					<BiMoon size='20'/>
-				</Button>
-
+				/>
 				<MenuDrawer/>
 			</div>
 		</Box>
