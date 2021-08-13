@@ -1,28 +1,52 @@
-const colors = {
-	clear_lake: "#aef0d1",
-	dark_forest: "#015249",
-	primary: "#229052",
-	secondary: "#03652e",
-	marine: "#57bc90",
-	feather: "#77c9d4",
-	sleek_grey: "#a5a5af",
-	highlight: "#d885db",
-	accent: "#0901a7",
-	success: "#2ddf00",
-	danger: "#e60e0e",
-	alert: "#e9bd09",
-	calm: "#0a9ef3"
+import { useState, useEffect } from 'react'
+import light from "./colors/light.ts"
+import dark from "./colors/dark.ts"
+
+
+const colorSchema =  [light.colors, dark.colors]
+
+/**
+*   ! LOCAL STORAGE methods
+*? setItem('item_key', "item_value")
+*  * save item on localStorage
+*? getItem('item_key')
+*  * get item from localStorage
+*? removeItem('item_key')
+*  * remove item from localStorage
+**/
+function storeTheme(defaultTheme=0) {
+	// rendered on front-end
+	const [theme] = useState(null)
+
+	// rendered on back-end
+	useEffect(() => {
+		localStorage.setItem('theme_value', Number(defaultTheme))
+	},
+		[theme]
+	)
 }
 
-const colorSchema = {
-	light: 0,
-	dark: 1,
+function removeTheme() {
+	const [theme] = useState(null)
 
-	index: 0,
-	marine: [colors.marine, colors.primary],
-	clear_lake: [colors.clear_lake, colors.dark_forest]
+	useEffect(() => {
+		localStorage.removeItem('theme_value')
+	},
+		[theme]
+	)
 }
 
-//let localStorageThemeMode = localStorage.getItem('')
+function getStoredTheme() {
+	const [value] = useState(null)
 
-export { colors, colorSchema }
+	useEffect(() => {
+		localStorage.getItem('theme_value')
+	},
+		[value]
+	)
+
+	return colorSchema[value]
+}
+
+
+export { storeTheme, removeTheme, getStoredTheme }
