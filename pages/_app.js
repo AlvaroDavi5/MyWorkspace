@@ -1,5 +1,5 @@
 //import 'bootstrap/dist/css/bootstrap.css'
-import { ChakraProvider, ColorModeProvider } from '@chakra-ui/react'
+import { ChakraProvider, ColorModeProvider, ColorModeScript } from '@chakra-ui/react'
 import theme from "../config/theme.ts"
 import "./styles/globals.css"
 
@@ -10,6 +10,8 @@ function MyApp({ Component, pageProps }) {
 				<ColorModeProvider
 					options={ {} }
 				>
+					<ColorModeScript initialColorMode='light'/>
+
 					<Component {...pageProps}/>
 				</ColorModeProvider>
 		</ChakraProvider>

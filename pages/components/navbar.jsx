@@ -1,6 +1,7 @@
 import React from 'react'
 import {
 	useDisclosure,
+	useColorMode,
 	Box, Center, Button,
 	Drawer,
 	DrawerHeader, DrawerBody, DrawerFooter,
@@ -66,6 +67,8 @@ function MenuDrawer() {
 }
 
 export default function Navbar(props) {
+	const { colorMode,  toggleColorMode } = useColorMode()
+
 	return (
 		<Box
 			bg='marine'
@@ -120,6 +123,7 @@ export default function Navbar(props) {
 					color='black'
 					marginRight='50px'
 					boxShadow='1px 1px 2px 2px rgba(0, 0, 0, 0.3)'
+					onClick={toggleColorMode}
 				>
 					<BiSun size='20'/>
 					<CgArrowsExchange size='20'/>
