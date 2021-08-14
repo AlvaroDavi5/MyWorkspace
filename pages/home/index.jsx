@@ -1,8 +1,11 @@
-import { Flex, Box, Image } from '@chakra-ui/react'
+import { Flex, Box, Image, useColorModeValue } from '@chakra-ui/react'
 import style from "./style/home.module.css"
 
 
 function Card(props) {
+	const colorMode = useColorModeValue('light', 'dark')
+	const boxBgColor = (colorMode == 'light'? 'marine' : 'primary')
+
 	return (
 		<Box
 			h='410px'
@@ -12,7 +15,7 @@ function Card(props) {
 			marginRight='50px'
 			boxShadow='1px 1px 10px 10px rgba(0, 0, 0, 0.1)'
 			borderRadius='20px'
-			backgroundColor='marine'
+			backgroundColor={boxBgColor}
 			fontSize='xx-large'
 			textAlign='center'
 			justifyContent='center'
@@ -39,12 +42,15 @@ function Card(props) {
 }
 
 export default function Home() {
+	const colorMode = useColorModeValue('light', 'dark')
+	const pageBgColor = (colorMode == 'light'? 'clear_lake' : 'dark_forest')
+
 	return (
 		<body className={style.pagebody}>
 			<Flex
 				w='100%'
 				h='100%'
-				backgroundColor='clear_lake'
+				backgroundColor={pageBgColor}
 				justifyContent='space-between'
 			>
 				<Card

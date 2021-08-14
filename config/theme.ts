@@ -1,7 +1,9 @@
 import { extendTheme } from '@chakra-ui/react'
 import { createBreakpoints } from '@chakra-ui/theme-tools'
+import { buttonStyles as Button } from "./colorScheme"
+import light from "./colors/light"
+import dark from "./colors/dark"
 
-// TODO: create colormode script
 
 /**
 * * Color Palette
@@ -9,12 +11,12 @@ import { createBreakpoints } from '@chakra-ui/theme-tools'
 * ! DO NOT USE AS DEFINITIVE THEME
 **/
 const colors = {
-	clear_lake: "#aef0d1",
-	dark_forest: "#015249",
-	primary: "#229052",
-	secondary: "#03652e",
-	marine: "#57bc90",
-	feather: "#77c9d4",
+	primary: dark.colors.primary,
+	secondary: dark.colors.secondary,
+	clear_lake: light.colors.background,
+	dark_forest: dark.colors.background,
+	marine: light.colors.primary,
+	feather: light.colors.secondary,
 	sleek_grey: "#a5a5af",
 	highlight: "#d885db",
 	accent: "#0901a7",
@@ -42,6 +44,9 @@ const theme = extendTheme(
 		colors: colors,
 		fonts,
 		breakpoints: breakpoints,
+		components: {
+			Button
+		},
 		icons: {
 			logo: {},
 			add: {},
