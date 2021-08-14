@@ -1,9 +1,5 @@
 import { useState, useEffect } from 'react'
-import light from "./colors/light.ts"
-import dark from "./colors/dark.ts"
 
-
-const colorSchema =  [light.colors, dark.colors]
 
 /**
 *   ! LOCAL STORAGE methods
@@ -45,7 +41,7 @@ function getStoredTheme() {
 		[value]
 	)
 
-	return colorSchema[value]
+	return value
 }
 
 
