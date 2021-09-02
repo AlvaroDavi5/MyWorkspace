@@ -47,7 +47,7 @@ function MenuDrawer() {
 					Menu
 				</DrawerHeader>
 
-				<DrawerBody size="xs" background={boxBgColor}>
+				<DrawerBody size='xs' background={boxBgColor}>
 					<a href="https://api.nasa.gov/">
 						<Button
 							size='lg'
@@ -106,7 +106,7 @@ export default function Navbar(props) {
 			</div>
 
 			<Center
-				color="black"
+				color='black'
 				display='inline-block'
 				justifySelf='center'
 				textAlign='center'
