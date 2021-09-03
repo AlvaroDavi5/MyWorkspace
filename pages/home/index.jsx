@@ -1,4 +1,6 @@
 import { Flex, Box, Image, useColorModeValue } from '@chakra-ui/react'
+import DocumentHead from "../components/document_head.jsx"
+import Navbar from "../components/navbar.jsx"
 import style from "./style/home.module.css"
 
 
@@ -47,9 +49,13 @@ export default function Home() {
 
 	return (
 		<body className={style.pagebody}>
+			<DocumentHead title="Início"/>
+			<Navbar pageName="Área de Trabalho"/>
+
 			<Flex
 				w='100%'
 				h='100%'
+				position="fixed"
 				backgroundColor={pageBgColor}
 				justifyContent='space-between'
 			>
