@@ -1,9 +1,10 @@
 const Sequelize = require('sequelize')
-require('dotenv')
+const path = require('path')
+const dotenv = require('dotenv')
+dotenv.config({path:__dirname+'/../.env.development.local'})
 
 
 /* connecting to a database */
-console.log(process.env.DB_PASSWORD)
 /* passing Parameters separately (other dialects) */
 const sequelize = new Sequelize(
 	process.env.DB_NAME, // database name

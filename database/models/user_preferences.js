@@ -1,5 +1,4 @@
-const Sequelize = require('sequelize');
-const sequelize = require('../connection.js');
+const Sequelize = require('sequelize')
 const database = require('../connection.js')
 
 
@@ -13,8 +12,8 @@ const UserPreferences = database.define('user_preferences', {
 	user_id: {
 		type: Sequelize.INTEGER,
 		allowNull: false,
-		references: 'users', // table name
-		referencesKey: 'id' // column name
+		model: 'users', // table name
+		key: 'id' // column name
 	},
 	image_path: {
 		type: Sequelize.STRING(255)
@@ -30,11 +29,13 @@ const UserPreferences = database.define('user_preferences', {
 module.exports = UserPreferences;
 
 
-const queryInterface = sequelize.getQueryInterface()
+/*
+const queryInterface = database.getQueryInterface()
 
 queryInterface.changeColumn('users', 'preferences', {
 	type: Sequelize.INTEGER,
 	allowNull: false,
-	references: 'user_preferences',
-	referencesKey: 'id'
+	model: 'user_preferences',
+	key: 'id'
 });
+*/

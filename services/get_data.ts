@@ -1,4 +1,5 @@
-require('dotenv')
+const dotenv = require('dotenv')
+dotenv.config({path:__dirname+'/../.env.development.local'})
 
 
 // API data request
