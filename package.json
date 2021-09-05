@@ -11,6 +11,8 @@
 		"dev": "next dev -p 8080",
 		"build": "next build",
 		"start": "next start",
+		"db_setup": "psql -c \" create database myworkspace_db; \"",
+		"db_drop": "psql -c \" drop database myworkspace_db; \"",
 		"format": "prettier --write \"./**/*.{js,json}\""
 	},
 	"dependencies": {

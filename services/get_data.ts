@@ -1,4 +1,4 @@
-require('dotenv') // use environment variables to save sesitive data like API key
+require('dotenv')
 
 
 // API data request

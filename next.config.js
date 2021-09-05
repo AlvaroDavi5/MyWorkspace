@@ -1,7 +1,7 @@
 const withPlugins = require('next-compose-plugins')
 const withPwa = require('next-pwa')
 const withImages = require('next-images')
-require('dotenv')
+require('dotenv') // use environment variables to save sesitive data like API key
 
 
 module.exports = withPlugins([
@@ -32,5 +32,5 @@ module.exports = withPlugins([
 			}
 		}
 	]
-	// other plugin here
+	// others plugins here
 ])
