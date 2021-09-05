@@ -16,7 +16,8 @@ const sequelize = new Sequelize(
 		dialect: process.env.DB_DBMS_NAME, // one of 'mysql' | 'mariadb' | 'postgres' | 'mssql'
 		port: process.env.DB_PORT,
 		define: {
-			timestamps: true // to createdAt and updatedAt
+			timestamps: true, // to createdAt and updatedAt
+			underscored: true // underscored name of fields
 		}
 	}
 );

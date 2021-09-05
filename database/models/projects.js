@@ -2,7 +2,7 @@ const Sequelize = require('sequelize')
 const database = require('../connection.js')
 
 
-const UserPreferences = database.define('user_preferences', {
+const projects = database.define('projects', {
 	id: {
 		type: Sequelize.INTEGER,
 		autoIncrement: true,
@@ -13,15 +13,12 @@ const UserPreferences = database.define('user_preferences', {
 		type: Sequelize.INTEGER,
 		allowNull: false
 	},
-	image_path: {
-		type: Sequelize.STRING(255)
-	},
-	default_theme: {
-		type: Sequelize.INTEGER
+	name: {
+		type: Sequelize.STRING(100)
 	},
 	//createdAt: Sequelize.DATE,
 	//updatedAt: Sequelize.DATE
 })
 
 
-module.exports = UserPreferences;
+module.exports = projects;

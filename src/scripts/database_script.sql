@@ -90,7 +90,7 @@ CREATE TABLE `bibliography` (
 	`user_id` integer NOT NULL,
 	`author` varchar(85) NOT NULL,
 	`name` varchar(325) NOT NULL,
-	`publication_date` date NOT NULL,
+	`publication_date` date,
 	`createdAt` date,
 
 	PRIMARY KEY (`id`),

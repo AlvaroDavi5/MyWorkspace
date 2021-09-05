@@ -2,7 +2,7 @@ const Sequelize = require('sequelize')
 const database = require('../connection.js')
 
 
-const UserPreferences = database.define('user_preferences', {
+const bibliography = database.define('bibliography', {
 	id: {
 		type: Sequelize.INTEGER,
 		autoIncrement: true,
@@ -13,15 +13,20 @@ const UserPreferences = database.define('user_preferences', {
 		type: Sequelize.INTEGER,
 		allowNull: false
 	},
-	image_path: {
-		type: Sequelize.STRING(255)
+	author: {
+		type: Sequelize.STRING(85),
+		allowNull: false
 	},
-	default_theme: {
-		type: Sequelize.INTEGER
+	name: {
+		type: Sequelize.STRING(325),
+		allowNull: false
+	},
+	publication_date: {
+		type: Sequelize.DATE
 	},
 	//createdAt: Sequelize.DATE,
 	//updatedAt: Sequelize.DATE
 })
 
 
-module.exports = UserPreferences;
+module.exports = bibliography;
