@@ -22,6 +22,11 @@ CREATE TABLE `users` (
 	PRIMARY KEY (`id`)
 ) DEFAULT CHARSET=utf8;
 
+/* data insertion */
+INSERT INTO `users`(`id`, `name`, `email`, `password`, `phone`, `cpf`, `uf`, `preferences`, `created_at`, `updated_at`)
+VALUES (1, "Alvaro", "alvaro-alves@nomail.edu", "senha_da_nasa123", "27999999999", "000.123.111-60", "BA", 1, "2021-12-25", "2020-11-09");
+
+
 CREATE TABLE `user_preferences` (
 	`id` integer NOT NULL AUTO_INCREMENT,
 	`user_id` integer NOT NULL,
@@ -29,11 +34,16 @@ CREATE TABLE `user_preferences` (
 	`default_theme` integer(1),
 
 	PRIMARY KEY (`id`),
-	FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
+	FOREIGN KEY (`user_id`) REFERENCES `users`(`id`)
 ) DEFAULT CHARSET=utf8;
 
+INSERT INTO `user_preferences`(`user_id`, `image_path`, `default_theme`)
+VALUES (1, "./aqui/essa.png", 2);
+
+
 /* adding foreign key */
-ALTER TABLE `users` ADD FOREIGN KEY (`preferences`) REFERENCES `user_preferences` (`id`);
+ALTER TABLE `users` ADD FOREIGN KEY (`preferences`) REFERENCES `user_preferences`(`id`);
+
 
 CREATE TABLE `projects` (
 	`id` integer NOT NULL AUTO_INCREMENT,
@@ -43,6 +53,7 @@ CREATE TABLE `projects` (
 	PRIMARY KEY (`id`),
 	FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
 ) DEFAULT CHARSET=utf8;
+
 
 CREATE TABLE `proj_tasks` (
 	`id` integer NOT NULL AUTO_INCREMENT,
@@ -58,6 +69,7 @@ CREATE TABLE `proj_tasks` (
 	FOREIGN KEY (`proj_id`) REFERENCES `projects` (`id`)
 ) DEFAULT CHARSET=utf8;
 
+
 CREATE TABLE `tasks` (
 	`id` integer NOT NULL AUTO_INCREMENT,
 	`user_id` integer NOT NULL,
@@ -72,6 +84,7 @@ CREATE TABLE `tasks` (
 	FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
 ) DEFAULT CHARSET=utf8;
 
+
 CREATE TABLE `bibliography` (
 	`id` integer NOT NULL AUTO_INCREMENT,
 	`user_id` integer NOT NULL,
@@ -85,22 +98,24 @@ CREATE TABLE `bibliography` (
 ) DEFAULT CHARSET=utf8;
 
 
-/* data insertion */
-/*
-INSERT INTO `users`(`name`, `email`, `password`, `phone`, `cpf`, `uf`, `preferences`, `created_at`, `updated_at`) VALUES ("Alvaro", "alvaro-alves@nomail.edu", "senha_da_nasa123", "27707070", "000.123.111-60", "BA", 0, "2021-12-25", "2020-11-09");
-INSERT INTO `user_preferences`(`user_id`, `image_path`, `default_theme`) VALUES (0, "./aqui/essa.png", 2);
+INSERT INTO `projects`(`id`, `user_id`, `name`)
+VALUES (1, 1, "Construir um App");
 
-INSERT INTO `projects`(`id`, `name`) VALUES (3, "João");
-INSERT INTO `proj_tasks`(`id`, `name`) VALUES (3, "João");
-INSERT INTO `tasks`(`id`, `name`) VALUES (3, "João");
-INSERT INTO `bibliography`(`id`, `name`) VALUES (2, "Enzo");
+INSERT INTO `proj_tasks`(`id`, `proj_id`, `task_num`, `name`, `description`, `deadline`, `situation`, `was_finished`)
+VALUES (2, 1, 02, "Criar Banco de Dados", "Sem database, sem dados. dãã!!!", "2021-09-25", 3, 1);
+
+INSERT INTO `tasks`(`id`, `user_id`, `name`, `deadline_date`, `deadline_time`, `description`, `created_at`, `updated_at`)
+VALUES (2, 1, "Aplicar P4", "2021-09-24", "04:23:10.0000002", "Espero que todos tirem 10!", "2021-09-01", "2021-09-02");
+
+INSERT INTO `bibliography`(`id`, `user_id`, `author`, `name`, `publication_date`, `created_at`)
+VALUES (1, 1, "Alan Turing", "Máquinas Podem Pensar?", "1957-10-01", "2021-12-10");
 
 
-SELECT * FROM `table_name`;
+/* dataset view */
+SELECT * FROM `users`;
+SELECT * FROM `user_preferences`;
+SELECT * FROM `projects`;
+SELECT * FROM `proj_tasks`;
+SELECT * FROM `tasks`;
+SELECT * FROM `bibliography`;
 
-
-UPDATE `table_name` SET `name` = "Alfredo" WHERE `name` LIKE "Enzo";
-
-SELECT * FROM `table_name` ORDER BY `name`;
-
-*/
