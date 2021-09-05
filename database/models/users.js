@@ -34,8 +34,8 @@ const Users = database.define('users', {
 		type: Sequelize.INTEGER,
 		allowNull: false
 	},
-	//created_at: Sequelize.DATE,
-	//updated_at: Sequelize.DATE
+	//createdAt: Sequelize.DATE,
+	//updatedAt: Sequelize.DATE
 })
 
 

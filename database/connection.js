@@ -14,7 +14,10 @@ const sequelize = new Sequelize(
 		host: process.env.DB_HOST,
 		charset: 'utf8',
 		dialect: process.env.DB_DBMS_NAME, // one of 'mysql' | 'mariadb' | 'postgres' | 'mssql'
-		port: process.env.DB_PORT
+		port: process.env.DB_PORT,
+		define: {
+			timestamps: true // to createdAt and updatedAt
+		}
 	}
 );
 /* passing a connection URI - example for postgres */
@@ -22,13 +25,13 @@ const sequelize = new Sequelize(
 
 
 /* testing the connection */
-/*try {
-	await sequelize.authenticate();
+try {
+	sequelize.authenticate();
 	console.log('Database connection has been established successfully.');
 }
 catch (error) {
 	console.error('Unable to connect to the database: ', error);
-}*/
+}
 
 
 /* closing connection */

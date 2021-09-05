@@ -16,14 +16,14 @@ CREATE TABLE `users` (
 	`cpf` varchar(18),
 	`uf` varchar(2),
 	`preferences` integer NOT NULL,
-	`created_at` date,
-	`updated_at` date,
+	`createdAt` date,
+	`updatedAt` date,
 
 	PRIMARY KEY (`id`)
 ) DEFAULT CHARSET=utf8;
 
 /* data insertion */
-INSERT INTO `users`(`id`, `name`, `email`, `password`, `phone`, `cpf`, `uf`, `preferences`, `created_at`, `updated_at`)
+INSERT INTO `users`(`id`, `name`, `email`, `password`, `phone`, `cpf`, `uf`, `preferences`, `createdAt`, `updatedAt`)
 VALUES (1, "Alvaro", "alvaro-alves@nomail.edu", "senha_da_nasa123", "27999999999", "000.123.111-60", "BA", 1, "2021-12-25", "2020-11-09");
 
 
@@ -77,8 +77,8 @@ CREATE TABLE `tasks` (
 	`deadline_date` date,
 	`deadline_time` time,
 	`description` varchar(355),
-	`created_at` date,
-	`updated_at` date,
+	`createdAt` date,
+	`updatedAt` date,
 
 	PRIMARY KEY (`id`),
 	FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
@@ -91,7 +91,7 @@ CREATE TABLE `bibliography` (
 	`author` varchar(85) NOT NULL,
 	`name` varchar(325) NOT NULL,
 	`publication_date` date NOT NULL,
-	`created_at` date,
+	`createdAt` date,
 
 	PRIMARY KEY (`id`),
 	FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
@@ -104,10 +104,10 @@ VALUES (1, 1, "Construir um App");
 INSERT INTO `proj_tasks`(`id`, `proj_id`, `task_num`, `name`, `description`, `deadline`, `situation`, `was_finished`)
 VALUES (2, 1, 02, "Criar Banco de Dados", "Sem database, sem dados. dãã!!!", "2021-09-25", 3, 1);
 
-INSERT INTO `tasks`(`id`, `user_id`, `name`, `deadline_date`, `deadline_time`, `description`, `created_at`, `updated_at`)
+INSERT INTO `tasks`(`id`, `user_id`, `name`, `deadline_date`, `deadline_time`, `description`, `createdAt`, `updatedAt`)
 VALUES (2, 1, "Aplicar P4", "2021-09-24", "04:23:10.0000002", "Espero que todos tirem 10!", "2021-09-01", "2021-09-02");
 
-INSERT INTO `bibliography`(`id`, `user_id`, `author`, `name`, `publication_date`, `created_at`)
+INSERT INTO `bibliography`(`id`, `user_id`, `author`, `name`, `publication_date`, `createdAt`)
 VALUES (1, 1, "Alan Turing", "Máquinas Podem Pensar?", "1957-10-01", "2021-12-10");
 
 
