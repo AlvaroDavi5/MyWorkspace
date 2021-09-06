@@ -42,7 +42,7 @@ VALUES (1, "./aqui/essa.png", 2);
 
 
 /* adding foreign key */
-ALTER TABLE `users` ADD FOREIGN KEY (`preferences`) REFERENCES `user_preferences`(`id`);
+/* ALTER TABLE `users` ADD FOREIGN KEY (`preferences`) REFERENCES `user_preferences`(`id`); */
 
 
 CREATE TABLE `projects` (
@@ -85,7 +85,7 @@ CREATE TABLE `tasks` (
 ) DEFAULT CHARSET=utf8;
 
 
-CREATE TABLE `bibliography` (
+CREATE TABLE `bibliographies` (
 	`id` integer NOT NULL AUTO_INCREMENT,
 	`user_id` integer NOT NULL,
 	`author` varchar(85) NOT NULL,
@@ -107,7 +107,7 @@ VALUES (2, 1, 02, "Criar Banco de Dados", "Sem database, sem dados. dãã!!!", "
 INSERT INTO `tasks`(`id`, `user_id`, `name`, `deadline_date`, `deadline_time`, `description`, `createdAt`, `updatedAt`)
 VALUES (2, 1, "Aplicar P4", "2021-09-24", "04:23:10.0000002", "Espero que todos tirem 10!", "2021-09-01", "2021-09-02");
 
-INSERT INTO `bibliography`(`id`, `user_id`, `author`, `name`, `publication_date`, `createdAt`)
+INSERT INTO `bibliographies`(`id`, `user_id`, `author`, `name`, `publication_date`, `createdAt`)
 VALUES (1, 1, "Alan Turing", "Máquinas Podem Pensar?", "1957-10-01", "2021-12-10");
 
 
@@ -117,5 +117,5 @@ SELECT * FROM `user_preferences`;
 SELECT * FROM `projects`;
 SELECT * FROM `proj_tasks`;
 SELECT * FROM `tasks`;
-SELECT * FROM `bibliography`;
+SELECT * FROM `bibliographies`;
 

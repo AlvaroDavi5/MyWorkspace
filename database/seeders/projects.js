@@ -1,4 +1,4 @@
-const projects = require('../models/projects.js')
+const projects = require("../models/projects.js")
 
 
 const insert = projects.create({

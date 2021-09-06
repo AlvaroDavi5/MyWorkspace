@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize')
-const database = require('../connection.js')
+const database = require("../connection.js")
 
 
 const proj_tasks = database.define('proj_tasks', {

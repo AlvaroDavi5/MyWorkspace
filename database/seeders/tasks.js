@@ -1,4 +1,4 @@
-const tasks = require('../models/tasks.js')
+const tasks = require("../models/tasks.js")
 
 
 const insert = tasks.create({

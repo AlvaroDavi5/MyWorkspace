@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize')
-const database = require('../connection.js')
+const database = require("../connection.js")
 
 
 const Users = database.define('users', {
@@ -7,6 +7,7 @@ const Users = database.define('users', {
 		type: Sequelize.INTEGER,
 		autoIncrement: true,
 		allowNull: false,
+		unique: true,
 		primaryKey: true
 	},
 	name: {

@@ -1,8 +1,8 @@
 const Sequelize = require('sequelize')
-const database = require('../connection.js')
+const database = require("../connection.js")
 
 
-const bibliography = database.define('bibliography', {
+const bibliographies = database.define('bibliographies', {
 	id: {
 		type: Sequelize.INTEGER,
 		autoIncrement: true,
@@ -29,4 +29,4 @@ const bibliography = database.define('bibliography', {
 })
 
 
-module.exports = bibliography;
+module.exports = bibliographies;

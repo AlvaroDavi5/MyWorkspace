@@ -1,7 +1,7 @@
-const bibliography = require('../models/bibliography.js')
+const bibliographies = require("../models/bibliographies.js")
 
 
-const insert = bibliography.create({
+const insert = bibliographies.create({
 	user_id: 1,
 	author: "Alan Turing",
 	name: "Máquinas Podem Pensar?",

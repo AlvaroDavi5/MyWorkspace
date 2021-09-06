@@ -1,4 +1,4 @@
-const UserPreferences = require('../models/user_preferences.js')
+const UserPreferences = require("../models/user_preferences.js")
 
 
 const insert = UserPreferences.create({
