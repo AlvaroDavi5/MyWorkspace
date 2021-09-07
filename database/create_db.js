@@ -1,3 +1,4 @@
+const Users = require("./models/users.js");
 
 (async () => {
 
@@ -23,7 +24,11 @@
 		* @hasMany - One-to-Many, target -> source
 		* @belongsToMany - Many-to-Many, source -> target
 		**/
-		//createUserPreferences.belongsTo(createUsers, {foreignKey: 'user_id', targetKey: 'id'})
+		createUsers.hasOne(createUserPreferences, {foreignKey: 'user_id_fk', targetKey: 'id'})
+		createUsers.hasMany(createProjects, {foreignKey: 'user_id_fk', targetKey: 'id'})
+		createProjects.hasOne(createProjTasks , {foreignKey: 'proj_id_fk', targetKey: 'id'})
+		createUsers.hasMany(createTasks, {foreignKey: 'user_id_fk', targetKey: 'id'})
+		createUsers.hasMany(createBibliographies, {foreignKey: 'user_id_fk', targetKey: 'id'})
 
 		await database.sync({force: true})
 	}
