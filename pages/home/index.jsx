@@ -71,7 +71,7 @@ export default function Home() {
 				/>
 				<Card
 					cardName="Consultas Bibliográficas"
-					pageHref="bibliography"
+					pageHref="bibliographies"
 					imgSource="https://video-images.vice.com/articles/5d44c9622980b0000824a7e3/lede/1564789576071-GettyImages-949118068.jpeg?crop=1xw:0.8419xh;0xw,0.1581xh"
 				/>
 			</Flex>

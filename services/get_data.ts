@@ -1,4 +1,5 @@
-require('dotenv') // use environment variables to save sesitive data like API key
+const dotenv = require('dotenv')
+dotenv.config({path:__dirname+'/../.env.development.local'})
 
 
 // API data request
