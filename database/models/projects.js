@@ -1,30 +1,16 @@
-const Sequelize = require('sequelize')
-const database = require("../connection.js")
+const { Model, DataTypes } = require('sequelize')
 
 
-const projects = database.define('projects', {
-	id: {
-		type: Sequelize.INTEGER,
-		autoIncrement: true,
-		allowNull: false,
-		primaryKey: true
-	},
-	user_id: {
-		type: Sequelize.INTEGER,
-		allowNull: false
-	},
-	name: {
-		type: Sequelize.STRING(100)
-	},
-	created_at: {
-		type: Sequelize.DATE,
-		allowNull: false
-	},
-	updated_at: {
-		type: Sequelize.DATE,
-		allowNull: false
+class Projects extends Model {
+	static init(connection) {
+		super.init({
+			user_id: DataTypes.INTEGER,
+			name: DataTypes.STRING(100)		
+		},
+		{ sequelize: connection }
+		)
 	}
-})
+}
 
 
-module.exports = projects;
+module.exports = Projects;

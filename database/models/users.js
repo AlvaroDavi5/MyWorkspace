@@ -1,49 +1,22 @@
-const Sequelize = require('sequelize')
-const database = require("../connection.js")
+const { Model, DataTypes } = require('sequelize')
 
 
-const Users = database.define('users', {
-	id: {
-		type: Sequelize.INTEGER,
-		autoIncrement: true,
-		allowNull: false,
-		unique: true,
-		primaryKey: true
-	},
-	name: {
-		type: Sequelize.STRING(85),
-		allowNull: false
-	},
-	email: {
-		type: Sequelize.STRING(60),
-		allowNull: false
-	},
-	password: {
-		type: Sequelize.STRING(18),
-		allowNull: false
-	},
-	phone: {
-		type: Sequelize.STRING(14)
-	},
-	cpf: {
-		type: Sequelize.STRING(18)
-	},
-	uf: {
-		type: Sequelize.STRING(2)
-	},
-	preferences: {
-		type: Sequelize.INTEGER,
-		allowNull: false
-	},
-	created_at: {
-		type: Sequelize.DATE,
-		allowNull: false
-	},
-	updated_at: {
-		type: Sequelize.DATE,
-		allowNull: false
+// EcmaScript 6 format
+class Users extends Model {
+	static init(connection) {
+		super.init({
+			name: DataTypes.STRING(85),
+			email: DataTypes.STRING(60),
+			password: DataTypes.STRING(18),
+			phone: DataTypes.STRING(14),
+			cpf: DataTypes.STRING(18),
+			uf: DataTypes.STRING(2),
+			preferences: DataTypes.INTEGER		
+		},
+		{ sequelize: connection }
+		)
 	}
-})
+}
 
 
 module.exports = Users;
