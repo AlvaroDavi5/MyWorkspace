@@ -1,4 +1,12 @@
-const Users = require("./models/users.js");
+/*
+  ! Deprecated method:
+
+  * Scripts on "/package.json":
+	? "db:setup": "psql -c \" create database myworkspace_db; \"; nodejs ./database/create_db.js",
+	? "db:drop": "psql -c \" drop database myworkspace_db; \"",
+
+*/
+
 
 (async () => {
 

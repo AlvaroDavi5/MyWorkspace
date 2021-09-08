@@ -1,0 +1,9 @@
+const path = require('path')
+const dotenv = require('dotenv')
+dotenv.config({path:__dirname+"/../.env.development.local"})
+
+
+module.exports = {
+	config: path.resolve(__dirname, "database", "db_config.js"),
+	'migrations-path': path.resolve(__dirname, "database", "migrations")
+}
