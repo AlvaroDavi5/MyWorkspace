@@ -24,8 +24,14 @@ const bibliographies = database.define('bibliographies', {
 	publication_date: {
 		type: Sequelize.DATE
 	},
-	//createdAt: Sequelize.DATE,
-	//updatedAt: Sequelize.DATE
+	created_at: {
+		type: Sequelize.DATE,
+		allowNull: false
+	},
+	updated_at: {
+		type: Sequelize.DATE,
+		allowNull: false
+	}
 })
 
 

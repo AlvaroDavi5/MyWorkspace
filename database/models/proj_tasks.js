@@ -32,8 +32,14 @@ const proj_tasks = database.define('proj_tasks', {
 	was_finished: {
 		type: Sequelize.BOOLEAN
 	},
-	//createdAt: Sequelize.DATE,
-	//updatedAt: Sequelize.DATE
+	created_at: {
+		type: Sequelize.DATE,
+		allowNull: false
+	},
+	updated_at: {
+		type: Sequelize.DATE,
+		allowNull: false
+	}
 })
 
 

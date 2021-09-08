@@ -16,8 +16,14 @@ const projects = database.define('projects', {
 	name: {
 		type: Sequelize.STRING(100)
 	},
-	//createdAt: Sequelize.DATE,
-	//updatedAt: Sequelize.DATE
+	created_at: {
+		type: Sequelize.DATE,
+		allowNull: false
+	},
+	updated_at: {
+		type: Sequelize.DATE,
+		allowNull: false
+	}
 })
 
 
