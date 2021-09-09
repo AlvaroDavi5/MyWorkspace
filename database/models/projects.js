@@ -1,24 +1,21 @@
-const Sequelize = require('sequelize')
-const database = require("../connection.js")
+const { Model, DataTypes } = require('sequelize')
 
 
-const projects = database.define('projects', {
-	id: {
-		type: Sequelize.INTEGER,
-		autoIncrement: true,
-		allowNull: false,
-		primaryKey: true
-	},
-	user_id: {
-		type: Sequelize.INTEGER,
-		allowNull: false
-	},
-	name: {
-		type: Sequelize.STRING(100)
-	},
-	//createdAt: Sequelize.DATE,
-	//updatedAt: Sequelize.DATE
-})
+class Projects extends Model {
+	static init(connection) {
+		super.init({
+			user_id: DataTypes.INTEGER,
+			name: DataTypes.STRING(100)		
+		},
+		{ sequelize: connection }
+		)
+	}
+
+	static associate(models) {
+		this.belongsTo(models.Users, {foreignKey: 'user_id', targetKey: 'id', as: 'user'})
+		this.hasMany(models.ProjTasks, {foreignKey: 'proj_id', targetKey: 'id', as: 'proj_tasks'})
+	}
+}
 
 
-module.exports = projects;
+module.exports = Projects;
