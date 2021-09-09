@@ -13,6 +13,10 @@ class Tasks extends Model {
 		{ sequelize: connection }
 		)
 	}
+
+	static associate(models) {
+		this.belongsTo(models.Users, {foreignKey: 'user_id', targetKey: 'id', as: 'user'})
+	}
 }
 
 

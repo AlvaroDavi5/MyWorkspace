@@ -31,10 +31,6 @@ module.exports = {
 			uf: {
 				type: Sequelize.STRING(2)
 			},
-			preferences: {
-				type: Sequelize.INTEGER,
-				allowNull: false
-			},
 			created_at: {
 				type: Sequelize.DATE,
 				allowNull: false

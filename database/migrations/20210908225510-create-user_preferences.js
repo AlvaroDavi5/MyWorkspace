@@ -11,7 +11,13 @@ module.exports = {
 			},
 			user_id: {
 				type: Sequelize.INTEGER,
-				allowNull: false
+				allowNull: false,
+				references: {
+					model: 'users', // table name, not model name
+					key: 'id'
+				},
+				onUpdate: 'CASCADE',
+				onDelete: 'CASCADE'
 			},
 			image_path: {
 				type: Sequelize.STRING(255)

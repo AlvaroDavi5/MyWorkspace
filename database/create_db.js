@@ -19,33 +19,29 @@ Tasks.init(connection)
 Bibliographies.init(connection)
 
 /* database tables relations */
+/**
+  * ?    Relations
+  * @belongsTo - One-to-One, source -> target
+  * @hasOne - One-to-One, target -> source
+  * @hasMany - One-to-Many, target -> source
+  * @belongsToMany - Many-to-Many, source -> target
+**/
+Users.associate(connection.models) // relations in each model
+UserPreferences.associate(connection.models)
+Projects.associate(connection.models)
+ProjTasks.associate(connection.models) // passing all models from connection
+Tasks.associate(connection.models)
+Bibliographies.associate(connection.models)
+
 /* database tables insertions */
+/*
+const insertUsers = require("./seeders/users.js")
+const insertUserPreferences = require("./seeders/user_preferences.js")
+const insertProjects = require("./seeders/projects.js")
+const insertProjTasks = require("./seeders/proj_tasks.js")
+const insertTasks = require("./seeders/tasks.js")
+const insertBibliographies = require("./seeders/bibliographies.js")
+*/
 
 
 module.exports = connection;
-
-/*
-(async () => {
-	try {
-		createUsers.hasOne(createUserPreferences, {foreignKey: 'user_id_fk', targetKey: 'id'})
-		createUsers.hasMany(createProjects, {foreignKey: 'user_id_fk', targetKey: 'id'})
-		createProjects.hasOne(createProjTasks , {foreignKey: 'proj_id_fk', targetKey: 'id'})
-		createUsers.hasMany(createTasks, {foreignKey: 'user_id_fk', targetKey: 'id'})
-		createUsers.hasMany(createBibliographies, {foreignKey: 'user_id_fk', targetKey: 'id'})
-
-		await database.sync({force: true})
-	}
-	catch (error) {
-		console.log(error);
-	}
-
-	const insertUsers = require("./seeders/users.js")
-	const insertUserPreferences = require("./seeders/user_preferences.js")
-	const insertProjects = require("./seeders/projects.js")
-	const insertProjTasks = require("./seeders/proj_tasks.js")
-	const insertTasks = require("./seeders/tasks.js")
-	const insertBibliographies = require("./seeders/bibliographies.js")
-	await database.sync()
-
-})();
-*/

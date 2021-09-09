@@ -7,8 +7,7 @@ const insert = Users.create({
 	password: "senha_da_nasa123",
 	phone: "27999999999",
 	cpf: "000.123.111-60",
-	uf: "BA",
-	preferences: 1
+	uf: "BA"
 })
 
 

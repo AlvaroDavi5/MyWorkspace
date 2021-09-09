@@ -15,6 +15,10 @@ class ProjTasks extends Model {
 		{ sequelize: connection }
 		)
 	}
+
+	static associate(models) {
+		this.belongsTo(models.Projects, {foreignKey: 'proj_id', targetKey: 'id', as: 'project'})
+	}
 }
 
 
