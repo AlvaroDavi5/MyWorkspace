@@ -10,6 +10,7 @@ const Bibliographies = require("./models/bibliographies.js")
 
 const connection = new Sequelize(DBConfig)
 
+
 /* database tables creation */
 Users.init(connection)
 UserPreferences.init(connection)
@@ -18,7 +19,8 @@ ProjTasks.init(connection)
 Tasks.init(connection)
 Bibliographies.init(connection)
 
-/* database tables relations */
+
+/* database tables associations */
 /**
   * ?    Relations
   * @belongsTo - One-to-One, source -> target
@@ -32,16 +34,6 @@ Projects.associate(connection.models)
 ProjTasks.associate(connection.models) // passing all models from connection
 Tasks.associate(connection.models)
 Bibliographies.associate(connection.models)
-
-/* database tables insertions */
-/*
-const insertUsers = require("./seeders/users.js")
-const insertUserPreferences = require("./seeders/user_preferences.js")
-const insertProjects = require("./seeders/projects.js")
-const insertProjTasks = require("./seeders/proj_tasks.js")
-const insertTasks = require("./seeders/tasks.js")
-const insertBibliographies = require("./seeders/bibliographies.js")
-*/
 
 
 module.exports = connection;

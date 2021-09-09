@@ -12,7 +12,8 @@ module.exports = {
 	dialect: process.env.DB_DBMS_NAME, // one of 'mysql' | 'mariadb' | 'postgres' | 'mssql'
 	port: process.env.DB_PORT,
 	define: {
+		underscored: true, // underscored name of fields
 		timestamps: true, // to created_at and updated_at
-		underscored: true // underscored name of fields
+		freezeTableName: false // not set table names on plural
 	}
 }
