@@ -2,11 +2,12 @@ import React from 'react'
 import {
 	useColorMode, useColorModeValue,
 	Center, Button, IconButton,
-	Box, Flex, Input,
+	Box, Flex, Input, Select,
 	FormLabel, FormControl, FormHelperText
 } from '@chakra-ui/react'
 import { BiSun, BiMoon } from 'react-icons/bi'
 import { DiGithubBadge } from 'react-icons/di'
+import { FaUserCircle } from 'react-icons/fa'
 import DocumentHead from "../components/document_head.jsx"
 
 
@@ -96,7 +97,7 @@ export default function Register() {
 				justifyContent='center'
 				>
 				<Box
-					h='410px'
+					h='420px'
 					w='70vw'
 					marginTop='60px'
 					marginLeft='50px'
@@ -107,23 +108,47 @@ export default function Register() {
 					fontSize='xx-large'
 					textAlign='center'
 				>
-					<Box id="login-form" margin="20px 50px 20px 50px">
-						<FormControl>
-							<Box id="login-username" margin='10px 40px'>
-								<FormLabel htmlFor='username' marginLeft='10px'>Nome de Usuário:</FormLabel>
-								<Input type="text" placeholder='Ex: meuApelido123' background='green.100' width='48'/>
-								<FormHelperText fontWeight='bold'>
-									Use letras maiúsculas, minúsculas, números e símbolos
-								</FormHelperText>
+					<Box id="register-form" margin="20px 50px 20px 50px">
+						<FormControl display='flex'>
+							<Box>
+								<Box id="register-username" margin='10px 40px'>
+									<FormLabel htmlFor='username' marginLeft='10px'>Nome de Usuário:</FormLabel>
+									<Input type="text" placeholder='Ex: meuApelido123@'  width='350px' background='green.100'/>
+									<FormHelperText fontWeight='bold'>
+										Use letras maiúsculas, minúsculas, números e símbolos
+									</FormHelperText>
+								</Box>
+								<Box id="register-email" margin='10px 40px'>
+									<FormLabel htmlFor='email' marginLeft='10px'>e-Mail:</FormLabel>
+									<Input type="email" placeholder='Ex: nome.sobrenome@gmail.com' width='350px' background='green.100'/>
+								</Box>
+								<Box id="register-pass" margin='10px 40px'>
+									<FormLabel htmlFor='password' marginLeft='10px'>Senha:</FormLabel>
+									<Input type="text" placeholder='Jamais compartilhe sua senha!' width='350px' background='green.100'/>
+								</Box>
 							</Box>
-							<Box id="login-email" margin='10px 40px'>
-								<FormLabel htmlFor='email' marginLeft='10px'>e-Mail:</FormLabel>
-								<Input type="email" placeholder='Ex: nome.sobrenome@gmail.com' background='green.100'/>
+							<Box>
+								<Box id="register-image" justifyContent='center' margin='10px 40px'>
+									<Box margin='40px 10px 10px 80px'>
+										<a href="">
+											<FaUserCircle size='90px'/>
+										</a>
+									</Box>
+									<Box fontWeight='bold' fontSize='12pt' marginBottom='50px'>
+										Escolher imagem de perfil
+									</Box>
+								</Box>
+								<Box id="register-uf" margin='10px 40px'>
+									<FormLabel htmlFor='uf-estado' marginLeft='10px'>Estado:</FormLabel>
+									<Select placeholder='Selecione um Estado' width='250px' background='green.100'>
+										<option value="option1">Option 1</option>
+										<option value="option2"> Estados e Capitais do Brasil</option>
+										<option value="option3">Option 3</option>
+									</Select>
+								</Box>
 							</Box>
-							<Box id="login-pass" margin='10px 40px'>
-								<FormLabel htmlFor='password' marginLeft='10px'>Senha:</FormLabel>
-								<Input type="text" placeholder='Jamais compartilhe sua senha!' background='green.100'/>
-							</Box>
+						</FormControl>
+						<Box id="submit buttons">
 							<Box justifyContent='space-between' marginTop='20px'>
 								<Button
 									size='lg'
@@ -134,17 +159,19 @@ export default function Register() {
 								>
 									Salvar
 								</Button>
-								<Button
-									size='lg'
-									boxShadow='1px 1px 2px 2px rgba(0, 0, 0, 0.3)'
-									variant='ghost'
-									backgroundColor='red'
-									marginLeft='30%'
-								>
-									Cancelar
-								</Button>
+								<a href="/auth/login">
+									<Button
+										size='lg'
+										boxShadow='1px 1px 2px 2px rgba(0, 0, 0, 0.3)'
+										variant='ghost'
+										backgroundColor='red'
+										marginLeft='30%'
+									>
+										Cancelar
+									</Button>
+								</a>
 							</Box>
-						</FormControl>
+						</Box>
 					</Box>
 				</Box>
 			</Flex>
