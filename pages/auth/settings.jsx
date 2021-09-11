@@ -86,8 +86,8 @@ export default function Register() {
 
 	return (
 		<body>
-			<DocumentHead title="Registre para usar a plataforma"/>
-			<Navbar pageName="Registrar no MyWorkspace"/>
+			<DocumentHead title="Configurações da conta"/>
+			<Navbar pageName="Ajustes"/>
 
 			<Flex
 				w='100%'
@@ -110,21 +110,21 @@ export default function Register() {
 				>
 					<Box id="register-form" margin="20px 50px 20px 50px">
 						<FormControl display='flex'>
-							<Box>
+							<Box marginLeft='20px' marginRight='10px'>
 								<Box id="register-username" margin='10px 40px'>
 									<FormLabel htmlFor='username' marginLeft='10px'>Nome de Usuário:</FormLabel>
 									<Input type="text" placeholder='Ex: meuApelido123@'  width='350px' background='green.100'/>
-									<FormHelperText fontWeight='bold'>
-										Use letras maiúsculas, minúsculas, números e símbolos
-									</FormHelperText>
 								</Box>
-								<Box id="register-email" margin='10px 40px'>
-									<FormLabel htmlFor='email' marginLeft='10px'>e-Mail:</FormLabel>
-									<Input type="email" placeholder='Ex: nome.sobrenome@gmail.com' width='350px' background='green.100'/>
-								</Box>
-								<Box id="register-pass" margin='10px 40px'>
+								<Box id="register-pass" margin='20px 40px'>
 									<FormLabel htmlFor='password' marginLeft='10px'>Senha:</FormLabel>
 									<Input type="text" placeholder='Jamais compartilhe sua senha!' width='350px' background='green.100'/>
+								</Box>
+								<Box id="register-theme" margin='10px 40px'>
+									<FormLabel htmlFor='theme' marginLeft='10px'>Tema de preferência:</FormLabel>
+									<Select placeholder='Selecione um tema' width='250px' background='green.100'>
+										<option value="1">Claro</option>
+										<option value="2">Escuro</option>
+									</Select>
 								</Box>
 							</Box>
 							<Box>
