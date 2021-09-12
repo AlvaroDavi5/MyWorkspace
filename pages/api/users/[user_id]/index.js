@@ -50,6 +50,6 @@ export default async function handler(request, response) {
 				success: false,
 				message: message
 			}
-		);
+		)
 	}
 }

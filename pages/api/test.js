@@ -1,6 +1,3 @@
-import { AxiosAdapter } from 'axios'
-import { Op } from 'sequelize'
-
 
 export default async function handler(request, response) {
 	try {
@@ -12,7 +9,7 @@ export default async function handler(request, response) {
 						success: true,
 						data: {
 							date: (new Date()).toLocaleDateString(),
-							pubs: "tecnologia"
+							pubs: "technology"
 						}
 					}
 				);
