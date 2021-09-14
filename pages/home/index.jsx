@@ -1,8 +1,13 @@
-import { Flex, Box, Image } from '@chakra-ui/react'
+import { Flex, Box, Image, useColorModeValue } from '@chakra-ui/react'
+import DocumentHead from "../components/document_head.jsx"
+import Navbar from "../components/navbar.jsx"
 import style from "./style/home.module.css"
 
 
 function Card(props) {
+	const colorMode = useColorModeValue('light', 'dark')
+	const boxBgColor = (colorMode == 'light'? 'marine' : 'primary')
+
 	return (
 		<Box
 			h='410px'
@@ -12,7 +17,7 @@ function Card(props) {
 			marginRight='50px'
 			boxShadow='1px 1px 10px 10px rgba(0, 0, 0, 0.1)'
 			borderRadius='20px'
-			backgroundColor='marine'
+			backgroundColor={boxBgColor}
 			fontSize='xx-large'
 			textAlign='center'
 			justifyContent='center'
@@ -39,12 +44,19 @@ function Card(props) {
 }
 
 export default function Home() {
+	const colorMode = useColorModeValue('light', 'dark')
+	const pageBgColor = (colorMode == 'light'? 'clear_lake' : 'dark_forest')
+
 	return (
 		<body className={style.pagebody}>
+			<DocumentHead title="Início"/>
+			<Navbar pageName="Área de Trabalho"/>
+
 			<Flex
 				w='100%'
 				h='100%'
-				backgroundColor='clear_lake'
+				position="fixed"
+				backgroundColor={pageBgColor}
 				justifyContent='space-between'
 			>
 				<Card
@@ -59,7 +71,7 @@ export default function Home() {
 				/>
 				<Card
 					cardName="Consultas Bibliográficas"
-					pageHref="bibliography"
+					pageHref="bibliographies"
 					imgSource="https://video-images.vice.com/articles/5d44c9622980b0000824a7e3/lede/1564789576071-GettyImages-949118068.jpeg?crop=1xw:0.8419xh;0xw,0.1581xh"
 				/>
 			</Flex>

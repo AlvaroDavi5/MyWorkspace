@@ -1,14 +1,13 @@
 import React from 'react'
 import {
 	useDisclosure,
-	useColorMode,
+	useColorMode, useColorModeValue,
 	Box, Center, Button, IconButton,
 	Drawer,
 	DrawerHeader, DrawerBody, DrawerFooter,
 	DrawerOverlay, DrawerContent, DrawerCloseButton
 } from '@chakra-ui/react'
 import { MdMenu } from 'react-icons/md'
-import { CgArrowsExchange } from 'react-icons/cg'
 import { BiSun, BiMoon } from 'react-icons/bi'
 import { DiGithubBadge } from 'react-icons/di'
 
@@ -16,6 +15,8 @@ import { DiGithubBadge } from 'react-icons/di'
 function MenuDrawer() {
 	const { isOpen, onOpen, onClose } = useDisclosure()
 	const btnRef = React.useRef()
+	const colorMode = useColorModeValue('light', 'dark')
+	const boxBgColor = (colorMode == 'light'? 'marine' : 'primary')
 
 	return (
 		<>
@@ -23,7 +24,7 @@ function MenuDrawer() {
 			ref={btnRef}
 			variant='ghost'
 			color='black'
-			bg='marine'
+			bg={boxBgColor}
 			boxShadow='1px 1px 2px 2px rgba(0, 0, 0, 0.3)'
 			onClick={onOpen}
 			height='10'
@@ -33,7 +34,7 @@ function MenuDrawer() {
 
 		<Drawer
 			isOpen={isOpen}
-			placement="right"
+			placement='right'
 			onClose={onClose}
 			finalFocusRef={btnRef}
 		>
@@ -42,24 +43,23 @@ function MenuDrawer() {
 				<DrawerCloseButton
 					boxShadow='1px 1px 2px 2px rgba(0, 0, 0, 0.3)'
 				/>
-				<DrawerHeader background='marine'>
+				<DrawerHeader background={boxBgColor}>
 					Menu
 				</DrawerHeader>
 
-				<DrawerBody size="xs" background='marine'>
+				<DrawerBody size='xs' background={boxBgColor}>
 					<a href="https://api.nasa.gov/">
 						<Button
 							size='lg'
-							bg='clear_lake'
 							boxShadow='1px 1px 2px 2px rgba(0, 0, 0, 0.3)'
-							variant='ghost'
+							variant='mw_button'
 						>
 							API
 						</Button>
 					</a>
 				</DrawerBody>
 
-				<DrawerFooter background='marine'/>
+				<DrawerFooter background={boxBgColor}/>
 			</DrawerContent>
 		</Drawer>
 		</>
@@ -68,10 +68,13 @@ function MenuDrawer() {
 
 export default function Navbar(props) {
 	const { colorMode,  toggleColorMode } = useColorMode()
+	const boxBgColor = (colorMode == 'light'? 'marine' : 'primary')
+	const textColor = (colorMode == 'light'? 'white' : 'black')
+	const iconColor = (colorMode == 'light'? 'black' : 'white')
 
 	return (
 		<Box
-			bg='marine'
+			bg={boxBgColor}
 			w='100%'
 			h='100px'
 			p={5}
@@ -91,9 +94,9 @@ export default function Navbar(props) {
 					<Button
 						size='xl'
 						boxShadow='1px 1px 2px 2px rgba(0, 0, 0, 0.3)'
-						color='white'
-						variant='solid'
-						bg='black'
+						color={iconColor}
+						variant='mw_button'
+						bg={textColor}
 						padding='5px'
 						display='list-item'
 					>
@@ -103,7 +106,7 @@ export default function Navbar(props) {
 			</div>
 
 			<Center
-				color="black"
+				color='black'
 				display='inline-block'
 				justifySelf='center'
 				textAlign='center'
@@ -120,7 +123,7 @@ export default function Navbar(props) {
 				<IconButton
 					icon={colorMode == 'light'? <BiMoon size='30'/> : <BiSun size='30'/>}
 					variant='ghost'
-					backgroundColor='marine'
+					backgroundColor={boxBgColor}
 					color='black'
 					marginRight='50px'
 					boxShadow='1px 1px 2px 2px rgba(0, 0, 0, 0.3)'

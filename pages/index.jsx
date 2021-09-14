@@ -1,7 +1,7 @@
 import { Box } from '@chakra-ui/react'
-import DocumentHead from "./components/document_head.jsx"
-import Navbar from "./components/navbar.jsx"
 import Home from "./home/index.jsx"
+import Login from "./auth/login.jsx"
+import Register from "./auth/register.jsx"
 
 
 export default function MainIndex() {
@@ -9,10 +9,6 @@ export default function MainIndex() {
 		<Box
 			className="homepage"
 		>
-			<DocumentHead title="Home"/>
-
-			<Navbar pageName="Área de Trabalho"/>
-
 			<Home/>
 		</Box>
 	)
