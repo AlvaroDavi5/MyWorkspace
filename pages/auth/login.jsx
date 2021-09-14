@@ -112,14 +112,14 @@ export default function Login() {
 						<FormControl>
 							<Box id="login-email" margin='10px 40px'>
 								<FormLabel htmlFor='email' marginLeft='10px'>e-Mail:</FormLabel>
-								<Input type="email" placeholder='Ex: nome.sobrenome@gmail.com' background='green.100'/>
+								<Input type='email' placeholder='Ex: nome.sobrenome@gmail.com' background='green.100'/>
 								<FormHelperText fontWeight='bold'>
 									Não possui uma conta? <a href="/auth/register">Cadastre-se aqui</a>!
 								</FormHelperText>
 							</Box>
 							<Box id="login-pass" margin='10px 40px'>
 								<FormLabel htmlFor='password' marginLeft='10px'>Senha:</FormLabel>
-								<Input type="text" placeholder='Jamais compartilhe sua senha!' background='green.100'/>
+								<Input type='text' placeholder='Jamais compartilhe sua senha!' background='green.100'/>
 								<FormHelperText fontWeight='bold'>
 									Esqueceu sua senha? <a href="/auth/recovery">Recupere seu acesso aqui</a>!
 								</FormHelperText>

@@ -113,11 +113,11 @@ export default function Register() {
 							<Box marginLeft='20px' marginRight='10px'>
 								<Box id="register-username" margin='10px 40px'>
 									<FormLabel htmlFor='username' marginLeft='10px'>Nome de Usuário:</FormLabel>
-									<Input type="text" placeholder='Ex: meuApelido123@'  width='350px' background='green.100'/>
+									<Input type='text' placeholder='Ex: meuApelido123@'  width='350px' background='green.100'/>
 								</Box>
 								<Box id="register-pass" margin='20px 40px'>
 									<FormLabel htmlFor='password' marginLeft='10px'>Senha:</FormLabel>
-									<Input type="text" placeholder='Jamais compartilhe sua senha!' width='350px' background='green.100'/>
+									<Input type='text' placeholder='Jamais compartilhe sua senha!' width='350px' background='green.100'/>
 								</Box>
 								<Box id="register-theme" margin='10px 40px'>
 									<FormLabel htmlFor='theme' marginLeft='10px'>Tema de preferência:</FormLabel>
