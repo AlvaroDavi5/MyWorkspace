@@ -56,9 +56,9 @@ async function getAllUsers() {
 	Users.init(connection)
 
 	try {
-		const user = await Users.findAll()
+		const users = await Users.findAll()
 
-		return user
+		return users
 	}
 	catch ({ message }) {
 		return null
@@ -156,9 +156,9 @@ async function getAllPreferences() {
 	UserPreferences.init(connection)
 
 	try {
-		const preference = await UserPreferences.findAll()
+		const preferences = await UserPreferences.findAll()
 
-		return preference
+		return preferences
 	}
 	catch ({ message }) {
 		return null
