@@ -40,13 +40,26 @@ async function getBibliographyById(id) {
 	}
 }
 
-async function getBibliographyIdByName(name) {
+async function getAllBibliographies() {
+	Bibliographies.init(connection)
+
+	try {
+		const bibliographies = await Bibliographies.findAll()
+
+		return bibliographies
+	}
+	catch ({ message }) {
+		return null
+	}
+}
+
+async function getBibliographyIdByUserId(user_id) {
 	Bibliographies.init(connection)
 
 	try {
 		const bibliography = await Bibliographies.findOne({
 			where: {
-				name: name
+				user_id: user_id
 			}
 		})
 
@@ -89,4 +102,4 @@ async function deleteBibliography(bibliography) {
 }
 
 
-export { createBibliography, getBibliographyById, getBibliographyIdByName, updateBibliography, deleteBibliography }
+export { createBibliography, getBibliographyById, getAllBibliographies, getBibliographyIdByUserId, updateBibliography, deleteBibliography }

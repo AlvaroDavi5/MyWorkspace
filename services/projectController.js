@@ -39,6 +39,19 @@ async function getProjectById(id) {
 	}
 }
 
+async function getAllProjects() {
+	Projects.init(connection)
+
+	try {
+		const projects = await Projects.findAll()
+
+		return projects
+	}
+	catch ({ message }) {
+		return null
+	}
+}
+
 async function getProjectIdByName(name) {
 	Projects.init(connection)
 
@@ -126,6 +139,19 @@ async function getProjTaskById(id) {
 	}
 }
 
+async function getAllProjTasks() {
+	ProjTasks.init(connection)
+
+	try {
+		const proj_tasks = await ProjTasks.findAll()
+
+		return proj_tasks
+	}
+	catch ({ message }) {
+		return null
+	}
+}
+
 async function getProjTaskIdByName(name) {
 	ProjTasks.init(connection)
 
@@ -178,5 +204,5 @@ async function deleteProjTask(proj_task) {
 }
 
 
-export { createProject, getProjectById, getProjectIdByName, updateProject, deleteProject,
-createProjTask, getProjTaskById, getProjTaskIdByName, updateProjTask, deleteProjTask }
+export { createProject, getProjectById, getAllProjects, getProjectIdByName, updateProject, deleteProject,
+createProjTask, getProjTaskById, getAllProjTasks, getProjTaskIdByName, updateProjTask, deleteProjTask }

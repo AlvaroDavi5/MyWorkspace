@@ -1,7 +1,7 @@
-import { getUserById } from "../../../../services/userController.js"
+import { getUserById, getPreferenceById, getPreferenceIdByUserId } from "../../../../services/userController.js"
 
 
-export default async function response(request, response) {
+export default async function apiResponse(request, response) {
 	const { method, query } = request
 
 	try {
@@ -9,13 +9,15 @@ export default async function response(request, response) {
 			/* get data from api */
 			case "GET":
 				const userReq = await getUserById(parseInt(query['user_id']))
+				const prefIdReq = await getPreferenceIdByUserId(userReq.id)
+				const prefReq = await getPreferenceById(prefIdReq)
 
 				return response.status(200).json(
 					{
-						success: (userReq != null) ? true : false,
+						success: true,
 						query: query,
 						method: method,
-						data: userReq
+						data: { user: userReq, preference: prefReq }
 					}
 				)
 
@@ -42,8 +44,8 @@ export default async function response(request, response) {
 		}
 	}
 	catch ({ message }) {
-			/* return error */
-			return response.status(404).json(
+		/* return error */
+		return response.status(404).json(
 			{
 				success: false,
 				message: message

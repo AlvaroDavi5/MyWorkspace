@@ -1,7 +1,7 @@
 const connection = require("../database/connection.js")
 const Tasks = require("../database/models/tasks.js")
 
-	
+
 async function createTask(user_id, name, deadline_date, deadline_time, description, returnId) {
 	Tasks.init(connection)
 
@@ -9,7 +9,6 @@ async function createTask(user_id, name, deadline_date, deadline_time, descripti
 		const task = await Tasks.create(
 			{
 				user_id: user_id,
-				author: author,
 				name: name,
 				deadline_date: deadline_date,
 				deadline_time: deadline_time,
@@ -42,13 +41,26 @@ async function getTaskById(id) {
 	}
 }
 
-async function getTaskIdByName(name) {
+async function getAllTasks() {
+	Tasks.init(connection)
+
+	try {
+		const tasks = await Tasks.findAll()
+
+		return tasks
+	}
+	catch ({ message }) {
+		return null
+	}
+}
+
+async function getTaskIdByUserId(user_id) {
 	Tasks.init(connection)
 
 	try {
 		const task = await Tasks.findOne({
 			where: {
-				name: name
+				user_id: user_id
 			}
 		})
 
@@ -92,4 +104,4 @@ async function deleteTask(task) {
 }
 
 
-export { createTask, getTaskById, getTaskIdByName, updateTask, deleteTask }
+export { createTask, getTaskById, getAllTasks, getTaskIdByUserId, updateTask, deleteTask }

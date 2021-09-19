@@ -52,6 +52,19 @@ async function getUserById(id) {
 	}
 }
 
+async function getAllUsers() {
+	Users.init(connection)
+
+	try {
+		const users = await Users.findAll()
+
+		return users
+	}
+	catch ({ message }) {
+		return null
+	}
+}
+
 async function getUserIdByName(userName) {
 	Users.init(connection)
 
@@ -139,6 +152,19 @@ async function getPreferenceById(id) {
 	}
 }
 
+async function getAllPreferences() {
+	UserPreferences.init(connection)
+
+	try {
+		const preferences = await UserPreferences.findAll()
+
+		return preferences
+	}
+	catch ({ message }) {
+		return null
+	}
+}
+
 async function getPreferenceIdByUserId(user_id) {
 	UserPreferences.init(connection)
 
@@ -187,5 +213,5 @@ async function deletePreference(preference) {
 }
 
 
-export { createUser, getUserById, getUserIdByName, updateUser, deleteUser,
-createPreference, getPreferenceById, getPreferenceIdByUserId, updatePreference, deletePreference }
+export { createUser, getUserById, getAllUsers, getUserIdByName, updateUser, deleteUser,
+createPreference, getPreferenceById, getAllPreferences, getPreferenceIdByUserId, updatePreference, deletePreference }
