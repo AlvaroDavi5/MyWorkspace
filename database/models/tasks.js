@@ -1,33 +1,23 @@
-const Sequelize = require('sequelize')
-const database = require("../connection.js")
+const { Model, DataTypes } = require('sequelize')
 
 
-const tasks = database.define('tasks', {
-	id: {
-		type: Sequelize.INTEGER,
-		autoIncrement: true,
-		allowNull: false,
-		primaryKey: true
-	},
-	user_id: {
-		type: Sequelize.INTEGER,
-		allowNull: false
-	},
-	name: {
-		type: Sequelize.STRING(100)
-	},
-	deadline_date: {
-		type: Sequelize.DATE
-	},
-	deadline_time: {
-		type: Sequelize.TIME
-	},
-	description: {
-		type: Sequelize.STRING(355)
-	},
-	//createdAt: Sequelize.DATE,
-	//updatedAt: Sequelize.DATE
-})
+class Tasks extends Model {
+	static init(connection) {
+		super.init({
+			user_id: DataTypes.INTEGER,
+			name: DataTypes.STRING(100),
+			deadline_date: DataTypes.DATE,
+			deadline_time: DataTypes.TIME,
+			description: DataTypes.STRING(355)		
+		},
+		{ sequelize: connection }
+		)
+	}
+
+	static associate(models) {
+		this.belongsTo(models.Users, {foreignKey: 'user_id', targetKey: 'id', as: 'user'})
+	}
+}
 
 
-module.exports = tasks;
+module.exports = Tasks;

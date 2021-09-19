@@ -1,27 +1,21 @@
-const Sequelize = require('sequelize')
-const database = require("../connection.js")
+const { Model, DataTypes } = require('sequelize')
 
 
-const UserPreferences = database.define('user_preferences', {
-	id: {
-		type: Sequelize.INTEGER,
-		autoIncrement: true,
-		allowNull: false,
-		primaryKey: true
-	},
-	user_id: {
-		type: Sequelize.INTEGER,
-		allowNull: false
-	},
-	image_path: {
-		type: Sequelize.STRING(255)
-	},
-	default_theme: {
-		type: Sequelize.INTEGER
-	},
-	//createdAt: Sequelize.DATE,
-	//updatedAt: Sequelize.DATE
-})
+class UserPreferences extends Model {
+	static init(connection) {
+		super.init({
+			user_id: DataTypes.INTEGER,
+			image_path: DataTypes.STRING(255),
+			default_theme: DataTypes.INTEGER
+		},
+		{ sequelize: connection }
+		)
+	}
+
+	static associate(models) {
+		this.belongsTo(models.Users, {foreignKey: 'user_id', targetKey: 'id', as: 'user'})
+	}
+}
 
 
 module.exports = UserPreferences;

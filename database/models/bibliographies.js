@@ -1,32 +1,22 @@
-const Sequelize = require('sequelize')
-const database = require("../connection.js")
+const { Model, DataTypes } = require('sequelize')
 
 
-const bibliographies = database.define('bibliographies', {
-	id: {
-		type: Sequelize.INTEGER,
-		autoIncrement: true,
-		allowNull: false,
-		primaryKey: true
-	},
-	user_id: {
-		type: Sequelize.INTEGER,
-		allowNull: false
-	},
-	author: {
-		type: Sequelize.STRING(85),
-		allowNull: false
-	},
-	name: {
-		type: Sequelize.STRING(325),
-		allowNull: false
-	},
-	publication_date: {
-		type: Sequelize.DATE
-	},
-	//createdAt: Sequelize.DATE,
-	//updatedAt: Sequelize.DATE
-})
+class Bibliographies extends Model {
+	static init(connection) {
+		super.init({
+			user_id: DataTypes.INTEGER,
+			author: DataTypes.STRING(85),
+			name: DataTypes.STRING(325),
+			publication_date: DataTypes.DATE
+		},
+		{ sequelize: connection }
+		)
+	}
+
+	static associate(models) {
+		this.belongsTo(models.Users, {foreignKey: 'user_id', targetKey: 'id', as: 'user'})
+	}
+}
 
 
-module.exports = bibliographies;
+module.exports = Bibliographies;

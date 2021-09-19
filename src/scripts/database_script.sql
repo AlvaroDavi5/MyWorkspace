@@ -15,7 +15,6 @@ CREATE TABLE `users` (
 	`phone` varchar(14),
 	`cpf` varchar(18),
 	`uf` varchar(2),
-	`preferences` integer NOT NULL,
 	`createdAt` date,
 	`updatedAt` date,
 
@@ -23,8 +22,8 @@ CREATE TABLE `users` (
 ) DEFAULT CHARSET=utf8;
 
 /* data insertion */
-INSERT INTO `users`(`id`, `name`, `email`, `password`, `phone`, `cpf`, `uf`, `preferences`, `createdAt`, `updatedAt`)
-VALUES (1, "Alvaro", "alvaro-alves@nomail.edu", "senha_da_nasa123", "27999999999", "000.123.111-60", "BA", 1, "2021-12-25", "2020-11-09");
+INSERT INTO `users`(`id`, `name`, `email`, `password`, `phone`, `cpf`, `uf`, `createdAt`, `updatedAt`)
+VALUES (1, "Alvaro", "alvaro-alves@nomail.edu", "senha_da_nasa123", "27999999999", "000.123.111-60", "BA", "2021-12-25", "2020-11-09");
 
 
 CREATE TABLE `user_preferences` (
@@ -39,10 +38,6 @@ CREATE TABLE `user_preferences` (
 
 INSERT INTO `user_preferences`(`user_id`, `image_path`, `default_theme`)
 VALUES (1, "./aqui/essa.png", 2);
-
-
-/* adding foreign key */
-/* ALTER TABLE `users` ADD FOREIGN KEY (`preferences`) REFERENCES `user_preferences`(`id`); */
 
 
 CREATE TABLE `projects` (
