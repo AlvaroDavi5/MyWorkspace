@@ -17,5 +17,24 @@ async function getNews() {
 	return publicationsJson
 }
 
+async function createTaskAxios() {
 
-export { getPublicationsByCategory, getNews }
+	try {
+		axios.post(
+			"http://localhost:8080/api/users/1/tasks",
+			{
+				user_id: 1,
+				name: "Marcar PF",
+				deadline_date: "2021-10-24T00:00:00.000Z",
+				deadline_time: "05:23:10",
+				description: "Espero que todos tirem 0!"
+			}
+		)
+		return true
+	} catch ( message ) {
+		return false
+	}
+}
+
+
+export { getPublicationsByCategory, getNews, createTaskAxios }
