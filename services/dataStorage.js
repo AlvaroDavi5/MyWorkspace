@@ -44,31 +44,31 @@ function getStoredUserId() {
 	return value
 }
 
-function storeUserEmail(defaultEmail='') {
-	const [email] = useState(null)
+function storeUserToken(defaultToken='') {
+	const [token] = useState(null)
 
 	useEffect(() => {
-		localStorage.setItem('user_email', Number(defaultEmail))
+		localStorage.setItem('user_token', String(defaultToken))
 	},
-		[email]
+		[token]
 	)
 }
 
-function removeUserEmail() {
-	const [email] = useState(null)
+function removeUserToken() {
+	const [token] = useState(null)
 
 	useEffect(() => {
-		localStorage.removeItem('user_email')
+		localStorage.removeItem('user_token')
 	},
-		[email]
+		[token]
 	)
 }
 
-function getStoredUserEmail() {
+function getStoredUserToken() {
 	const [value] = useState(null)
 
 	useEffect(() => {
-		localStorage.getItem('user_email')
+		localStorage.getItem('user_token')
 	},
 		[value]
 	)
@@ -77,4 +77,4 @@ function getStoredUserEmail() {
 }
 
 
-export { storeUserId, removeUserId, getStoredUserId, storeUserEmail, removeUserEmail, getStoredUserEmail }
+export { storeUserId, removeUserId, getStoredUserId, storeUserToken, removeUserToken, getStoredUserToken }
