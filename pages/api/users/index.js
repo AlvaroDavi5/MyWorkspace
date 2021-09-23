@@ -1,4 +1,4 @@
-import { getAllUsers, getAllPreferences, createUser, createPreference } from "../../../services/userController.js"
+import { getUserByCredentials, getPreferenceIdByUserId, getPreferenceById, createUser, createPreference } from "../../../services/userController.js"
 
 
 export default async function apiResponse(request, response) {
@@ -7,27 +7,30 @@ export default async function apiResponse(request, response) {
 	try {
 		switch (request.method) {
 			case "GET":
-				const usersReq = await getAllUsers()
-				const prefsReq = await getAllPreferences()
+				const userReq = await getUserByCredentials(
+					body['email'],
+					body['password']
+				)
+				const prefReq = await getPreferenceById(await getPreferenceIdByUserId(userReq.id))
 
 				return response.status(201).json(
 					{
 						success: true,
 						query: query,
 						method: method,
-						data: { users: usersReq, preferences: prefsReq }
+						data: { user: userReq, preference: prefReq }
 					}
 				)
 
 			case "POST":
-				const userReq = await createUser(
+				const userCreateReq = await createUser(
 					body['name'], body['email'],
 					body['password'], body['phone'],
 					body['cpf'], body['uf'],
 					true
 				)
-				const prefReq = await createPreference(
-					userReq,
+				const prefCreateReq = await createPreference(
+					userCreateReq,
 					body['image_path'],
 					body['default_theme'],
 					false
@@ -35,7 +38,7 @@ export default async function apiResponse(request, response) {
 
 				return response.status(201).json(
 					{
-						success: prefReq,
+						success: prefCreateReq,
 						query: query,
 						method: method,
 						message: "User created successfull!"

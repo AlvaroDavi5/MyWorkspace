@@ -65,17 +65,18 @@ async function getAllUsers() {
 	}
 }
 
-async function getUserIdByName(userName) {
+async function getUserByCredentials(email, password) {
 	Users.init(connection)
 
 	try {
 		const user = await Users.findOne({
 			where: {
-				name: userName
+				email: email,
+				password: password
 			}
 		})
 
-		return user.id
+		return user
 	}
 	catch ({ message }) {
 		return null
@@ -213,5 +214,5 @@ async function deletePreference(preference) {
 }
 
 
-export { createUser, getUserById, getAllUsers, getUserIdByName, updateUser, deleteUser,
+export { createUser, getUserById, getAllUsers, getUserByCredentials, updateUser, deleteUser,
 createPreference, getPreferenceById, getAllPreferences, getPreferenceIdByUserId, updatePreference, deletePreference }
