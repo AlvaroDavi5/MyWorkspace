@@ -2,7 +2,7 @@
 export default function bibliographiesPage() {
 	return (
 		<div>
-			bibliographies
+			Bibliographies
 		</div>
 	)
 }

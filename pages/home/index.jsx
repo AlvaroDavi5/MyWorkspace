@@ -1,4 +1,6 @@
+import { useEffect, useState } from 'react'
 import { Flex, Box, Image, useColorModeValue } from '@chakra-ui/react'
+import { parseCookies } from 'nookies'
 import DocumentHead from "../components/document_head.jsx"
 import Navbar from "../components/navbar.jsx"
 import style from "./style/home.module.css"
@@ -46,6 +48,18 @@ function Card(props) {
 export default function Home() {
 	const colorMode = useColorModeValue('light', 'dark')
 	const pageBgColor = (colorMode == 'light'? 'clear_lake' : 'dark_forest')
+	const [ usr_id, setUserId ] = useState('')
+
+	useEffect(() => {
+		const { 'myworkspace-user_id': user_id } = parseCookies()
+
+		if (user_id) {
+			setUserId(parseInt(user_id))
+		}
+		else {
+			setUserId('')
+		}
+	}, [])
 
 	return (
 		<body className={style.pagebody}>
@@ -61,17 +75,17 @@ export default function Home() {
 			>
 				<Card
 					cardName="Projetos"
-					pageHref="projects"
+					pageHref={`${usr_id}/projects`}
 					imgSource="https://tecnopressure.com.br/wp-content/uploads/2019/10/Tecno-Pressure-Estudo-de-Viabilidade-T%C3%A9cnico-Econ%C3%B4mica-Projeto-Engenharia-Seguran%C3%A7a-Qualidade-NR-13.jpg"
 				/>
 				<Card
 					cardName="Tarefas"
-					pageHref="tasks"
+					pageHref={`${usr_id}/tasks`}
 					imgSource="https://st2.depositphotos.com/1579454/8355/i/600/depositphotos_83553642-stock-photo-checklist-paper-and-pen.jpg"
 				/>
 				<Card
 					cardName="Consultas Bibliográficas"
-					pageHref="bibliographies"
+					pageHref={`${usr_id}/bibliographies`}
 					imgSource="https://video-images.vice.com/articles/5d44c9622980b0000824a7e3/lede/1564789576071-GettyImages-949118068.jpeg?crop=1xw:0.8419xh;0xw,0.1581xh"
 				/>
 			</Flex>
