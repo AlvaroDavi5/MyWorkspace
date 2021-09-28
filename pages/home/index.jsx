@@ -76,17 +76,17 @@ export default function Home() {
 				<Card
 					cardName="Projetos"
 					pageHref={`${usr_id}/projects`}
-					imgSource="https://tecnopressure.com.br/wp-content/uploads/2019/10/Tecno-Pressure-Estudo-de-Viabilidade-T%C3%A9cnico-Econ%C3%B4mica-Projeto-Engenharia-Seguran%C3%A7a-Qualidade-NR-13.jpg"
+					imgSource="../assets/projects.png"
 				/>
 				<Card
 					cardName="Tarefas"
 					pageHref={`${usr_id}/tasks`}
-					imgSource="https://st2.depositphotos.com/1579454/8355/i/600/depositphotos_83553642-stock-photo-checklist-paper-and-pen.jpg"
+					imgSource="../assets/tasks.png"
 				/>
 				<Card
 					cardName="Consultas Bibliográficas"
 					pageHref={`${usr_id}/bibliographies`}
-					imgSource="https://video-images.vice.com/articles/5d44c9622980b0000824a7e3/lede/1564789576071-GettyImages-949118068.jpeg?crop=1xw:0.8419xh;0xw,0.1581xh"
+					imgSource="../assets/bibliographies.png"
 				/>
 			</Flex>
 		</body>

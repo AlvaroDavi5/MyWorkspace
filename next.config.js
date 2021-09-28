@@ -10,6 +10,7 @@ module.exports = withPlugins([
 		/* allow import images from any dir */
 		withImages,
 		{
+			fileExtensions: ["jpg", "jpeg", "png", "gif"],
 			webpack: (config, options) => {
 				config.module.rules.push(
 					{
