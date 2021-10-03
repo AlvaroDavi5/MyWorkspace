@@ -19,7 +19,7 @@ export function AuthProvider({ children }) {
 			}
 		)
 		// reloading user data
-		setUser(data.data.user)
+		await setUser(data.data.user)
 
 		// saving user auth on cookies
 		setCookie(undefined, 'myworkspace-user_id', user['id'], {

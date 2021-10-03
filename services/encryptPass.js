@@ -1,13 +1,9 @@
-const dotenv = require('dotenv')
-dotenv.config({path:__dirname+"/../.env.development.local"})
-const crypto = require('crypto')
-const cipher = crypto.createCipher(process.env.CRYPTO_ALGORITHM, process.env.CRYPTO_KEY)
+import { SHA256 } from 'crypto-js'
 
 
 export default function encrypt(password) {
-	cipher.update(password)
 
-	const pass = cipher.final(process.env.CRYPTO_METHOD)
+	const hashCode = SHA256(password)
 
-	return pass
+	return hashCode.toString()
 }

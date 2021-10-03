@@ -72,7 +72,7 @@ async function getUserByCredentials(email, password) {
 		const user = await Users.findOne({
 			where: {
 				email: email,
-				password: password
+				password: encrypt(password)
 			}
 		})
 
