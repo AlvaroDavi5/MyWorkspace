@@ -77,7 +77,7 @@ export default function Navbar(props) {
 			bg={boxBgColor}
 			w='100%'
 			h='100px'
-			p={5}
+			p='5'
 			color='black'
 			boxShadow='1px 1px 2px 2px rgba(0, 0, 0, 0.3)'
 			boxSizing='border-box'
