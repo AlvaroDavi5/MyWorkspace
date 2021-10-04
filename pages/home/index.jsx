@@ -69,7 +69,7 @@ export default function Home() {
 			<Flex
 				w='100%'
 				h='100%'
-				position="fixed"
+				position='fixed'
 				backgroundColor={pageBgColor}
 				justifyContent='space-between'
 			>
