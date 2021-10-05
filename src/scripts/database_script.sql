@@ -11,7 +11,7 @@ CREATE TABLE `users` (
 	`id` integer NOT NULL AUTO_INCREMENT,
 	`name` varchar(85) NOT NULL,
 	`email` varchar(60) NOT NULL,
-	`password` varchar(18) NOT NULL,
+	`password` varchar(65) NOT NULL,
 	`phone` varchar(14),
 	`cpf` varchar(18),
 	`uf` varchar(2),
