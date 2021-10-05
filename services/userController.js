@@ -183,7 +183,7 @@ async function getPreferenceIdByUserId(user_id) {
 	}
 }
 
-async function updatePreference(preference, user_id, image_path, default_theme) {
+async function updatePreferences(preference, user_id, image_path, default_theme) {
 	UserPreferences.init(connection)
 
 	try {
@@ -215,4 +215,4 @@ async function deletePreference(preference) {
 
 
 export { createUser, getUserById, getAllUsers, getUserByCredentials, updateUser, deleteUser,
-createPreference, getPreferenceById, getAllPreferences, getPreferenceIdByUserId, updatePreference, deletePreference }
+createPreference, getPreferenceById, getAllPreferences, getPreferenceIdByUserId, updatePreferences, deletePreference }
