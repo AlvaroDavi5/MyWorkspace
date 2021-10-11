@@ -1,4 +1,4 @@
-import { getAllTasks, createTask } from "../../../../../services/taskController.js"
+import { getAllTasksByUserId, createTask } from "../../../../../services/taskController.js"
 
 
 export default async function apiResponse(request, response) {
@@ -7,7 +7,7 @@ export default async function apiResponse(request, response) {
 	try {
 		switch (request.method) {
 			case "GET":
-				const tasksReq = await getAllTasks()
+				const tasksReq = await getAllTasksByUserId(parseInt(query['user_id']))
 
 				return response.status(201).json(
 					{

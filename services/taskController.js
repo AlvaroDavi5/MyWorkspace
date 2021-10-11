@@ -54,6 +54,23 @@ async function getAllTasks() {
 	}
 }
 
+async function getAllTasksByUserId(user_id) {
+	Tasks.init(connection)
+
+	try {
+		const tasks = await Tasks.findAll({
+			where: {
+				user_id: user_id
+			}
+		})
+
+		return tasks
+	}
+	catch ({ message }) {
+		return message
+	}
+}
+
 async function getTaskIdByUserId(user_id) {
 	Tasks.init(connection)
 
@@ -104,4 +121,4 @@ async function deleteTask(task) {
 }
 
 
-export { createTask, getTaskById, getAllTasks, getTaskIdByUserId, updateTask, deleteTask }
+export { createTask, getTaskById, getAllTasks, getAllTasksByUserId, getTaskIdByUserId, updateTask, deleteTask }
