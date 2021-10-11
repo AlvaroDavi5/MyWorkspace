@@ -157,15 +157,15 @@ export default function Register() {
 								>
 									Salvar
 								</Button>
-									<Button
-										size='lg'
-										boxShadow='1px 1px 2px 2px rgba(0, 0, 0, 0.3)'
-										variant='ghost'
-										backgroundColor='red'
-										marginLeft='30%'
-									>
-										Cancelar
-									</Button>
+								<Button
+									size='lg'
+									boxShadow='1px 1px 2px 2px rgba(0, 0, 0, 0.3)'
+									variant='ghost'
+									backgroundColor='red'
+									marginLeft='30%'
+								>
+									Cancelar
+								</Button>
 							</Box>
 						</Box>
 					</Box>

@@ -1,19 +1,72 @@
 import { useEffect, useState } from 'react'
 import { Scrollbars } from 'react-custom-scrollbars'
-import { Box, Flex, Button, IconButton, useColorModeValue } from '@chakra-ui/react'
+import { 
+	Box, Flex, Button, IconButton, useColorModeValue, useDisclosure,
+	Input, Textarea, FormLabel, FormControl, FormHelperText,
+	Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton
+} from '@chakra-ui/react'
 import { IoCreateOutline } from 'react-icons/io5'
 import { FaTrashAlt, FaEdit } from 'react-icons/fa'
 import { parseCookies } from 'nookies'
+import axios from 'axios'
 import DocumentHead from "../../../components/document_head.jsx"
 import Navbar from "../../../components/navbar.jsx"
 
 
+function TaskEditorModal(props) {
+	return (
+		<Modal isOpen={props.isOpen} onClose={props.onClose} size='xl' scrollBehavior='outside'>
+			<ModalOverlay/>
+			<ModalContent bgColor={props.bgColor}>
+				<ModalHeader>
+					Criar/Editar Tarefa
+				</ModalHeader>
+		
+				<ModalCloseButton/>
+				<ModalBody>
+					<Input marginTop='20px' type='text' maxLength='95' placeholder='Nome da tarefa' maxWidth='23vw' background='green.100'/>
+					<Input marginTop='20px' type='date' maxWidth='15vw' marginLeft='20px' background='green.100'/>
+					<Textarea  marginTop='20px'  type='text' maxLength='350' placeholder='Descrição da tarefa' background='green.100'/>
+				</ModalBody>
+
+				<ModalFooter>
+					<Box>
+						<Button
+							boxShadow='1px 1px 2px 2px rgba(0, 0, 0, 0.3)'
+							variant='ghost'
+							backgroundColor='green'
+							marginRight='150'
+							marginLeft='15'
+						>
+							Salvar
+						</Button>
+						<Button
+							boxShadow='1px 1px 2px 2px rgba(0, 0, 0, 0.3)'
+							variant='ghost'
+							backgroundColor='red'
+							marginLeft='150'
+							marginRight='5'
+							onClick={props.onClose}
+						>
+							Cancelar
+						</Button>
+					</Box>
+				</ModalFooter>
+			</ModalContent>
+		</Modal>
+	)
+}
+
 function ListItem(props) {
 	const colorMode = useColorModeValue('light', 'dark')
 	const boxBgColor = (colorMode == 'light'? 'marine' : 'primary')
+	const nameContinue = (((props.name).toString()).length > 55) ? '...' : ''
 	const descContinue = (((props.desc).toString()).length > 110) ? '...' : ''
-
+	
+	
 	return (
+		<TaskEditorModal isOpen={props.isOpenEdit} onOpen={props.onOpenEdit} onClose={props.onCloseEdit} bgColor={boxBgColor}/>,
+
 		<Flex
 			width='90vw'
 			height='75px'
@@ -47,7 +100,7 @@ function ListItem(props) {
 					fontWeight='bold'
 					fontSize='14pt'
 				>
-					{props.name}
+					{((props.name.slice(0, 55)).toString()).concat(nameContinue)}
 				</Box>
 				<Box
 					margin='6px'
@@ -63,7 +116,7 @@ function ListItem(props) {
 				color='black'
 				marginTop='20px'
 			>
-				<FaEdit/>
+				<FaEdit onClick={props.onOpenEdit}/>
 			</Button>
 			<Button
 				variant='ghost'
@@ -82,6 +135,7 @@ export default function TasksPage() {
 	const colorMode = useColorModeValue('light', 'dark')
 	const pageBgColor = (colorMode == 'light'? 'clear_lake' : 'dark_forest')
 	const boxBgColor = (colorMode == 'light'? 'marine' : 'primary')
+	const { isOpen, onOpen, onClose } = useDisclosure()
 	const [ usr_id, setUserId ] = useState('')
 
 	useEffect(() => {
@@ -99,6 +153,7 @@ export default function TasksPage() {
 		<body>
 			<DocumentHead title="Tarefas"/>
 			<Navbar pageName="Tarefas"/>
+			<TaskEditorModal isOpen={isOpen} onOpen={onOpen} onClose={onClose} bgColor={boxBgColor}/>
 
 			<Box
 				w='100%'
@@ -116,6 +171,7 @@ export default function TasksPage() {
 						color='black'
 						margin='10px'
 						boxShadow='1px 1px 2px 2px rgba(0, 0, 0, 0.3)'
+						onClick={onOpen}
 					>
 						<IoCreateOutline size='40px'/>
 					</IconButton>
@@ -126,8 +182,10 @@ export default function TasksPage() {
 						marginLeft='40px'
 						marginRight='40px'
 					>
-						<ListItem date='27/08/2021' name='Task 01' desc='Primeira tarefa.'/>
-						<ListItem date='28/09/2022' name='Task 02' desc='Lorem ipsum eu sei lá o que mais aqui...'/>
+						<ListItem
+							isOpenEdit={isOpen} onOpenEdit={onOpen} onCloseEdit={onClose}
+							date='27/08/2021' name='Task 01' desc='Primeira tarefa.'
+						/>
 					</Box>
 				</Scrollbars>
 			</Box>
