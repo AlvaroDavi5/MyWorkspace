@@ -62,8 +62,7 @@ function ListItem(props) {
 	const boxBgColor = (colorMode == 'light'? 'marine' : 'primary')
 	const nameContinue = (((props.name).toString()).length > 55) ? '...' : ''
 	const descContinue = (((props.desc).toString()).length > 110) ? '...' : ''
-	
-	
+
 	return (
 		<TaskEditorModal isOpen={props.isOpenEdit} onOpen={props.onOpenEdit} onClose={props.onCloseEdit} bgColor={boxBgColor}/>,
 
@@ -183,8 +182,8 @@ export default function TasksPage() {
 						marginRight='40px'
 					>
 						<ListItem
+							userId={usr_id} date='27/08/2021' name='Task 01' desc='Primeira tarefa.'
 							isOpenEdit={isOpen} onOpenEdit={onOpen} onCloseEdit={onClose}
-							date='27/08/2021' name='Task 01' desc='Primeira tarefa.'
 						/>
 					</Box>
 				</Scrollbars>
