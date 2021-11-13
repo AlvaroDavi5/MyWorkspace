@@ -1,4 +1,4 @@
-import React from 'react'
+import { useState, useContext } from 'react'
 import { useForm } from 'react-hook-form'
 import {
 	useColorMode, useColorModeValue,
@@ -82,14 +82,21 @@ function Navbar(props) {
 
 export default function Login() {
 	const { register, handleSubmit } = useForm()
-	const { SingIn } = React.useContext(AuthContext)
+	const { SingIn } = useContext(AuthContext)
 
 	const colorMode = useColorModeValue('light', 'dark')
 	const pageBgColor = (colorMode == 'light'? 'clear_lake' : 'dark_forest')
 	const boxBgColor = (colorMode == 'light'? 'marine' : 'primary')
+	const [ loadingButton, setLoadButton ] = useState(false)
 
 	async function handleSignIn(data) {
-		await SingIn(data)
+		setLoadButton(true)
+
+		const logged = await SingIn(data)
+
+		if (!logged) {
+			setLoadButton(false)
+		}
 	}
 
 	return (
@@ -121,14 +128,14 @@ export default function Login() {
 							<FormControl isRequired>
 								<Box id="login-email" margin='10px 40px'>
 									<FormLabel htmlFor='email' marginLeft='10px'>e-Mail:</FormLabel>
-									<Input type='email' {...register('email')} placeholder='Ex: nome.sobrenome@gmail.com' maxWidth='40vw' background='green.100'/>
+									<Input id="input-email" type='email' {...register('email')} placeholder='Ex: nome.sobrenome@gmail.com' maxWidth='40vw' background='green.100'/>
 									<FormHelperText fontWeight='bold'>
 										Não possui uma conta? <a href="/auth/register">Cadastre-se aqui</a>!
 									</FormHelperText>
 								</Box>
 								<Box id="login-pass" margin='10px 40px'>
 									<FormLabel htmlFor='password' marginLeft='10px'>Senha:</FormLabel>
-									<Input type='password' {...register('password')} placeholder='Jamais compartilhe sua senha!' maxWidth='40vw' background='green.100'/>
+									<Input id="input-password" type='password' {...register('password')} placeholder='Jamais compartilhe sua senha!' maxWidth='40vw' background='green.100'/>
 									<FormHelperText fontWeight='bold'>
 										Esqueceu sua senha? <a href="/auth/recovery">Recupere seu acesso aqui</a>!
 									</FormHelperText>
@@ -139,6 +146,7 @@ export default function Login() {
 									size='lg'
 									boxShadow='1px 1px 2px 2px rgba(0, 0, 0, 0.3)'
 									variant='mw_button'
+									isLoading={loadingButton}
 									type='submit'
 								>
 									Entrar

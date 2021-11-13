@@ -11,23 +11,30 @@ export function AuthProvider({ children }) {
 	const isAuthenticated = !!user
 
 	async function SingIn({ email='', password='' }) {
-		const { data, ...reqData } = await axios.post(
-			"http://localhost:8080/api/users/",
-			{
-				email,
-				password
-			}
-		)
-		// reloading user data
-		await setUser(data.data.user)
+		try {
+			const { data, ...reqData } = await axios.post(
+				"http://localhost:8080/api/users/",
+				{
+					email,
+					password
+				}
+			)
+			// reloading user data
+			await setUser(data.data.user)
 
-		// saving user auth on cookies
-		setCookie(undefined, 'myworkspace-user_id', user['id'], {
-			maxAge: 60 * 60 * 1, // 1 hour
-		})
+			// saving user auth on cookies
+			setCookie(undefined, 'myworkspace-user_id', data.data.user['id'], {
+				maxAge: 60 * 60 * 1, // 1 hour
+			})
 
-		// redirecting route
-		Router.push(`/users/${user['id']}`)
+			// redirecting route
+			Router.push(`/users/${data.data.user['id']}`)			
+		}
+		catch (error) {
+			console.log(error)
+		}
+
+		return user
 	}
 
 	return (
