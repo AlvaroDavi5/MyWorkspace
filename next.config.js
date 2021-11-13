@@ -2,7 +2,7 @@ const withPlugins = require('next-compose-plugins')
 const withPwa = require('next-pwa')
 const withImages = require('next-images')
 const dotenv = require('dotenv') // use environment variables to save sesitive data like API key
-dotenv.config({path:__dirname+'/./.env.development.local'})
+dotenv.config({path:__dirname+"/./env/.env.development.local"})
 
 
 module.exports = withPlugins([
