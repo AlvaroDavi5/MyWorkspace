@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 import { Scrollbars } from 'react-custom-scrollbars'
 import { 
-	Box, Flex, Button, IconButton, useColorModeValue, useDisclosure,
-	Input, Textarea, FormLabel, FormControl, FormHelperText,
+	useColorModeValue, useDisclosure,
+	Box, Flex, Button, IconButton, Input, Textarea,
 	Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton
 } from '@chakra-ui/react'
 import { IoCreateOutline } from 'react-icons/io5'
@@ -64,7 +64,10 @@ function ListItem(props) {
 	const descContinue = (((props.desc).toString()).length > 110) ? '...' : ''
 
 	return (
-		<TaskEditorModal isOpen={props.isOpenEdit} onOpen={props.onOpenEdit} onClose={props.onCloseEdit} bgColor={boxBgColor}/>,
+		<TaskEditorModal
+			isOpen={props.isOpenEdit} onOpen={props.onOpenEdit} onClose={props.onCloseEdit}
+			bgColor={boxBgColor}
+		/>,
 
 		<Flex
 			width='90vw'
@@ -137,6 +140,21 @@ export default function TasksPage() {
 	const { isOpen, onOpen, onClose } = useDisclosure()
 	const [ usr_id, setUserId ] = useState('')
 
+	function tasksRender() {
+		const tasks = []
+
+		for (let i = 0; i < 7; i++) {
+			tasks.push(
+				<ListItem
+					userId={usr_id} date='27/08/2021' name={`Task 0${i}`} desc='Nova tarefa.'
+					isOpenEdit={isOpen} onOpenEdit={onOpen} onCloseEdit={onClose}
+				/>
+			)
+		}
+
+		return tasks
+	}
+
 	useEffect(() => {
 		const { 'myworkspace-user_id': user_id } = parseCookies()
 
@@ -152,7 +170,10 @@ export default function TasksPage() {
 		<body>
 			<DocumentHead title="Tarefas"/>
 			<Navbar pageName="Tarefas"/>
-			<TaskEditorModal isOpen={isOpen} onOpen={onOpen} onClose={onClose} bgColor={boxBgColor}/>
+			<TaskEditorModal
+				isOpen={isOpen} onOpen={onOpen} onClose={onClose}
+				bgColor={boxBgColor}
+			/>
 
 			<Box
 				w='100%'
@@ -184,6 +205,13 @@ export default function TasksPage() {
 						<ListItem
 							userId={usr_id} date='27/08/2021' name='Task 01' desc='Primeira tarefa.'
 							isOpenEdit={isOpen} onOpenEdit={onOpen} onCloseEdit={onClose}
+						/>
+						{tasksRender()}
+						<Box
+							backgroundColor={pageBgColor}
+							width='90vw' height='120px'
+							marginTop='40px' marginBottom='40px'
+							marginLeft='20px' marginRight='20px'
 						/>
 					</Box>
 				</Scrollbars>
