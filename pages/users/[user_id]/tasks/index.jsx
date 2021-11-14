@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Scrollbars } from 'react-custom-scrollbars'
-import { 
+import {
 	useColorModeValue, useDisclosure,
 	Box, Flex, Button, IconButton, Input, Textarea,
 	Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton
@@ -133,7 +133,7 @@ function ListItem(props) {
 	)
 }
 
-export default function TasksPage() {
+export default function TasksPage({ taskList }) {
 	const colorMode = useColorModeValue('light', 'dark')
 	const pageBgColor = (colorMode == 'light'? 'clear_lake' : 'dark_forest')
 	const boxBgColor = (colorMode == 'light'? 'marine' : 'primary')
@@ -146,7 +146,8 @@ export default function TasksPage() {
 		for (let i = 0; i < 7; i++) {
 			tasks.push(
 				<ListItem
-					userId={usr_id} date='27/08/2021' name={`Task 0${i}`} desc='Nova tarefa.'
+					key={i}
+					userId={usr_id} date='27/08/2021' name={`Task ${i}`} desc='Nova tarefa.'
 					isOpenEdit={isOpen} onOpenEdit={onOpen} onCloseEdit={onClose}
 				/>
 			)
@@ -202,10 +203,6 @@ export default function TasksPage() {
 						marginLeft='40px'
 						marginRight='40px'
 					>
-						<ListItem
-							userId={usr_id} date='27/08/2021' name='Task 01' desc='Primeira tarefa.'
-							isOpenEdit={isOpen} onOpenEdit={onOpen} onCloseEdit={onClose}
-						/>
 						{tasksRender()}
 						<Box
 							backgroundColor={pageBgColor}
@@ -218,4 +215,18 @@ export default function TasksPage() {
 			</Box>
 		</body>
 	)
+}
+
+export async function getServerSideProps(context) {
+	const { 'myworkspace-user_id': user_id } = await parseCookies()
+
+	const req = await fetch(`http://localhost:8080/api/users/${user_id}/tasks`)
+	const tasksReq = await req.json()
+	const tasksList = await tasksReq['data']
+
+	return {
+		props: {
+			taskList: tasksList
+		}
+	}
 }
