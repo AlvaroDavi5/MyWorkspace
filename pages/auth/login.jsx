@@ -3,10 +3,11 @@ import { useForm } from 'react-hook-form'
 import {
 	useColorMode, useColorModeValue,
 	Center, Button, IconButton,
-	Box, Flex, Input,
+	Box, Flex, InputGroup, Input, InputRightElement,
 	FormLabel, FormControl, FormHelperText
 } from '@chakra-ui/react'
 import { BiSun, BiMoon } from 'react-icons/bi'
+import { FaEye, FaEyeSlash } from 'react-icons/fa'
 import { DiGithubBadge } from 'react-icons/di'
 import { AuthContext } from "./auth_context.jsx"
 import DocumentHead from "../components/document_head.jsx"
@@ -88,6 +89,8 @@ export default function Login() {
 	const pageBgColor = (colorMode == 'light'? 'clear_lake' : 'dark_forest')
 	const boxBgColor = (colorMode == 'light'? 'marine' : 'primary')
 	const [ loadingButton, setLoadButton ] = useState(false)
+	const [showPass, setShowPass] = useState(false)
+	const handleShowPass = () => { setShowPass(!showPass) }
 
 	async function handleSignIn(data) {
 		setLoadButton(true)
@@ -128,14 +131,29 @@ export default function Login() {
 							<FormControl isRequired>
 								<Box id="login-email" margin='10px 40px'>
 									<FormLabel htmlFor='email' marginLeft='10px'>e-Mail:</FormLabel>
-									<Input id="input-email" type='email' {...register('email')} placeholder='Ex: nome.sobrenome@gmail.com' maxWidth='40vw' background='green.100'/>
+									<Input id="input-email"
+										type='email' {...register('email')}
+										placeholder='Ex: nome.sobrenome@gmail.com'
+										maxWidth='40vw' background='green.100'
+									/>
 									<FormHelperText fontWeight='bold'>
 										Não possui uma conta? <a href="/auth/register">Cadastre-se aqui</a>!
 									</FormHelperText>
 								</Box>
 								<Box id="login-pass" margin='10px 40px'>
 									<FormLabel htmlFor='password' marginLeft='10px'>Senha:</FormLabel>
-									<Input id="input-password" type='password' {...register('password')} placeholder='Jamais compartilhe sua senha!' maxWidth='40vw' background='green.100'/>
+									<InputGroup>
+										<Input id="input-password"
+											type={showPass ? 'text' : 'password'} {...register('password')}
+											placeholder='Jamais compartilhe sua senha!'
+											maxWidth='40vw' background='green.100'
+										/>
+										<InputRightElement width="72px">
+											<Button onClick={handleShowPass} h="28px" size="sm" background='green.100'>
+												{showPass ? <FaEyeSlash size='20'/> : <FaEye size='20'/>}
+											</Button>
+										</InputRightElement>
+									</InputGroup>
 									<FormHelperText fontWeight='bold'>
 										Esqueceu sua senha? <a href="/auth/recovery">Recupere seu acesso aqui</a>!
 									</FormHelperText>
