@@ -7,16 +7,18 @@
 Approaching areas such as: development techniques, design patterns, mapping of domain, organization of tasks, agile methodologies and technological knowledge, directing the student(s) to a more professional contact in the field of study, software development and programming.
 <br/><br/>
 
-**General Description:** The idea of ​​the project is to create a platform aimed at teachers, so they can organize their tasks, projects and academic study contents.
+**General Description:** The idea of the project is to create a platform aimed at teachers, so they can organize their tasks, projects and academic study contents.
 <br/><br/>
 
 **Technical Details:** The platform will be accessed via the web, but it will be available to be installed as a webapp (PWA), allowing the larger user versatility, comfort in your desktop environment, quick access via icons, optimized navigation, greater fluidity, less concern with web connection (offline support), integration with hardware and firmware features (camera, location, contacts), and interaction by notifications.
 <br/><br/>
 
-## Technology:
+## 	Technologies:
 **Laguages:** JavaScript / TypeScript / JSX + HTML + CSS  
 **Framework:** Next.js  
 **UI-Tool:** Chakra-UI
+**ORM and Query Builder:** Sequelize
+**PWA Plugin:** Next-PWA
 <br/><br/>
 
 ## Color Palette:

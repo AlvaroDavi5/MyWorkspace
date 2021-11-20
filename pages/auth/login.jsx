@@ -1,4 +1,5 @@
-import React from 'react'
+import { useState, useContext } from 'react'
+import { useForm } from 'react-hook-form'
 import {
 	useColorMode, useColorModeValue,
 	Center, Button, IconButton,
@@ -7,6 +8,7 @@ import {
 } from '@chakra-ui/react'
 import { BiSun, BiMoon } from 'react-icons/bi'
 import { DiGithubBadge } from 'react-icons/di'
+import { AuthContext } from "./auth_context.jsx"
 import DocumentHead from "../components/document_head.jsx"
 
 
@@ -17,7 +19,7 @@ function Navbar(props) {
 	const iconColor = (colorMode == 'light'? 'black' : 'white')
 
 	return (
-		<Box
+		<Flex
 			bg={boxBgColor}
 			w='100%'
 			h='100px'
@@ -74,14 +76,28 @@ function Navbar(props) {
 					onClick={toggleColorMode}
 				/>
 			</div>
-		</Box>
+		</Flex>
 	)
 }
 
 export default function Login() {
+	const { register, handleSubmit } = useForm()
+	const { SingIn } = useContext(AuthContext)
+
 	const colorMode = useColorModeValue('light', 'dark')
 	const pageBgColor = (colorMode == 'light'? 'clear_lake' : 'dark_forest')
 	const boxBgColor = (colorMode == 'light'? 'marine' : 'primary')
+	const [ loadingButton, setLoadButton ] = useState(false)
+
+	async function handleSignIn(data) {
+		setLoadButton(true)
+
+		const logged = await SingIn(data)
+
+		if (!logged) {
+			setLoadButton(false)
+		}
+	}
 
 	return (
 		<body>
@@ -94,47 +110,49 @@ export default function Login() {
 				position='fixed'
 				backgroundColor={pageBgColor}
 				justifyContent='center'
-				>
+			>
 				<Box
-					h='410px'
-					w='50vw'
-					marginTop='60px'
-					marginLeft='50px'
-					marginRight='50px'
+					height='65vh'
+					width='50vw'
+					margin='60px'
 					boxShadow='1px 1px 10px 10px rgba(0, 0, 0, 0.1)'
 					borderRadius='20px'
 					backgroundColor={boxBgColor}
 					fontSize='xx-large'
 					textAlign='center'
+					justifyContent='center'
 				>
-					<h2>Entrar</h2>
+					<Box margin='10px'><h2>Entrar</h2></Box>
 					<Box id="login-form" margin="20px 50px 20px 50px">
-						<FormControl>
-							<Box id="login-email" margin='10px 40px'>
-								<FormLabel htmlFor='email' marginLeft='10px'>e-Mail:</FormLabel>
-								<Input type="email" placeholder='Ex: nome.sobrenome@gmail.com' background='green.100'/>
-								<FormHelperText fontWeight='bold'>
-									Não possui uma conta? <a href="/auth/register">Cadastre-se aqui</a>!
-								</FormHelperText>
-							</Box>
-							<Box id="login-pass" margin='10px 40px'>
-								<FormLabel htmlFor='password' marginLeft='10px'>Senha:</FormLabel>
-								<Input type="text" placeholder='Jamais compartilhe sua senha!' background='green.100'/>
-								<FormHelperText fontWeight='bold'>
-									Esqueceu sua senha? <a href="/auth/recovery">Recupere seu acesso aqui</a>!
-								</FormHelperText>
-							</Box>
-							<Button
-								id="login-submit-button"
-								margin='30px'
-								size='lg'
-								boxShadow='1px 1px 2px 2px rgba(0, 0, 0, 0.3)'
-								variant='mw_button'
-								onClick={() => {alert("Erro ao entrar")}}
-							>
-								Entrar
-							</Button>
-						</FormControl>
+						<form onSubmit={handleSubmit(handleSignIn)}>
+							<FormControl isRequired>
+								<Box id="login-email" margin='10px 40px'>
+									<FormLabel htmlFor='email' marginLeft='10px'>e-Mail:</FormLabel>
+									<Input id="input-email" type='email' {...register('email')} placeholder='Ex: nome.sobrenome@gmail.com' maxWidth='40vw' background='green.100'/>
+									<FormHelperText fontWeight='bold'>
+										Não possui uma conta? <a href="/auth/register">Cadastre-se aqui</a>!
+									</FormHelperText>
+								</Box>
+								<Box id="login-pass" margin='10px 40px'>
+									<FormLabel htmlFor='password' marginLeft='10px'>Senha:</FormLabel>
+									<Input id="input-password" type='password' {...register('password')} placeholder='Jamais compartilhe sua senha!' maxWidth='40vw' background='green.100'/>
+									<FormHelperText fontWeight='bold'>
+										Esqueceu sua senha? <a href="/auth/recovery">Recupere seu acesso aqui</a>!
+									</FormHelperText>
+								</Box>
+								<Button
+									id="login-submit-button"
+									margin='30px'
+									size='lg'
+									boxShadow='1px 1px 2px 2px rgba(0, 0, 0, 0.3)'
+									variant='mw_button'
+									isLoading={loadingButton}
+									type='submit'
+								>
+									Entrar
+								</Button>
+							</FormControl>
+						</form>
 					</Box>
 				</Box>
 			</Flex>

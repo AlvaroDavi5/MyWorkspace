@@ -10,33 +10,65 @@ import { useState, useEffect } from 'react'
 *? removeItem('item_key')
 *  * remove item from localStorage
 **/
-function storeTheme(defaultTheme=0) {
+function storeUserId(defaultId=0) {
 	// rendered on front-end
-	const [theme] = useState(null)
+	const [user_id] = useState(null)
 
 	// rendered on back-end
 	useEffect(() => {
-		localStorage.setItem('theme_value', Number(defaultTheme))
+		localStorage.setItem('user_id', Number(defaultId))
 	},
-		[theme]
+		[user_id]
 	)
 }
 
-function removeTheme() {
-	const [theme] = useState(null)
+function removeUserId() {
+	const [user_id] = useState(null)
 
 	useEffect(() => {
-		localStorage.removeItem('theme_value')
+		localStorage.removeItem('user_id')
 	},
-		[theme]
+		[user_id]
 	)
 }
 
-function getStoredTheme() {
+function getStoredUserId() {
 	const [value] = useState(null)
 
 	useEffect(() => {
-		localStorage.getItem('theme_value')
+		localStorage.getItem('user_id')
+	},
+		[value]
+	)
+
+	return value
+}
+
+function storeUserToken(defaultToken='') {
+	const [token] = useState(null)
+
+	useEffect(() => {
+		localStorage.setItem('user_token', String(defaultToken))
+	},
+		[token]
+	)
+}
+
+function removeUserToken() {
+	const [token] = useState(null)
+
+	useEffect(() => {
+		localStorage.removeItem('user_token')
+	},
+		[token]
+	)
+}
+
+function getStoredUserToken() {
+	const [value] = useState(null)
+
+	useEffect(() => {
+		localStorage.getItem('user_token')
 	},
 		[value]
 	)
@@ -45,4 +77,4 @@ function getStoredTheme() {
 }
 
 
-export { storeTheme, removeTheme, getStoredTheme }
+export { storeUserId, removeUserId, getStoredUserId, storeUserToken, removeUserToken, getStoredUserToken }

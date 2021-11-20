@@ -6,10 +6,18 @@ module.exports = {
 			{
 				name: "Alvaro",
 				email: "alvaro-alves@nomail.edu",
-				password: "senha_da_nasa123",
+				password: "ee7d81103f122bb171ce1eb2b8da9b44403f2b2da7924b48b3fafe0ba36b5a81",
 				phone: "27999999999",
 				cpf: "000.123.111-60",
 				uf: "BA"
+			},
+			{
+				name: "Davi",
+				email: "davi-santos@nomail.edu",
+				password: "senha_da_nasa123",
+				phone: "279898988998",
+				cpf: "000.124.111-60",
+				uf: "ES"
 			}
 		], {})
 	},

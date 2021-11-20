@@ -1,23 +1,23 @@
-import { AxiosAdapter } from 'axios'
-import { Op } from 'sequelize'
+import { getUserById, getPreferenceById, getPreferenceIdByUserId } from "../../../../services/userController.js"
 
 
-export default async function handler(request, response) {
+export default async function apiResponse(request, response) {
 	const { method, query } = request
 
 	try {
 		switch (request.method) {
 			/* get data from api */
 			case "GET":
+				const userReq = await getUserById(parseInt(query['user_id']))
+				const prefIdReq = await getPreferenceIdByUserId(userReq.id)
+				const prefReq = await getPreferenceById(prefIdReq)
+
 				return response.status(200).json(
 					{
 						success: true,
-						data: {
-							date: (new Date()).toLocaleDateString(),
-							pubs: "tecnologia"
-						},
 						query: query,
-						method: method
+						method: method,
+						data: { user: userReq, preference: prefReq }
 					}
 				)
 
@@ -25,10 +25,10 @@ export default async function handler(request, response) {
 			case "POST":
 				return response.status(201).json(
 					{
-						success: true,
-						data: { name: "John Smith" },
+						success: false,
 						query: query,
-						method: method
+						method: method,
+						message: "Post not allowed!"
 					}
 				)
 
@@ -36,16 +36,16 @@ export default async function handler(request, response) {
 				return response.status(401).json(
 					{
 						success: false,
-						data: "Unauthorized",
 						query: query,
-						method: method
+						method: method,
+						message: "Unauthorized"
 					}
 				)
 		}
 	}
 	catch ({ message }) {
-			/* return error */
-			return response.status(200).json(
+		/* return error */
+		return response.status(404).json(
 			{
 				success: false,
 				message: message

@@ -18,7 +18,7 @@ function Navbar(props) {
 	const iconColor = (colorMode == 'light'? 'black' : 'white')
 
 	return (
-		<Box
+		<Flex
 			bg={boxBgColor}
 			w='100%'
 			h='100px'
@@ -75,7 +75,7 @@ function Navbar(props) {
 					onClick={toggleColorMode}
 				/>
 			</div>
-		</Box>
+		</Flex>
 	)
 }
 
@@ -95,13 +95,11 @@ export default function Register() {
 				position='fixed'
 				backgroundColor={pageBgColor}
 				justifyContent='center'
-				>
-				<Box
-					h='420px'
-					w='70vw'
-					marginTop='60px'
-					marginLeft='50px'
-					marginRight='50px'
+			>
+				<Flex
+					h='70vh'
+					w='65vw'
+					margin='50px'
 					boxShadow='1px 1px 10px 10px rgba(0, 0, 0, 0.1)'
 					borderRadius='20px'
 					backgroundColor={boxBgColor}
@@ -113,18 +111,18 @@ export default function Register() {
 							<Box>
 								<Box id="register-username" margin='10px 40px'>
 									<FormLabel htmlFor='username' marginLeft='10px'>Nome de Usuário:</FormLabel>
-									<Input type="text" placeholder='Ex: meuApelido123@'  width='350px' background='green.100'/>
-									<FormHelperText fontWeight='bold'>
+									<Input type='text' placeholder='Ex: meuApelido123@'  maxWidth='27vw' background='green.100'/>
+									<FormHelperText fontWeight='bold' maxWidth='27vw'>
 										Use letras maiúsculas, minúsculas, números e símbolos
 									</FormHelperText>
 								</Box>
 								<Box id="register-email" margin='10px 40px'>
 									<FormLabel htmlFor='email' marginLeft='10px'>e-Mail:</FormLabel>
-									<Input type="email" placeholder='Ex: nome.sobrenome@gmail.com' width='350px' background='green.100'/>
+									<Input type='email' placeholder='Ex: nome.sobrenome@gmail.com' maxWidth='27vw' background='green.100'/>
 								</Box>
 								<Box id="register-pass" margin='10px 40px'>
 									<FormLabel htmlFor='password' marginLeft='10px'>Senha:</FormLabel>
-									<Input type="text" placeholder='Jamais compartilhe sua senha!' width='350px' background='green.100'/>
+									<Input type='text' maxLength='18' placeholder='Jamais compartilhe sua senha!' maxWidth='27vw' background='green.100'/>
 								</Box>
 							</Box>
 							<Box>
@@ -140,7 +138,7 @@ export default function Register() {
 								</Box>
 								<Box id="register-uf" margin='10px 40px'>
 									<FormLabel htmlFor='uf-estado' marginLeft='10px'>Estado:</FormLabel>
-									<Select placeholder='Selecione um Estado' width='250px' background='green.100'>
+									<Select placeholder='Selecione um Estado' minWidth='230px' background='green.100'>
 										<option value="1">BA</option>
 										<option value="2">ES</option>
 										<option value="3">MG</option>
@@ -159,21 +157,19 @@ export default function Register() {
 								>
 									Salvar
 								</Button>
-								<a href="/auth/login">
-									<Button
-										size='lg'
-										boxShadow='1px 1px 2px 2px rgba(0, 0, 0, 0.3)'
-										variant='ghost'
-										backgroundColor='red'
-										marginLeft='30%'
-									>
-										Cancelar
-									</Button>
-								</a>
+								<Button
+									size='lg'
+									boxShadow='1px 1px 2px 2px rgba(0, 0, 0, 0.3)'
+									variant='ghost'
+									backgroundColor='red'
+									marginLeft='30%'
+								>
+									Cancelar
+								</Button>
 							</Box>
 						</Box>
 					</Box>
-				</Box>
+				</Flex>
 			</Flex>
 		</body>
 	)
