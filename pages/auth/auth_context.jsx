@@ -12,6 +12,7 @@ export function AuthProvider({ children }) {
 
 	async function SingIn({ email='', password='' }) {
 		try {
+			// // change API URL after deploy | cloud database | hosting service implementation
 			const { data, ...reqData } = await axios.post(
 				"http://localhost:8080/api/users/",
 				{

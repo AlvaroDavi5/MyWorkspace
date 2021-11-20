@@ -7,3 +7,5 @@ export default function encrypt(password) {
 
 	return hashCode.toString()
 }
+
+// TODO: implement the Symmetric Encryption function in addition to the Hashing function
