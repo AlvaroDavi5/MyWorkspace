@@ -1,4 +1,4 @@
-import encrypt from "./encryptPass.js"
+import { encrypt } from "./encryptPass.js"
 const connection = require("../database/connection.js")
 const Users = require("../database/models/users.js")
 const UserPreferences = require("../database/models/user_preferences.js")
