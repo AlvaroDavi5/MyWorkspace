@@ -145,8 +145,7 @@ export default function TasksPage({ taskList }) {
 
 		for (let i = 0; i < 7; i++) {
 			tasks.push(
-				<ListItem
-					key={i}
+				<ListItem key={i}
 					userId={usr_id} date='27/08/2021' name={`Task ${i}`} desc='Nova tarefa.'
 					isOpenEdit={isOpen} onOpenEdit={onOpen} onCloseEdit={onClose}
 				/>

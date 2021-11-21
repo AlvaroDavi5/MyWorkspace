@@ -1,21 +1,21 @@
 import axios from 'axios'
 
 
-async function getPublicationsByCategory(category:String) {
+async function getAllBrazilStates() {
 
-	let query = await axios.get(`http://servicodados.ibge.gov.br/api/v1/publicacoes/${category}`)
-	const data = query.data
+	let query = await fetch("https://servicodados.ibge.gov.br/api/v1/localidades/estados")
+	const data = await query.json()
 
 	return data
 }
 
-async function getNews() {
+async function getBrazilState(uf:String) {
 
-	const publicationsRequest = await fetch("http://servicodados.ibge.gov.br/api/v3/noticias/")
-	const publicationsJson = await publicationsRequest.json()
+	let query = await fetch(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${uf}`)
+	const data = await query.json()
 
-	return publicationsJson
+	return data
 }
 
 
-export { getPublicationsByCategory, getNews }
+export { getAllBrazilStates, getBrazilState }

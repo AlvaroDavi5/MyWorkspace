@@ -9,6 +9,7 @@ import { BiSun, BiMoon } from 'react-icons/bi'
 import { DiGithubBadge } from 'react-icons/di'
 import { FaUserCircle } from 'react-icons/fa'
 import DocumentHead from "../components/document_head.jsx"
+import { getAllBrazilStates } from "../../services/apiRequester"
 
 
 function Navbar(props) {
@@ -79,10 +80,20 @@ function Navbar(props) {
 	)
 }
 
-export default function Register() {
+export default function Register({ stateList }) {
 	const colorMode = useColorModeValue('light', 'dark')
 	const pageBgColor = (colorMode == 'light'? 'clear_lake' : 'dark_forest')
 	const boxBgColor = (colorMode == 'light'? 'marine' : 'primary')
+
+	function stateOptionsRender() {
+		return stateList.map(state => {
+			return (
+				<option key={state.id} value={state.sigla}>
+					{state.nome}
+				</option>
+			)
+		})
+	}
 
 	return (
 		<body>
@@ -139,9 +150,7 @@ export default function Register() {
 								<Box id="register-uf" margin='10px 40px'>
 									<FormLabel htmlFor='uf-estado' marginLeft='10px'>Estado:</FormLabel>
 									<Select placeholder='Selecione um Estado' minWidth='230px' background='green.100'>
-										<option value="1">BA</option>
-										<option value="2">ES</option>
-										<option value="3">MG</option>
+										{stateOptionsRender()}
 									</Select>
 								</Box>
 							</Box>
@@ -173,4 +182,15 @@ export default function Register() {
 			</Flex>
 		</body>
 	)
+}
+
+export async function getServerSideProps(context) {
+
+	const statesList = await getAllBrazilStates()
+
+	return {
+		props: {
+			stateList: statesList
+		}
+	}
 }
