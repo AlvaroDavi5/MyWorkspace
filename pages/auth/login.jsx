@@ -2,8 +2,8 @@ import { useState, useContext } from 'react'
 import { useForm } from 'react-hook-form'
 import {
 	useColorModeValue,
-	Button,
-	Box, Flex, InputGroup, Input, InputRightElement,
+	Box, Flex, Button,
+	Input, InputGroup, InputRightElement,
 	FormLabel, FormControl, FormHelperText
 } from '@chakra-ui/react'
 import { FaEye, FaEyeSlash } from 'react-icons/fa'
@@ -14,7 +14,7 @@ import MinNavbar from "../components/min_navbar.jsx"
 
 export default function Login() {
 	const { register, handleSubmit } = useForm()
-	const { SingIn } = useContext(AuthContext)
+	const { SignIn } = useContext(AuthContext)
 
 	const colorMode = useColorModeValue('light', 'dark')
 	const pageBgColor = (colorMode == 'light' ? 'clear_lake' : 'dark_forest')
@@ -26,7 +26,7 @@ export default function Login() {
 	async function handleSignIn(data) {
 		setLoadButton(true)
 
-		const logged = await SingIn(data)
+		const logged = await SignIn(data)
 
 		if (!logged) {
 			setLoadButton(false)
@@ -62,7 +62,7 @@ export default function Login() {
 							<FormControl isRequired>
 								<Box id="login-email" margin='10px 40px'>
 									<FormLabel htmlFor='email' marginLeft='10px'>e-Mail:</FormLabel>
-									<Input id="input-email"
+									<Input
 										type='email' {...register('email')}
 										placeholder='Ex: nome.sobrenome@gmail.com'
 										maxWidth='40vw' background='green.100'
@@ -74,7 +74,7 @@ export default function Login() {
 								<Box id="login-pass" margin='10px 40px'>
 									<FormLabel htmlFor='password' marginLeft='10px'>Senha:</FormLabel>
 									<InputGroup>
-										<Input id="input-password"
+										<Input
 											type={showPass ? 'text' : 'password'} {...register('password')}
 											placeholder='Jamais compartilhe sua senha!'
 											maxWidth='40vw' background='green.100'

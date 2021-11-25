@@ -1,4 +1,4 @@
-import React from 'react'
+import { useRef } from 'react'
 import {
 	useDisclosure,
 	useColorMode, useColorModeValue,
@@ -14,54 +14,54 @@ import { DiGithubBadge } from 'react-icons/di'
 
 function MenuDrawer() {
 	const { isOpen, onOpen, onClose } = useDisclosure()
-	const btnRef = React.useRef()
+	const btnRef = useRef()
 	const colorMode = useColorModeValue('light', 'dark')
 	const boxBgColor = (colorMode == 'light' ? 'marine' : 'primary')
 
 	return (
 		<>
-		<Button
-			ref={btnRef}
-			variant='ghost'
-			color='black'
-			bg={boxBgColor}
-			boxShadow='1px 1px 2px 2px rgba(0, 0, 0, 0.3)'
-			onClick={onOpen}
-			height='10'
-		>
-			<MdMenu size='30'/>
-		</Button>
+			<Button
+				ref={btnRef}
+				variant='ghost'
+				color='black'
+				bg={boxBgColor}
+				boxShadow='1px 1px 2px 2px rgba(0, 0, 0, 0.3)'
+				onClick={onOpen}
+				height='10'
+			>
+				<MdMenu size='30'/>
+			</Button>
 
-		<Drawer
-			isOpen={isOpen}
-			placement='right'
-			onClose={onClose}
-			finalFocusRef={btnRef}
-		>
-			<DrawerOverlay/>
-			<DrawerContent>
-				<DrawerCloseButton
-					boxShadow='1px 1px 2px 2px rgba(0, 0, 0, 0.3)'
-				/>
-				<DrawerHeader background={boxBgColor}>
-					Menu
-				</DrawerHeader>
+			<Drawer
+				isOpen={isOpen}
+				placement='right'
+				onClose={onClose}
+				finalFocusRef={btnRef}
+			>
+				<DrawerOverlay/>
+				<DrawerContent>
+					<DrawerCloseButton
+						boxShadow='1px 1px 2px 2px rgba(0, 0, 0, 0.3)'
+					/>
+					<DrawerHeader background={boxBgColor}>
+						Menu
+					</DrawerHeader>
 
-				<DrawerBody size='xs' background={boxBgColor}>
-					<a href="https://api.nasa.gov/">
-						<Button
-							size='lg'
-							boxShadow='1px 1px 2px 2px rgba(0, 0, 0, 0.3)'
-							variant='mw_button'
-						>
-							API
-						</Button>
-					</a>
-				</DrawerBody>
+					<DrawerBody size='xs' background={boxBgColor}>
+						<a href="https://api.nasa.gov/">
+							<Button
+								size='lg'
+								boxShadow='1px 1px 2px 2px rgba(0, 0, 0, 0.3)'
+								variant='mw_button'
+							>
+								API
+							</Button>
+						</a>
+					</DrawerBody>
 
-				<DrawerFooter background={boxBgColor}/>
-			</DrawerContent>
-		</Drawer>
+					<DrawerFooter background={boxBgColor}/>
+				</DrawerContent>
+			</Drawer>
 		</>
 	)
 }

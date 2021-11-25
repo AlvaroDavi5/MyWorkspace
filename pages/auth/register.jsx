@@ -1,20 +1,36 @@
-import React from 'react'
+import { useState } from 'react'
+import { useForm } from 'react-hook-form'
 import {
 	useColorModeValue,
-	Button,
-	Box, Flex, Input, Select,
+	Box, Flex, Button, Select,
+	Input, InputGroup, InputRightElement,
 	FormLabel, FormControl, FormHelperText
 } from '@chakra-ui/react'
-import { FaUserCircle } from 'react-icons/fa'
+import { FaEye, FaEyeSlash, FaUserCircle } from 'react-icons/fa'
 import DocumentHead from "../components/document_head.jsx"
 import { getAllBrazilStates } from "../../services/apiRequester"
 import MinNavbar from "../components/min_navbar.jsx"
 
 
 export default function Register({ stateList }) {
+	const { register, handleSubmit } = useForm()
+
 	const colorMode = useColorModeValue('light', 'dark')
 	const pageBgColor = (colorMode == 'light' ? 'clear_lake' : 'dark_forest')
 	const boxBgColor = (colorMode == 'light' ? 'marine' : 'primary')
+	const [ loadingButton, setLoadButton ] = useState(false)
+	const [showPass, setShowPass] = useState(false)
+	const handleShowPass = () => { setShowPass(!showPass) }
+
+	async function handleSignUp(data) {
+		setLoadButton(true)
+
+		const logged = await SignIn(data)
+
+		if (!logged) {
+			setLoadButton(false)
+		}
+	}
 
 	function stateOptionsRender() {
 		return stateList.map(state => {
@@ -63,8 +79,19 @@ export default function Register({ stateList }) {
 									<Input type='email' placeholder='Ex: nome.sobrenome@gmail.com' maxWidth='27vw' background='green.100'/>
 								</Box>
 								<Box id="register-pass" margin='10px 40px'>
-									<FormLabel htmlFor='password' marginLeft='10px'>Senha:</FormLabel>
-									<Input type='text' maxLength='18' placeholder='Jamais compartilhe sua senha!' maxWidth='27vw' background='green.100'/>
+									<InputGroup>
+										<FormLabel htmlFor='password' marginLeft='10px'>Senha:</FormLabel>
+										<Input
+											type={showPass ? 'text' : 'password'} {...register('password')}
+											placeholder='Jamais compartilhe sua senha!'
+											maxLength='18' maxWidth='27vw' background='green.100'
+										/>
+										<InputRightElement width="72px">
+											<Button onClick={handleShowPass} h="28px" size="sm" background='green.100'>
+												{showPass ? <FaEyeSlash size='20'/> : <FaEye size='20'/>}
+											</Button>
+										</InputRightElement>
+									</InputGroup>
 								</Box>
 							</Box>
 							<Box>
