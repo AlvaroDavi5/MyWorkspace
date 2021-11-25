@@ -65,6 +65,23 @@ async function getAllUsers() {
 	}
 }
 
+async function searchUser(email) {
+	Users.init(connection)
+
+	try {
+		const user = await Users.findOne({
+			where: {
+				email: email
+			}
+		})
+
+		return !!user
+	}
+	catch ({ message }) {
+		return false
+	}
+}
+
 async function getUserByCredentials(email, password) {
 	Users.init(connection)
 
@@ -214,5 +231,5 @@ async function deletePreference(preference) {
 }
 
 
-export { createUser, getUserById, getAllUsers, getUserByCredentials, updateUser, deleteUser,
+export { createUser, getUserById, getAllUsers, searchUser, getUserByCredentials, updateUser, deleteUser,
 createPreference, getPreferenceById, getAllPreferences, getPreferenceIdByUserId, updatePreferences, deletePreference }

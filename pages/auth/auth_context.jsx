@@ -7,13 +7,14 @@ import axios from 'axios'
 
 export const AuthContext = createContext({})
 
+export const toastStatuses = [
+	['success', "Login realizado com sucesso", "Tudo certo! Aguarde enquanto carregamos seu espaço de trabalho..."],
+	['error', "Login ou senha incorretos", "Por favor, verifique suas credenciais e tente novamente."],
+	['warning', "Oops!", "Algo inesperado aconteceu, por favor, tente novamente dentro de alguns instantes!"]
+]
+
 export function AuthProvider({ children }) {
 	const toast = useToast()
-	const toastStatuses = [
-		['success', "Login realizado com sucesso", "Tudo certo! Aguarde enquanto carregamos seu espaço de trabalho..."],
-		['error', "Login ou senha incorretos", "Por favor, verifique suas credenciais e tente novamente."],
-		['warning', "Oops!", "Algo inesperado aconteceu, por favor, tente novamente dentro de alguns instantes!"]
-	]
 	const [ user, setUser ] = useState(null)
 	const isAuthenticated = !!user
 
