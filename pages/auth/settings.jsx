@@ -12,10 +12,10 @@ import DocumentHead from "../components/document_head.jsx"
 
 
 function Navbar(props) {
-	const { colorMode,  toggleColorMode } = useColorMode()
-	const boxBgColor = (colorMode == 'light'? 'marine' : 'primary')
-	const textColor = (colorMode == 'light'? 'white' : 'black')
-	const iconColor = (colorMode == 'light'? 'black' : 'white')
+	const { colorMode, toggleColorMode } = useColorMode()
+	const boxBgColor = (colorMode == 'light' ? 'marine' : 'primary')
+	const textColor = (colorMode == 'light' ? 'white' : 'black')
+	const iconColor = (colorMode == 'light' ? 'black' : 'white')
 
 	return (
 		<Box
@@ -66,7 +66,7 @@ function Navbar(props) {
 				flex='1'
 			>
 				<IconButton
-					icon={colorMode == 'light'? <BiMoon size='30'/> : <BiSun size='30'/>}
+					icon={colorMode == 'light' ? <BiMoon size='30'/> : <BiSun size='30'/>}
 					variant='ghost'
 					backgroundColor={boxBgColor}
 					color='black'
@@ -81,8 +81,8 @@ function Navbar(props) {
 
 export default function Register() {
 	const colorMode = useColorModeValue('light', 'dark')
-	const pageBgColor = (colorMode == 'light'? 'clear_lake' : 'dark_forest')
-	const boxBgColor = (colorMode == 'light'? 'marine' : 'primary')
+	const pageBgColor = (colorMode == 'light' ? 'clear_lake' : 'dark_forest')
+	const boxBgColor = (colorMode == 'light' ? 'marine' : 'primary')
 
 	return (
 		<body>
@@ -113,7 +113,7 @@ export default function Register() {
 							<Box marginLeft='20px' marginRight='10px'>
 								<Box id="register-username" margin='10px 40px'>
 									<FormLabel htmlFor='username' marginLeft='10px'>Nome de Usuário:</FormLabel>
-									<Input type='text' placeholder='Ex: meuApelido123@'  width='350px' background='green.100'/>
+									<Input type='text' placeholder='Ex: meuApelido123@' width='350px' background='green.100'/>
 								</Box>
 								<Box id="register-pass" margin='20px 40px'>
 									<FormLabel htmlFor='password' marginLeft='10px'>Senha:</FormLabel>

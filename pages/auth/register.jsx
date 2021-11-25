@@ -1,89 +1,20 @@
 import React from 'react'
 import {
-	useColorMode, useColorModeValue,
-	Center, Button, IconButton,
+	useColorModeValue,
+	Button,
 	Box, Flex, Input, Select,
 	FormLabel, FormControl, FormHelperText
 } from '@chakra-ui/react'
-import { BiSun, BiMoon } from 'react-icons/bi'
-import { DiGithubBadge } from 'react-icons/di'
 import { FaUserCircle } from 'react-icons/fa'
 import DocumentHead from "../components/document_head.jsx"
 import { getAllBrazilStates } from "../../services/apiRequester"
+import MinNavbar from "../components/min_navbar.jsx"
 
-
-function Navbar(props) {
-	const { colorMode,  toggleColorMode } = useColorMode()
-	const boxBgColor = (colorMode == 'light'? 'marine' : 'primary')
-	const textColor = (colorMode == 'light'? 'white' : 'black')
-	const iconColor = (colorMode == 'light'? 'black' : 'white')
-
-	return (
-		<Flex
-			bg={boxBgColor}
-			w='100%'
-			h='100px'
-			p={5}
-			color='black'
-			boxShadow='1px 1px 2px 2px rgba(0, 0, 0, 0.3)'
-			boxSizing='border-box'
-			padding='10px 15px'
-			display='flex'
-			justifyContent='space-between'
-			alignItems='center'
-		>
-			<div
-				className="logo"
-			>
-				<a href="https://github.com/AlvaroDavi5/MyWorkspace"
-				>
-					<Button
-						size='xl'
-						boxShadow='1px 1px 2px 2px rgba(0, 0, 0, 0.3)'
-						color={iconColor}
-						variant='mw_button'
-						bg={textColor}
-						padding='5px'
-						display='list-item'
-					>
-						<DiGithubBadge size='60'/>
-					</Button>
-				</a>
-			</div>
-
-			<Center
-				color='black'
-				display='inline-block'
-				justifySelf='center'
-				textAlign='center'
-				margin='5px'
-				fontSize='xx-large'
-			>
-				{props.pageName}
-			</Center>
-
-			<div
-				className="menu-button"
-				flex='1'
-			>
-				<IconButton
-					icon={colorMode == 'light'? <BiMoon size='30'/> : <BiSun size='30'/>}
-					variant='ghost'
-					backgroundColor={boxBgColor}
-					color='black'
-					marginRight='50px'
-					boxShadow='1px 1px 2px 2px rgba(0, 0, 0, 0.3)'
-					onClick={toggleColorMode}
-				/>
-			</div>
-		</Flex>
-	)
-}
 
 export default function Register({ stateList }) {
 	const colorMode = useColorModeValue('light', 'dark')
-	const pageBgColor = (colorMode == 'light'? 'clear_lake' : 'dark_forest')
-	const boxBgColor = (colorMode == 'light'? 'marine' : 'primary')
+	const pageBgColor = (colorMode == 'light' ? 'clear_lake' : 'dark_forest')
+	const boxBgColor = (colorMode == 'light' ? 'marine' : 'primary')
 
 	function stateOptionsRender() {
 		return stateList.map(state => {
@@ -98,7 +29,7 @@ export default function Register({ stateList }) {
 	return (
 		<body>
 			<DocumentHead title="Registre para usar a plataforma"/>
-			<Navbar pageName="Registrar no MyWorkspace"/>
+			<MinNavbar pageName="Registrar no MyWorkspace"/>
 
 			<Flex
 				w='100%'
@@ -122,7 +53,7 @@ export default function Register({ stateList }) {
 							<Box>
 								<Box id="register-username" margin='10px 40px'>
 									<FormLabel htmlFor='username' marginLeft='10px'>Nome de Usuário:</FormLabel>
-									<Input type='text' placeholder='Ex: meuApelido123@'  maxWidth='27vw' background='green.100'/>
+									<Input type='text' placeholder='Ex: meuApelido123@' maxWidth='27vw' background='green.100'/>
 									<FormHelperText fontWeight='bold' maxWidth='27vw'>
 										Use letras maiúsculas, minúsculas, números e símbolos
 									</FormHelperText>

@@ -7,7 +7,7 @@ import Navbar from "../../../components/navbar.jsx"
 
 export default function BibliographiesPage() {
 	const colorMode = useColorModeValue('light', 'dark')
-	const pageBgColor = (colorMode == 'light'? 'clear_lake' : 'dark_forest')
+	const pageBgColor = (colorMode == 'light' ? 'clear_lake' : 'dark_forest')
 	const [ usr_id, setUserId ] = useState('')
 
 	useEffect(() => {

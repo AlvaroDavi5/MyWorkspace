@@ -26,7 +26,7 @@ function TaskEditorModal(props) {
 				<ModalBody>
 					<Input marginTop='20px' type='text' maxLength='95' placeholder='Nome da tarefa' maxWidth='23vw' background='green.100'/>
 					<Input marginTop='20px' type='date' maxWidth='15vw' marginLeft='20px' background='green.100'/>
-					<Textarea  marginTop='20px'  type='text' maxLength='350' placeholder='Descrição da tarefa' background='green.100'/>
+					<Textarea marginTop='20px' type='text' maxLength='350' placeholder='Descrição da tarefa' background='green.100'/>
 				</ModalBody>
 
 				<ModalFooter>
@@ -59,7 +59,7 @@ function TaskEditorModal(props) {
 
 function ListItem(props) {
 	const colorMode = useColorModeValue('light', 'dark')
-	const boxBgColor = (colorMode == 'light'? 'marine' : 'primary')
+	const boxBgColor = (colorMode == 'light' ? 'marine' : 'primary')
 	const nameContinue = (((props.name).toString()).length > 55) ? '...' : ''
 	const descContinue = (((props.desc).toString()).length > 110) ? '...' : ''
 
@@ -135,8 +135,8 @@ function ListItem(props) {
 
 export default function TasksPage({ taskList }) {
 	const colorMode = useColorModeValue('light', 'dark')
-	const pageBgColor = (colorMode == 'light'? 'clear_lake' : 'dark_forest')
-	const boxBgColor = (colorMode == 'light'? 'marine' : 'primary')
+	const pageBgColor = (colorMode == 'light' ? 'clear_lake' : 'dark_forest')
+	const boxBgColor = (colorMode == 'light' ? 'marine' : 'primary')
 	const { isOpen, onOpen, onClose } = useDisclosure()
 	const [ usr_id, setUserId ] = useState('')
 
