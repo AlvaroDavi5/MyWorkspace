@@ -1,4 +1,4 @@
-import { getUserById, getPreferenceIdByUserId, getPreferenceById, createPreference, updatePreferences, deletePreference } from "../../../services/userController.js"
+import { getUserByCredentials, getPreferenceIdByUserId, getPreferenceById } from "../../../../services/userController.js"
 
 
 export default async function apiResponse(request, response) {
@@ -6,8 +6,11 @@ export default async function apiResponse(request, response) {
 
 	try {
 		switch (request.method) {
-			case "GET":
-				const userReq = await getUserById(null)
+			case "POST":
+				const userReq = await getUserByCredentials(
+					body['email'],
+					body['password']
+				)
 				const prefReq = await getPreferenceById(await getPreferenceIdByUserId(userReq.id))
 
 				return response.status(201).json(

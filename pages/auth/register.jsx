@@ -79,8 +79,8 @@ export default function Register({ stateList }) {
 									<Input type='email' placeholder='Ex: nome.sobrenome@gmail.com' maxWidth='27vw' background='green.100'/>
 								</Box>
 								<Box id="register-pass" margin='10px 40px'>
+									<FormLabel htmlFor='password' marginLeft='10px'>Senha:</FormLabel>
 									<InputGroup>
-										<FormLabel htmlFor='password' marginLeft='10px'>Senha:</FormLabel>
 										<Input
 											type={showPass ? 'text' : 'password'} {...register('password')}
 											placeholder='Jamais compartilhe sua senha!'

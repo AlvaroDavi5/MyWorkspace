@@ -13,7 +13,7 @@ const UserPreferences = require("../database/models/user_preferences.js")
 */
 async function createUser(name, email, password, phone, cpf, uf, returnId) {
 	Users.init(connection)
-	const pass = encrypt(password)
+	const pass = await encrypt(password)
 
 	try {
 		const user = await Users.create(

@@ -17,11 +17,11 @@ export function AuthProvider({ children }) {
 	const [ user, setUser ] = useState(null)
 	const isAuthenticated = !!user
 
-	async function SingIn({ email='', password='' }) {
+	async function SignIn({ email='', password='' }) {
 		try {
 			// // change API URL after deploy | cloud database | hosting service implementation
 			const { data, ...reqData } = await axios.post(
-				"http://localhost:8080/api/users/",
+				"http://localhost:8080/api/auth/login/",
 				{
 					email,
 					password
@@ -64,7 +64,7 @@ export function AuthProvider({ children }) {
 	}
 
 	return (
-		<AuthContext.Provider value={ {user, isAuthenticated, SingIn} }>
+		<AuthContext.Provider value={ {user, isAuthenticated, SignIn} }>
 			{ children }
 		</AuthContext.Provider>
 	)
