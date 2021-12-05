@@ -38,7 +38,7 @@ function Card(props) {
 				<Box
 					marginTop='15px'
 				>
-					{props.cardName}
+					{props.children}
 				</Box>
 			</a>
 		</Box>
@@ -73,21 +73,15 @@ export default function Home() {
 				backgroundColor={pageBgColor}
 				justifyContent='space-between'
 			>
-				<Card
-					cardName="Projetos"
-					pageHref={`${usr_id}/projects`}
-					imgSource="../assets/projects.png"
-				/>
-				<Card
-					cardName="Tarefas"
-					pageHref={`${usr_id}/tasks`}
-					imgSource="../assets/tasks.png"
-				/>
-				<Card
-					cardName="Consultas Bibliográficas"
-					pageHref={`${usr_id}/bibliographies`}
-					imgSource="../assets/bibliographies.png"
-				/>
+				<Card pageHref={`${usr_id}/projects`} imgSource="../assets/projects.png">
+					Projetos
+				</Card>
+				<Card pageHref={`${usr_id}/tasks`} imgSource="../assets/tasks.png">
+					Tarefas
+				</Card>
+				<Card pageHref={`${usr_id}/bibliographies`} imgSource="../assets/bibliographies.png">
+					Consultas Bibliográficas
+				</Card>
 			</Flex>
 		</body>
 	)
