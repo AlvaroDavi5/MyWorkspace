@@ -7,7 +7,7 @@ dotenv.config({path:__dirname+"/./env/.env.development.local"})
 
 module.exports = withPlugins([
 	[
-		/* allow import images from any dir */
+		/* allow import images from any dir (not working after withPlugins integration) */
 		withImages,
 		{
 			fileExtensions: ["jpg", "jpeg", "png", "gif"],
