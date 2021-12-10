@@ -8,25 +8,29 @@ import {
 import { IoCreateOutline } from 'react-icons/io5'
 import { FaTrashAlt, FaEdit } from 'react-icons/fa'
 import { parseCookies } from 'nookies'
-import axios from 'axios'
 import DocumentHead from "../../../components/document_head.jsx"
 import Navbar from "../../../components/navbar.jsx"
 
 
 function TaskEditorModal(props) {
 	return (
-		<Modal isOpen={props.isOpen} onClose={props.onClose} size='xl' scrollBehavior='outside'>
+		<Modal
+			isOpen={props.isOpen} onClose={props.onClose}
+			size='xl' scrollBehavior='outside'
+			blockScrollOnMount={true} closeOnOverlayClick={false}
+		>
 			<ModalOverlay/>
 			<ModalContent bgColor={props.bgColor}>
 				<ModalHeader>
 					Criar/Editar Tarefa
 				</ModalHeader>
-		
 				<ModalCloseButton/>
+
 				<ModalBody>
-					<Input marginTop='20px' type='text' maxLength='95' placeholder='Nome da tarefa' maxWidth='23vw' background='green.100'/>
-					<Input marginTop='20px' type='date' maxWidth='15vw' marginLeft='20px' background='green.100'/>
-					<Textarea  marginTop='20px'  type='text' maxLength='350' placeholder='Descrição da tarefa' background='green.100'/>
+					<Input type='text' maxLength='95' placeholder='Nome da tarefa' maxWidth='95%' marginTop='20px' marginLeft='10px' marginRight='10px' background='green.100'/><br/>
+					<Input type='date' maxWidth='14vw' marginTop='20px' marginLeft='10%' background='green.100'/>
+					<Input type='time' maxWidth='9vw' marginTop='20px' marginLeft='10%' background='green.100'/>
+					<Textarea type='text' maxLength='350' placeholder='Descrição da tarefa' marginTop='20px' background='green.100'/>
 				</ModalBody>
 
 				<ModalFooter>
@@ -59,9 +63,37 @@ function TaskEditorModal(props) {
 
 function ListItem(props) {
 	const colorMode = useColorModeValue('light', 'dark')
-	const boxBgColor = (colorMode == 'light'? 'marine' : 'primary')
+	const boxBgColor = (colorMode == 'light' ? 'marine' : 'primary')
 	const nameContinue = (((props.name).toString()).length > 55) ? '...' : ''
 	const descContinue = (((props.desc).toString()).length > 110) ? '...' : ''
+	const date = new Date(props.date)
+	const actualDate = new Date()
+
+	const dateDiffInDays = (date.getTime() - actualDate.getTime()) / (1000 * 3600 * 24)
+	let datePriorityColor = "blue"
+	if (dateDiffInDays < 5) {
+		datePriorityColor = "red"
+	}
+	else if (dateDiffInDays < 10) {
+		datePriorityColor = "orange"
+	}
+	else if (dateDiffInDays > 0) {
+		datePriorityColor = "green"
+	}
+	else {
+		datePriorityColor = "blue"
+	}
+
+	function dateFormatter(date) {
+		const strDate = date.toString()
+
+		if (strDate.length == 1) {
+			return '0' + strDate
+		}
+		else {
+			return strDate
+		}
+	}
 
 	return (
 		<TaskEditorModal
@@ -80,17 +112,21 @@ function ListItem(props) {
 			justifyContent='space-between'
 		>
 			<Box
-				backgroundColor='red'
+				backgroundColor={datePriorityColor}
 				borderRadius='10px'
 				height='20pt'
-				width='100px'
+				width='110px'
 				marginTop='25px'
 				marginLeft='15px'
 				justifyContent='center'
 				alignContent='center'
 				textAlign='center'
 			>
-				{props.date}
+				{
+					` ${dateFormatter(date.getDate()+1)}
+					/ ${dateFormatter(date.getMonth()+1)}
+					/ ${date.getFullYear()} `
+				}
 			</Box>
 			<Flex
 				justifyContent='center'
@@ -135,19 +171,19 @@ function ListItem(props) {
 
 export default function TasksPage({ taskList }) {
 	const colorMode = useColorModeValue('light', 'dark')
-	const pageBgColor = (colorMode == 'light'? 'clear_lake' : 'dark_forest')
-	const boxBgColor = (colorMode == 'light'? 'marine' : 'primary')
+	const pageBgColor = (colorMode == 'light' ? 'clear_lake' : 'dark_forest')
+	const boxBgColor = (colorMode == 'light' ? 'marine' : 'primary')
 	const { isOpen, onOpen, onClose } = useDisclosure()
 	const [ usr_id, setUserId ] = useState('')
 
 	function tasksRender() {
 		const tasks = []
 
-		for (let i = 0; i < 7; i++) {
+		for (let i = 0; i < taskList.length; i++) {
 			tasks.push(
-				<ListItem
-					key={i}
-					userId={usr_id} date='27/08/2021' name={`Task ${i}`} desc='Nova tarefa.'
+				<ListItem key={(taskList[0]).id}
+					userId={usr_id} date={`${(taskList[0]).deadline_date}`}
+					name={`${(taskList[0]).name}`} desc={`${(taskList[0]).description}`}
 					isOpenEdit={isOpen} onOpenEdit={onOpen} onCloseEdit={onClose}
 				/>
 			)
@@ -218,15 +254,14 @@ export default function TasksPage({ taskList }) {
 }
 
 export async function getServerSideProps(context) {
-	const { 'myworkspace-user_id': user_id } = await parseCookies()
+	const user_id = (context.query)['user_id']
 
 	const req = await fetch(`http://localhost:8080/api/users/${user_id}/tasks`)
 	const tasksReq = await req.json()
-	const tasksList = await tasksReq['data']
 
 	return {
 		props: {
-			taskList: tasksList
+			taskList: tasksReq.data
 		}
 	}
 }

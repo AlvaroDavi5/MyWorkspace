@@ -8,7 +8,7 @@ import style from "./style/home.module.css"
 
 function Card(props) {
 	const colorMode = useColorModeValue('light', 'dark')
-	const boxBgColor = (colorMode == 'light'? 'marine' : 'primary')
+	const boxBgColor = (colorMode == 'light' ? 'marine' : 'primary')
 
 	return (
 		<Box
@@ -38,7 +38,7 @@ function Card(props) {
 				<Box
 					marginTop='15px'
 				>
-					{props.cardName}
+					{props.children}
 				</Box>
 			</a>
 		</Box>
@@ -47,7 +47,7 @@ function Card(props) {
 
 export default function Home() {
 	const colorMode = useColorModeValue('light', 'dark')
-	const pageBgColor = (colorMode == 'light'? 'clear_lake' : 'dark_forest')
+	const pageBgColor = (colorMode == 'light' ? 'clear_lake' : 'dark_forest')
 	const [ usr_id, setUserId ] = useState('')
 
 	useEffect(() => {
@@ -73,21 +73,15 @@ export default function Home() {
 				backgroundColor={pageBgColor}
 				justifyContent='space-between'
 			>
-				<Card
-					cardName="Projetos"
-					pageHref={`${usr_id}/projects`}
-					imgSource="../assets/projects.png"
-				/>
-				<Card
-					cardName="Tarefas"
-					pageHref={`${usr_id}/tasks`}
-					imgSource="../assets/tasks.png"
-				/>
-				<Card
-					cardName="Consultas Bibliográficas"
-					pageHref={`${usr_id}/bibliographies`}
-					imgSource="../assets/bibliographies.png"
-				/>
+				<Card pageHref={`${usr_id}/projects`} imgSource="../assets/projects.png">
+					Projetos
+				</Card>
+				<Card pageHref={`${usr_id}/tasks`} imgSource="../assets/tasks.png">
+					Tarefas
+				</Card>
+				<Card pageHref={`${usr_id}/bibliographies`} imgSource="../assets/bibliographies.png">
+					Consultas Bibliográficas
+				</Card>
 			</Flex>
 		</body>
 	)

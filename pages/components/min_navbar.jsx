@@ -1,72 +1,13 @@
-import { useRef } from 'react'
 import {
-	useDisclosure,
-	useColorMode, useColorModeValue,
-	Center, Button, IconButton,
-	Flex, Drawer,
-	DrawerHeader, DrawerBody, DrawerFooter,
-	DrawerOverlay, DrawerContent, DrawerCloseButton
+	useColorMode,
+	Flex,
+	Center, Button, IconButton
 } from '@chakra-ui/react'
-import { MdMenu } from 'react-icons/md'
 import { BiSun, BiMoon } from 'react-icons/bi'
 import { DiGithubBadge } from 'react-icons/di'
 
 
-function MenuDrawer() {
-	const { isOpen, onOpen, onClose } = useDisclosure()
-	const btnRef = useRef()
-	const colorMode = useColorModeValue('light', 'dark')
-	const boxBgColor = (colorMode == 'light' ? 'marine' : 'primary')
-
-	return (
-		<>
-			<Button
-				ref={btnRef}
-				variant='ghost'
-				color='black'
-				bg={boxBgColor}
-				boxShadow='1px 1px 2px 2px rgba(0, 0, 0, 0.3)'
-				onClick={onOpen}
-				height='10'
-			>
-				<MdMenu size='30'/>
-			</Button>
-
-			<Drawer
-				isOpen={isOpen}
-				placement='right'
-				onClose={onClose}
-				finalFocusRef={btnRef}
-			>
-				<DrawerOverlay/>
-				<DrawerContent>
-					<DrawerCloseButton
-						boxShadow='1px 1px 2px 2px rgba(0, 0, 0, 0.3)'
-					/>
-					<DrawerHeader background={boxBgColor}>
-						Menu
-					</DrawerHeader>
-
-					<DrawerBody size='xs' background={boxBgColor}>
-						<a href="https://api.nasa.gov/">
-							<Button
-								size='lg'
-								boxShadow='1px 1px 2px 2px rgba(0, 0, 0, 0.3)'
-								variant='mw_button'
-							>
-								API
-							</Button>
-						</a>
-					</DrawerBody>
-
-					<DrawerFooter background={boxBgColor}/>
-				</DrawerContent>
-			</Drawer>
-		</>
-	)
-}
-
-export default function Navbar(props) {
+export default function MinNavbar(props) {
 	const { colorMode, toggleColorMode } = useColorMode()
 	const boxBgColor = (colorMode == 'light' ? 'marine' : 'primary')
 	const textColor = (colorMode == 'light' ? 'white' : 'black')
@@ -129,7 +70,6 @@ export default function Navbar(props) {
 					boxShadow='1px 1px 2px 2px rgba(0, 0, 0, 0.3)'
 					onClick={toggleColorMode}
 				/>
-				<MenuDrawer/>
 			</div>
 		</Flex>
 	)

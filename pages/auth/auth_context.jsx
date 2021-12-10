@@ -7,21 +7,22 @@ import axios from 'axios'
 
 export const AuthContext = createContext({})
 
+export const toastStatuses = [
+	['success', "Login realizado com sucesso", "Tudo certo! Aguarde enquanto carregamos seu espaço de trabalho..."],
+	['error', "Login ou senha incorretos", "Por favor, verifique suas credenciais e tente novamente."],
+	['warning', "Oops!", "Algo inesperado aconteceu, por favor, tente novamente dentro de alguns instantes!"]
+]
+
 export function AuthProvider({ children }) {
 	const toast = useToast()
-	const toastStatuses = [
-		['success', "Login realizado com sucesso", "Tudo certo! Aguarde enquanto carregamos seu espaço de trabalho..."],
-		['error', "Login ou senha incorretos", "Por favor, verifique suas credenciais e tente novamente."],
-		['warning', "Oops!", "Algo inesperado aconteceu, por favor, tente novamente dentro de alguns instantes!"]
-	]
 	const [ user, setUser ] = useState(null)
 	const isAuthenticated = !!user
 
-	async function SingIn({ email='', password='' }) {
+	async function SignIn({ email='', password='' }) {
 		try {
 			// // change API URL after deploy | cloud database | hosting service implementation
 			const { data, ...reqData } = await axios.post(
-				"http://localhost:8080/api/users/",
+				"http://localhost:8080/api/auth/login/",
 				{
 					email,
 					password
@@ -64,7 +65,7 @@ export function AuthProvider({ children }) {
 	}
 
 	return (
-		<AuthContext.Provider value={ {user, isAuthenticated, SingIn} }>
+		<AuthContext.Provider value={ {user, isAuthenticated, SignIn} }>
 			{ children }
 		</AuthContext.Provider>
 	)

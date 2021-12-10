@@ -14,7 +14,7 @@ module.exports = {
 			{
 				name: "Davi",
 				email: "davi-santos@nomail.edu",
-				password: "senha_da_nasa123",
+				password: "3c1adf97d2248bd1318703065adda1e9c07b67f869d490931549e51e2a8ba159",
 				phone: "279898988998",
 				cpf: "000.124.111-60",
 				uf: "ES"

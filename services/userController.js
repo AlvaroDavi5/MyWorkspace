@@ -13,7 +13,7 @@ const UserPreferences = require("../database/models/user_preferences.js")
 */
 async function createUser(name, email, password, phone, cpf, uf, returnId) {
 	Users.init(connection)
-	const pass = encrypt(password)
+	const pass = await encrypt(password)
 
 	try {
 		const user = await Users.create(
@@ -62,6 +62,23 @@ async function getAllUsers() {
 	}
 	catch ({ message }) {
 		return null
+	}
+}
+
+async function searchUser(email) {
+	Users.init(connection)
+
+	try {
+		const user = await Users.findOne({
+			where: {
+				email: email
+			}
+		})
+
+		return !!user
+	}
+	catch ({ message }) {
+		return false
 	}
 }
 
@@ -214,5 +231,5 @@ async function deletePreference(preference) {
 }
 
 
-export { createUser, getUserById, getAllUsers, getUserByCredentials, updateUser, deleteUser,
+export { createUser, getUserById, getAllUsers, searchUser, getUserByCredentials, updateUser, deleteUser,
 createPreference, getPreferenceById, getAllPreferences, getPreferenceIdByUserId, updatePreferences, deletePreference }
