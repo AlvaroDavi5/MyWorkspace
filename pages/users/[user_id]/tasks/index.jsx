@@ -254,7 +254,7 @@ export default function TasksPage({ taskList }) {
 }
 
 export async function getServerSideProps(context) {
-	const { 'myworkspace-user_id': user_id } = await parseCookies()
+	const user_id = (context.query)['user_id']
 
 	const req = await fetch(`http://localhost:8080/api/users/${user_id}/tasks`)
 	const tasksReq = await req.json()
