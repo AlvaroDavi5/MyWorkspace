@@ -35,8 +35,9 @@ yarn-error.log*
 *.docx
 *.xlsx
 # PWA configs
-public/workbox-*.js*
 public/sw.js*
+public/workbox-*.js*
+public/fallback-*.js*
 # others
 TODO.txt
 
