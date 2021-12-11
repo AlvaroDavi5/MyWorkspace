@@ -109,3 +109,10 @@ export default function Login() {
 		</body>
 	)
 }
+
+export async function getServerSideProps(context) {
+
+	return {
+		context: context
+	}
+}
