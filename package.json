@@ -10,9 +10,9 @@
 	"scripts": {
 		"dev": "next dev -p 8080",
 		"build": "next build",
-		"start": "next start",
-		"format": "prettier --write \"./**/*.{js,json}\"",
-		"lint": "next lint"
+		"start": "next start -p 3000",
+		"lint": "next lint",
+		"format": "prettier --write \"./**/*.{js,ts,jsx,tsx,json}\""
 	},
 	"dependencies": {
 		"@chakra-ui/icons": "^1.1.1",
