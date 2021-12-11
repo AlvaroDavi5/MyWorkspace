@@ -27,7 +27,7 @@ function Card(props) {
 			<a
 				href={props.pageHref}
 			>
-				<Image
+				<Image alt={`${props.children} image`}
 					borderRadius='20px'
 					width='94%'
 					height='70%'

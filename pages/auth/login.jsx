@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { useState, useContext } from 'react'
 import { useForm } from 'react-hook-form'
 import {
@@ -68,7 +69,7 @@ export default function Login() {
 										maxWidth='40vw' background='green.100'
 									/>
 									<FormHelperText fontWeight='bold'>
-										Não possui uma conta? <a href="/auth/register">Cadastre-se aqui</a>!
+										Não possui uma conta? <Link href="/auth/register" passHref>Cadastre-se aqui</Link>!
 									</FormHelperText>
 								</Box>
 								<Box id="login-pass" margin='10px 40px'>
@@ -86,7 +87,7 @@ export default function Login() {
 										</InputRightElement>
 									</InputGroup>
 									<FormHelperText fontWeight='bold'>
-										Esqueceu sua senha? <a href="/auth/recovery">Recupere seu acesso aqui</a>!
+										Esqueceu sua senha? <Link href="/auth/recovery" passHref>Recupere seu acesso aqui</Link>!
 									</FormHelperText>
 								</Box>
 								<Button
