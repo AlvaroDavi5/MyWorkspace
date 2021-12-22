@@ -13,7 +13,7 @@ export const toastStatuses = [
 	['warning', "Oops!", "Algo inesperado aconteceu, por favor, tente novamente dentro de alguns instantes!"]
 ]
 
-export function AuthProvider({ children }) {
+export default function AuthProvider({ children }) {
 	const toast = useToast()
 	const [ user, setUser ] = useState(null)
 	const isAuthenticated = !!user
@@ -44,7 +44,7 @@ export function AuthProvider({ children }) {
 
 			// saving user auth on cookies
 			setCookie(undefined, 'myworkspace-user_id', data.data.user['id'], {
-				maxAge: 60 * 60 * 1, // 1 hour
+				maxAge: 60 * 60 * 1 // 1 hour
 			})
 
 			// redirecting route
@@ -69,4 +69,11 @@ export function AuthProvider({ children }) {
 			{ children }
 		</AuthContext.Provider>
 	)
+}
+
+export async function getServerSideProps(context) {
+
+	return {
+		context: context
+	}
 }

@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import {
@@ -148,9 +149,9 @@ export default function Register({ stateList }) {
 								<Box>
 									<Box id="register-image" justifyContent='center' margin='10px 40px'>
 										<Box margin='40px 10px 10px 80px'>
-											<a href="">
+											<Link href="" passHref>
 												<FaUserCircle size='90px'/>
-											</a>
+											</Link>
 										</Box>
 										<Box fontWeight='bold' fontSize='12pt' marginBottom='50px'>
 											Escolher imagem de perfil
@@ -180,7 +181,7 @@ export default function Register({ stateList }) {
 									>
 										Salvar
 									</Button>
-									<a href="/">
+									<Link href="/" passHref>
 										<Button
 											size='lg'
 											boxShadow='1px 1px 2px 2px rgba(0, 0, 0, 0.3)'
@@ -190,7 +191,7 @@ export default function Register({ stateList }) {
 										>
 											Cancelar
 										</Button>
-									</a>
+									</Link>
 								</Box>
 							</Box>
 						</form>
@@ -201,7 +202,7 @@ export default function Register({ stateList }) {
 	)
 }
 
-export async function getServerSideProps(context) {
+export async function getStaticProps(context) {
 
 	const statesList = await getAllBrazilStates()
 

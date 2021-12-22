@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import {
 	useColorMode,
 	Flex,
@@ -30,7 +31,7 @@ export default function MinNavbar(props) {
 			<div
 				className="logo"
 			>
-				<a href="https://github.com/AlvaroDavi5/MyWorkspace"
+				<Link href="https://github.com/AlvaroDavi5/MyWorkspace" passHref
 				>
 					<Button
 						size='xl'
@@ -43,7 +44,7 @@ export default function MinNavbar(props) {
 					>
 						<DiGithubBadge size='60'/>
 					</Button>
-				</a>
+				</Link>
 			</div>
 
 			<Center

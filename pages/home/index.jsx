@@ -27,7 +27,7 @@ function Card(props) {
 			<a
 				href={props.pageHref}
 			>
-				<Image
+				<Image alt={`${props.children} image`}
 					borderRadius='20px'
 					width='94%'
 					height='70%'
@@ -45,7 +45,7 @@ function Card(props) {
 	)
 }
 
-export default function Home() {
+export default function Home(props) {
 	const colorMode = useColorModeValue('light', 'dark')
 	const pageBgColor = (colorMode == 'light' ? 'clear_lake' : 'dark_forest')
 	const [ usr_id, setUserId ] = useState('')
@@ -53,7 +53,7 @@ export default function Home() {
 	useEffect(() => {
 		const { 'myworkspace-user_id': user_id } = parseCookies()
 
-		if (user_id) {
+		if (parseInt(user_id) == parseInt(props.user_id)) {
 			setUserId(parseInt(user_id))
 		}
 		else {

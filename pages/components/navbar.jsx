@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { useRef } from 'react'
 import {
 	useDisclosure,
@@ -48,7 +49,7 @@ function MenuDrawer() {
 					</DrawerHeader>
 
 					<DrawerBody size='xs' background={boxBgColor}>
-						<a href="https://api.nasa.gov/">
+						<Link href="https://api.nasa.gov/" passHref>
 							<Button
 								size='lg'
 								boxShadow='1px 1px 2px 2px rgba(0, 0, 0, 0.3)'
@@ -56,7 +57,7 @@ function MenuDrawer() {
 							>
 								API
 							</Button>
-						</a>
+						</Link>
 					</DrawerBody>
 
 					<DrawerFooter background={boxBgColor}/>
@@ -89,7 +90,7 @@ export default function Navbar(props) {
 			<div
 				className="logo"
 			>
-				<a href="https://github.com/AlvaroDavi5/MyWorkspace"
+				<Link href="https://github.com/AlvaroDavi5/MyWorkspace" passHref
 				>
 					<Button
 						size='xl'
@@ -102,7 +103,7 @@ export default function Navbar(props) {
 					>
 						<DiGithubBadge size='60'/>
 					</Button>
-				</a>
+				</Link>
 			</div>
 
 			<Center
