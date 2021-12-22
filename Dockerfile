@@ -11,8 +11,7 @@ USER root
 COPY package*.json *.lock ./
 RUN yarn install
 COPY ./ ./
-RUN pwd && ls -a
-CMD [ "npm", "run", "db_config", " && ", "npm", "run", "dev" ]
+CMD [ "npm", "run", "dev" ]
 
 VOLUME [ ".docker/docker_containers:/app" ]
 EXPOSE 8080

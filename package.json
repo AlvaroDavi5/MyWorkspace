@@ -11,6 +11,7 @@
 		"dev": "next dev -p 8080",
 		"build": "next build",
 		"start": "next start -p 3000",
+		"db_config": "yarn sequelize db:drop && yarn sequelize db:create && yarn sequelize db:migrate && yarn sequelize db:seed:all",
 		"lint": "next lint",
 		"format": "prettier --write \"./**/*.{js,ts,jsx,tsx,json}\""
 	},

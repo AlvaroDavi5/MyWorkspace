@@ -32,7 +32,7 @@ services:
     ports:
       - 8080:8080
     volumes:
-      - ./.docker/docker_containers:/app
+      - .:/home/node/MyWorkspace
     depends_on:
      - db
     links:
