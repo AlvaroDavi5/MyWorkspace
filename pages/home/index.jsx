@@ -45,7 +45,7 @@ function Card(props) {
 	)
 }
 
-export default function Home({ context }) {
+export default function Home(props) {
 	const colorMode = useColorModeValue('light', 'dark')
 	const pageBgColor = (colorMode == 'light' ? 'clear_lake' : 'dark_forest')
 	const [ usr_id, setUserId ] = useState('')
@@ -53,7 +53,7 @@ export default function Home({ context }) {
 	useEffect(() => {
 		const { 'myworkspace-user_id': user_id } = parseCookies()
 
-		if (user_id) {
+		if (parseInt(user_id) == parseInt(props.user_id)) {
 			setUserId(parseInt(user_id))
 		}
 		else {
@@ -85,13 +85,4 @@ export default function Home({ context }) {
 			</Flex>
 		</body>
 	)
-}
-
-export async function getInitialProps(context) {
-
-	return {
-		props: {
-			context: context
-		}
-	}
 }
