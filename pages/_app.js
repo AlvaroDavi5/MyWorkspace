@@ -8,15 +8,14 @@ import "./styles/globals.css"
 function MyApp({ Component, pageProps }) {
 	return (
 		<ChakraProvider resetCSS theme={theme}>
-				<ColorModeProvider
-					options={ {} }
-				>
-					<ColorModeScript/>
-
-					<AuthProvider>
-						<Component {...pageProps}/>
-					</AuthProvider>
-				</ColorModeProvider>
+			<ColorModeScript/>
+			<ColorModeProvider
+				options={ {} }
+			>
+				<AuthProvider>
+					<Component {...pageProps}/>
+				</AuthProvider>
+			</ColorModeProvider>
 		</ChakraProvider>
 	)
 }

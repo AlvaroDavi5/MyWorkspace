@@ -202,7 +202,7 @@ export default function Register({ stateList }) {
 	)
 }
 
-export async function getServerSideProps(context) {
+export async function getStaticProps(context) {
 
 	const statesList = await getAllBrazilStates()
 

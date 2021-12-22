@@ -13,7 +13,7 @@ import DocumentHead from "../components/document_head.jsx"
 import MinNavbar from "../components/min_navbar.jsx"
 
 
-export default function Login() {
+export default function Login({ context }) {
 	const { register, handleSubmit } = useForm()
 	const { SignIn } = useContext(AuthContext)
 
@@ -110,9 +110,11 @@ export default function Login() {
 	)
 }
 
-export async function getServerSideProps(context) {
+export async function getInitialProps(context) {
 
 	return {
-		context: context
+		props: {
+			context: context
+		}
 	}
 }

@@ -45,7 +45,7 @@ function Card(props) {
 	)
 }
 
-export default function Home() {
+export default function Home({ context }) {
 	const colorMode = useColorModeValue('light', 'dark')
 	const pageBgColor = (colorMode == 'light' ? 'clear_lake' : 'dark_forest')
 	const [ usr_id, setUserId ] = useState('')
@@ -85,4 +85,13 @@ export default function Home() {
 			</Flex>
 		</body>
 	)
+}
+
+export async function getInitialProps(context) {
+
+	return {
+		props: {
+			context: context
+		}
+	}
 }

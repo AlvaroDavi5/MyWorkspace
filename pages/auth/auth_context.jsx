@@ -44,7 +44,7 @@ export default function AuthProvider({ children }) {
 
 			// saving user auth on cookies
 			setCookie(undefined, 'myworkspace-user_id', data.data.user['id'], {
-				maxAge: 60 * 60 * 1, // 1 hour
+				maxAge: 60 * 60 * 1 // 1 hour
 			})
 
 			// redirecting route
