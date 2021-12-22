@@ -1,0 +1,39 @@
+
+# Docker Compose Version
+version: "3.7"
+
+# Containers
+services:
+
+  # Backend
+  db:
+    image: postgres:latest
+    container_name: MyWorkspace-DB_PostgreSQL
+    #restart: always
+    environment:
+      POSTGRES_PASSWORD: pass
+      POSTGRES_DB: myworkspace_db
+    user: root
+    #command: sudo -u postgres createuser db_user; sudo -u postgres createdb myworkspace_db; sudo -u postgres psql;
+    # psql=# alter user db_user with encrypted password 'pass';
+    # psql=# grant all privileges on database myworkspace_db to db_user;
+    volumes:
+      - ./.docker/docker_containers:/db
+    ports:
+      - 5432:5432
+
+  # Frontend
+  app:
+    # Refered Dockerfile
+    build: ./
+    container_name: MyWorkspace-App_NodeJS
+    command: npm run dev
+    user: root
+    ports:
+      - 8080:8080
+    volumes:
+      - ./.docker/docker_containers:/app
+    depends_on:
+     - db
+    links:
+     - db
