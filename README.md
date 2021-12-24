@@ -17,14 +17,23 @@ Check the [Considerations](#package-manager-considerations) to understand the re
 After, run the development server with _npm_:
 ```sh
 # run the development server
+yarn run dev
+
+	# or
+
 npm run dev
 ```
 
 Or run the production server:
 ```sh
 # run the build process
+yarn run build
+# start production server
+yarn start
+
+	# or
+
 npm run build
-# start server
 npm start
 ```
 
@@ -41,6 +50,4 @@ ___
 
 ## package-manager-considerations
 
-The packages used need to be installed via yarn, due to incompatibility of dependencies by npm. However, after installed certain packages need to be runned via npm, due to yarn restrictions.
-So use yarn to install and npm to run.
-
+The packages used need to be installed via yarn, due to the incompatibility of dependencies by npm. However, once installed, the application can be runned via yarn or npm.
