@@ -13,6 +13,6 @@ RUN yarn install
 COPY ./ ./
 CMD [ "npm", "run", "dev" ]
 
-VOLUME [ ".docker/docker_containers:/app" ]
+#VOLUME [ "/home/node/MyWorkspace" ]
 EXPOSE 8080
 #ENTRYPOINT ["/usr/bin/node", "-D", "FOREGROUND"]

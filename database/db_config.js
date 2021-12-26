@@ -7,7 +7,7 @@ module.exports = {
 	database: process.env.DB_NAME, // database name
 	username: process.env.DB_USERNAME, // database username
 	password: process.env.DB_PASSWORD, // database password
-	host: process.env.DB_HOST,
+	host: process.env.DB_HOST || 'db' || 'localhost', // database host (change to 'db' if you use docker or to 'localhost' if you use local machine)
 	charset: 'utf8',
 	dialect: process.env.DB_DBMS_NAME, // one of 'mysql' | 'mariadb' | 'postgres' | 'mssql'
 	port: process.env.DB_PORT,
