@@ -3,6 +3,7 @@ import Router from 'next/router'
 import { useToast } from '@chakra-ui/react'
 import { setCookie } from 'nookies'
 import axios from 'axios'
+import globals_variables from "../../config/globals/modifiable.js"
 
 
 export const AuthContext = createContext({})
@@ -22,7 +23,7 @@ export default function AuthProvider({ children }) {
 		try {
 			// // change API URL after deploy | cloud database | hosting service implementation
 			const { data, ...reqData } = await axios.post(
-				"http://localhost:8080/api/auth/login/",
+				`${globals_variables.general.app_url}/api/auth/login/`,
 				{
 					email,
 					password

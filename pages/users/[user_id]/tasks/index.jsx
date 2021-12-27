@@ -10,6 +10,7 @@ import { FaTrashAlt, FaEdit } from 'react-icons/fa'
 import { parseCookies } from 'nookies'
 import DocumentHead from "../../../components/document_head.jsx"
 import Navbar from "../../../components/navbar.jsx"
+import globals_variables from "../../../../config/globals/modifiable.js"
 
 
 function TaskEditorModal(props) {
@@ -256,7 +257,7 @@ export default function TasksPage({ taskList }) {
 export async function getServerSideProps(context) {
 	const user_id = (context.query)['user_id']
 
-	const req = await fetch(`http://localhost:8080/api/users/${user_id}/tasks`)
+	const req = await fetch(`${globals_variables.general.app_url}/api/users/${user_id}/tasks`)
 	const tasksReq = await req.json()
 
 	return {

@@ -1,16 +1,15 @@
-const path = require('path')
-const dotenv = require('dotenv')
-dotenv.config({path:__dirname+"/../env/.env.development.local"})
+const globals_variables = require("../config/globals/modifiable.js")
+const static_dotenv = require("../config/globals/static_dotenv.js")
 
 
 module.exports = {
-	database: process.env.DB_NAME, // database name
-	username: process.env.DB_USERNAME, // database username
-	password: process.env.DB_PASSWORD, // database password
-	host: process.env.DB_HOST || 'db' || 'localhost', // database host (change to 'db' if you use docker or to 'localhost' if you use local machine)
-	charset: 'utf8',
-	dialect: process.env.DB_DBMS_NAME, // one of 'mysql' | 'mariadb' | 'postgres' | 'mssql'
-	port: process.env.DB_PORT,
+	database: static_dotenv.db.database, // database name
+	username: static_dotenv.db.username, // database username
+	password: static_dotenv.db.password, // database password
+	host: globals_variables.db.host, // database host (change to 'db' if you use docker or to 'localhost' if you use local machine)
+	charset: 'utf8', // database charset encoding
+	dialect: static_dotenv.db.dialect, // one of 'mysql' | 'mariadb' | 'postgres' | 'mssql'
+	port: static_dotenv.db.port, // database port
 	define: {
 		underscored: true, // underscored name of fields
 		timestamps: true, // to created_at and updated_at

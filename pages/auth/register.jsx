@@ -13,6 +13,7 @@ import { toastStatuses } from "../auth/auth_context.jsx"
 import DocumentHead from "../components/document_head.jsx"
 import { getAllBrazilStates } from "../../services/apiRequester"
 import MinNavbar from "../components/min_navbar.jsx"
+import globals_variables from "../../config/globals/modifiable.js"
 
 
 export default function Register({ stateList }) {
@@ -31,7 +32,7 @@ export default function Register({ stateList }) {
 
 		try {
 			const reqData = await axios.post(
-				"http://localhost:8080/api/auth/register/",
+				`${globals_variables.general.app_url}/api/auth/register/`,
 				{
 					name: data.username,
 					email: data.email,

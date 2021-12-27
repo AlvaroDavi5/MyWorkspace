@@ -1,6 +1,5 @@
 import { SHA256, AES } from 'crypto-js'
-const dotenv = require('dotenv')
-dotenv.config({path:__dirname+"/../env/.env.development.local"})
+import static_dotenv from "../config/globals/static_dotenv.js"
 
 
 function encrypt(passwd) {
@@ -13,7 +12,7 @@ function encrypt(passwd) {
 
 function generateToken(user_id) {
 
-	const cypher = AES.encrypt(user_id, process.env.CRYPTO_KEY)
+	const cypher = AES.encrypt(`${user_id}`, static_dotenv.secure.secret_key)
 	const token = cypher.toString()
 
 	return token
