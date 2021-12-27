@@ -43,7 +43,7 @@ async function getUserById(id) {
 	Users.init(connection)
 
 	try {
-		const user = await Users.findByPk(id)
+		const user = await Users.scope('withoutSensibleData').findByPk(id)
 
 		return user
 	}
@@ -56,7 +56,7 @@ async function getAllUsers() {
 	Users.init(connection)
 
 	try {
-		const users = await Users.findAll()
+		const users = await Users.scope('withoutSensibleData').findAll()
 
 		return users
 	}
@@ -93,7 +93,14 @@ async function getUserByCredentials(email, password) {
 			}
 		})
 
-		return user
+		return {
+			id: user.id,
+			name: user.name,
+			email: user.email,
+			phone: user.phone,
+			cpf: user.cpf,
+			uf: user.uf
+		}
 	}
 	catch ({ message }) {
 		return null
