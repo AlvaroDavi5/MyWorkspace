@@ -9,7 +9,8 @@ export default async function apiResponse(request, response) {
 			case "GET":
 				const bibliographiesReq = await getAllBibliographies()
 
-				return response.status(201).json(
+				// ? OK
+				return response.status(200).json(
 					{
 						success: true,
 						query: query,
@@ -26,6 +27,7 @@ export default async function apiResponse(request, response) {
 					false
 				)
 
+				// ? Created
 				return response.status(201).json(
 					{
 						success: biblioReq,
@@ -36,6 +38,7 @@ export default async function apiResponse(request, response) {
 				)
 
 			default:
+				// ? Unauthorized
 				return response.status(401).json(
 					{
 						success: false,
@@ -47,6 +50,7 @@ export default async function apiResponse(request, response) {
 		}
 	}
 	catch ({ message }) {
+		// ? Not found
 		return response.status(404).json(
 			{
 				success: false,

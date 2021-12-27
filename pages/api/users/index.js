@@ -3,6 +3,7 @@ export default async function apiResponse(request, response) {
 	const { method, query } = request
 
 	try {
+			// ? Unauthorized
 			return response.status(401).json(
 				{
 					success: false,
@@ -13,7 +14,8 @@ export default async function apiResponse(request, response) {
 			)
 	}
 	catch ({ message }) {
-		return response.status(404).json(
+		// ? Service Unavailable
+		return response.status(503).json(
 			{
 				success: false,
 				message: message

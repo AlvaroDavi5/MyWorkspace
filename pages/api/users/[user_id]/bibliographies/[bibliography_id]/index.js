@@ -9,6 +9,7 @@ export default async function apiResponse(request, response) {
 			case "GET":
 				const biblioReq = await getBibliographyById(parseInt(query['bibliography_id']))
 
+				// ? OK
 				return response.status(200).json(
 					{
 						success: true,
@@ -19,7 +20,8 @@ export default async function apiResponse(request, response) {
 				)
 
 			case "POST":
-				return response.status(201).json(
+				// ? Forbidden
+				return response.status(403).json(
 					{
 						success: false,
 						query: query,
@@ -29,6 +31,7 @@ export default async function apiResponse(request, response) {
 				)
 
 			default:
+				// ? Unauthorized
 				return response.status(401).json(
 					{
 						success: false,
@@ -40,6 +43,7 @@ export default async function apiResponse(request, response) {
 		}
 	}
 	catch ({ message }) {
+		// ? Not found
 		return response.status(404).json(
 			{
 				success: false,

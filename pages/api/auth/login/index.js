@@ -13,7 +13,8 @@ export default async function apiResponse(request, response) {
 				)
 				const prefReq = await getPreferenceById(await getPreferenceIdByUserId(userReq.id))
 
-				return response.status(201).json(
+				// ? OK
+				return response.status(200).json(
 					{
 						success: true,
 						query: query,
@@ -23,6 +24,7 @@ export default async function apiResponse(request, response) {
 				)
 
 			default:
+				// ? Unauthorized
 				return response.status(401).json(
 					{
 						success: false,
@@ -34,6 +36,7 @@ export default async function apiResponse(request, response) {
 		}
 	}
 	catch ({ message }) {
+		// ? Not Found
 		return response.status(404).json(
 			{
 				success: false,

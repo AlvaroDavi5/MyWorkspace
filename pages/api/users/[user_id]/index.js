@@ -12,6 +12,7 @@ export default async function apiResponse(request, response) {
 				const prefIdReq = await getPreferenceIdByUserId(userReq.id)
 				const prefReq = await getPreferenceById(prefIdReq)
 
+				// ? OK
 				return response.status(200).json(
 					{
 						success: true,
@@ -23,7 +24,8 @@ export default async function apiResponse(request, response) {
 
 			/* post new data on api */
 			case "POST":
-				return response.status(201).json(
+				// ? Forbidden
+				return response.status(403).json(
 					{
 						success: false,
 						query: query,
@@ -33,6 +35,7 @@ export default async function apiResponse(request, response) {
 				)
 
 			default:
+				// ? Unauthorized
 				return response.status(401).json(
 					{
 						success: false,
@@ -45,6 +48,7 @@ export default async function apiResponse(request, response) {
 	}
 	catch ({ message }) {
 		/* return error */
+		// ? Not Found
 		return response.status(404).json(
 			{
 				success: false,

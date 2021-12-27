@@ -9,7 +9,8 @@ export default async function apiResponse(request, response) {
 			case "GET":
 				const tasksReq = await getAllTasksByUserId(parseInt(query['user_id']))
 
-				return response.status(201).json(
+				// ? OK
+				return response.status(200).json(
 					{
 						success: true,
 						query: query,
@@ -26,7 +27,8 @@ export default async function apiResponse(request, response) {
 					body['description'],
 					false
 				)
-
+					
+				// ? Created
 				return response.status(201).json(
 					{
 						success: taskReq,
@@ -37,6 +39,7 @@ export default async function apiResponse(request, response) {
 				)
 
 			default:
+				// ? Unauthorized
 				return response.status(401).json(
 					{
 						success: false,
@@ -48,6 +51,7 @@ export default async function apiResponse(request, response) {
 		}
 	}
 	catch ({ message }) {
+		// ? Not Found
 		return response.status(404).json(
 			{
 				success: false,

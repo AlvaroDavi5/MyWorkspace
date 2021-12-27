@@ -8,8 +8,10 @@ export default async function apiResponse(request, response) {
 		switch (request.method) {
 			case "POST":
 				const userAlreadyExists = await searchUser(body.email)
+
 				if (userAlreadyExists) {
-					return response.status(201).json(
+					// ? Conflict
+					return response.status(409).json(
 						{
 							success: !userAlreadyExists,
 							query: query,
@@ -30,7 +32,8 @@ export default async function apiResponse(request, response) {
 				)
 				const created = await !!userReq
 
-				return response.status(200).json(
+				// ? Created
+				return response.status(201).json(
 					{
 						success: created,
 						query: query,
@@ -40,6 +43,7 @@ export default async function apiResponse(request, response) {
 				)
 
 			default:
+				// ? Unauthorized
 				return response.status(401).json(
 					{
 						success: false,
@@ -51,6 +55,7 @@ export default async function apiResponse(request, response) {
 		}
 	}
 	catch ({ message }) {
+		// ? Not Found
 		return response.status(404).json(
 			{
 				success: false,
