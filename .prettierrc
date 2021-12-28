@@ -14,7 +14,7 @@
 				"tabWidth": 2,
 				"useTabs": true,
 				"semi": true,
-				"singleQuote": false,
+				"singleQuote": true,
 				"printWidth": 120,
 				"proseWrap": "never",
 				"endOfLine": "crlf"
@@ -26,7 +26,7 @@
 				"tabWidth": 2,
 				"useTabs": true,
 				"semi": true,
-				"singleQuote": false,
+				"singleQuote": true,
 				"printWidth": 120,
 				"proseWrap": "never",
 				"endOfLine": "crlf"
@@ -38,7 +38,7 @@
 				"tabWidth": 2,
 				"useTabs": true,
 				"semi": true,
-				"singleQuote": false,
+				"singleQuote": true,
 				"printWidth": 120,
 				"proseWrap": "never",
 				"endOfLine": "crlf"
@@ -50,7 +50,7 @@
 				"tabWidth": 2,
 				"useTabs": true,
 				"semi": true,
-				"singleQuote": false,
+				"singleQuote": true,
 				"printWidth": 120,
 				"proseWrap": "never",
 				"endOfLine": "crlf"
@@ -71,10 +71,7 @@
 		{
 			"files": "*.md",
 			"options": {
-				"tabWidth": 2,
-				"useTabs": true,
 				"semi": true,
-				"singleQuote": false,
 				"printWidth": 120,
 				"proseWrap": "never",
 				"endOfLine": "crlf"
