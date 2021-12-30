@@ -1,4 +1,6 @@
-import { getUserByCredentials, getUserById, getPreferenceById, getPreferenceIdByUserId, updateUser, deleteUser, updatePreferences, deletePreference } from "../../../services/userController.js"
+import { parseCookies } from 'nookies'
+import { decodeToken } from "../../../../../services/encryptPass.js"
+import { getUserById, getPreferenceById, getPreferenceIdByUserId, updateUser, deleteUser, updatePreferences, deletePreference } from "../../../services/userController.js"
 
 
 export default async function apiResponse(request, response) {
@@ -7,9 +9,10 @@ export default async function apiResponse(request, response) {
 	try {
 		switch (request.method) {
 			case "DELETE":
-				const delUserId = await getUserByCredentials(body.email, body.password)
-				const delPrefId = await getPreferenceIdByUserId(delUserId.id)
-				const userToDelete = await getUserById(delUserId.id)
+				const { "myworkspace-user_token": token } = parseCookies(request)
+				const delUserId = decodeToken(token.user_id)
+				const delPrefId = await getPreferenceIdByUserId(delUserId)
+				const userToDelete = await getUserById(delUserId)
 				const prefToDelete = await getPreferenceById(delPrefId)
 				const hasUserDeleted = await deleteUser(userToDelete)
 				const hasPrefDeleted = await deletePreference(prefToDelete)
@@ -25,9 +28,10 @@ export default async function apiResponse(request, response) {
 				)
 
 			case "PUT":
-				const upUserId = await getUserByCredentials(body.email, body.password)
-				const upPrefId = await getPreferenceIdByUserId(upUserId.id)
-				const userToUpdate = await getUserById(upUserId.id)
+				const { "myworkspace-user_token": token } = parseCookies(request)
+				const upUserId = decodeToken(token.user_id)
+				const upPrefId = await getPreferenceIdByUserId(upUserId)
+				const userToUpdate = await getUserById(upUserId)
 				const prefToUpdate = await getPreferenceById(upPrefId)
 				const userUpdated = await updateUser(userToUpdate,
 					body.new_name, body.new_email,

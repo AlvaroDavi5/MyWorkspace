@@ -1,4 +1,5 @@
-import { getUserByCredentials } from "../../../../../services/userController.js"
+import { decodeToken } from "../../../../../services/encryptPass.js"
+import { getUserById } from "../../../../../services/userController.js"
 import { getProjectIdByName, getProjectsByUserId, getAllProjTasks, createProject, createProjTask } from "../../../../../services/projectController.js"
 
 
@@ -8,7 +9,8 @@ export default async function apiResponse(request, response) {
 	try {
 		switch (request.method) {
 			case "GET":
-				const projsReq = await getProjectsByUserId(parseInt(query.user_id))
+				const userId = decodeToken(query.user_id)
+				const projsReq = await getProjectsByUserId(parseInt(userId.user_id))
 				const projTasksReq = await getAllProjTasks()
 				const projList = []
 				for (let i = 0; i < projsReq.length; i++) {
@@ -30,7 +32,8 @@ export default async function apiResponse(request, response) {
 				)
 
 			case "POST":
-				const userReq = await getUserByCredentials(body.email, body.password)
+				const userIdReq = await decodeToken(query.user_id)
+				const userReq = await getUserById(parseInt(userIdReq.user_id))
 				let projId = await getProjectIdByName(body.proj_name)
 				let hasCreatedProject = false
 				if (!!userReq && !projId) {
@@ -41,17 +44,15 @@ export default async function apiResponse(request, response) {
 					hasCreatedProject = true
 				}
 				const allProjTasks = await getAllProjTasks()
-				let projTaskReq = null
 				let hasCreatedProjTask = false
 				if (!!userReq && !allProjTasks.find(projTask => projTask.task_num === body.task_num)) {
-					projTaskReq = await createProjTask(
+					hasCreatedProjTask = await createProjTask(
 						projId,
 						body.task_num, body.task_name,
 						body.description, body.deadline,
 						body.situation, body.was_finished,
 						false
 					)
-					hasCreatedProjTask = true
 				}
 				const hasCreated = !!hasCreatedProject || !!hasCreatedProjTask
 

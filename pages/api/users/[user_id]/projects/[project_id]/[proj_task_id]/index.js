@@ -1,4 +1,5 @@
-import { getUserByCredentials } from "../../../../../../../services/userController.js"
+import { decodeToken } from "../../../../../../../services/encryptPass.js"
+import { getUserById } from "../../../../../../../services/userController.js"
 import { getProjectById, getProjTaskById, updateProjTask, deleteProjTask } from "../../../../../../../services/projectController.js"
 
 
@@ -8,7 +9,8 @@ export default async function apiResponse(request, response) {
 	try {
 		switch (request.method) {
 			case "PUT":
-				const userToUpdateProjTask = await getUserByCredentials(body.email, body.password)
+				const userId = decodeToken(query.user_id)
+				const userToUpdateProjTask = await getUserById(userId.user_id)
 				const projTaskToUpdate = await getProjTaskById(parseInt(query.proj_task_id))
 				const projToUpdateProjTask = await getProjectById(projTaskToUpdate.proj_id)
 				let hasProjTaskUpdated = false
@@ -32,7 +34,8 @@ export default async function apiResponse(request, response) {
 				)
 
 			case "DELETE":
-				const userToDeleteProjTask = await getUserByCredentials(body.email, body.password)
+				const userIdReq = decodeToken(query.user_id)
+				const userToDeleteProjTask = await getUserById(userIdReq.user_id)
 				const projTaskToDelete = await getProjTaskById(parseInt(query.proj_task_id))
 				const projToDeleteProjTask = await getProjectById(projTaskToDelete.proj_id)
 				let hasProjTaskDeleted = false

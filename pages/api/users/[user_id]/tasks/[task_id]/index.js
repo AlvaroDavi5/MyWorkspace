@@ -1,4 +1,5 @@
-import { getUserByCredentials } from "../../../../../../services/userController.js"
+import { decodeToken } from "../../../../../../services/encryptPass.js"
+import { getUserById } from "../../../../../../services/userController.js"
 import { getTaskById, updateTask, deleteTask } from "../../../../../../services/taskController.js"
 
 
@@ -21,7 +22,8 @@ export default async function apiResponse(request, response) {
 				)
 
 			case "PUT":
-				const userToUpdateTask = await getUserByCredentials(body.email, body.password)
+				const userId = decodeToken(query.user_id)
+				const userToUpdateTask = await getUserById(userId.user_id)
 				const taskToUpdate = await getTaskById(parseInt(query.task_id))
 				const taskUpdated = await updateTask(
 					taskToUpdate,
@@ -41,7 +43,8 @@ export default async function apiResponse(request, response) {
 				)
 
 			case "DELETE":
-				const userToDeleteTask = await getUserByCredentials(body.email, body.password)
+				const userIdReq = decodeToken(query.user_id)
+				const userToDeleteTask = await getUserById(userIdReq.user_id)
 				const taskToDelete = await getTaskById(parseInt(query.task_id))
 				let hasTaskDeleted = false
 				if ( userToDeleteTask.id === taskToDelete.user_id ) {

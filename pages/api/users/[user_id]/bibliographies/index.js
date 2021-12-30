@@ -1,4 +1,5 @@
-import { getUserByCredentials } from "../../../../../services/userController.js"
+import { decodeToken } from "../../../../../services/encryptPass.js"
+import { getUserById } from "../../../../../services/userController.js"
 import { getAllBibliographies, createBibliography } from "../../../../../services/bibliographyController.js"
 
 
@@ -21,7 +22,8 @@ export default async function apiResponse(request, response) {
 				)
 
 			case "POST":
-				const userReq = await getUserByCredentials(body.email, body.password)
+				const userId = decodeToken(query.user_id)
+				const userReq = await getUserById(userId.user_id)
 				const biblioReq = await createBibliography(
 					userReq.id,
 					body.author, body.name,

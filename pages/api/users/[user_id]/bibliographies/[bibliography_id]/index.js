@@ -1,4 +1,5 @@
-import { getUserByCredentials } from "../../../../../../services/userController.js"
+import { decodeToken } from "../../../../../services/encryptPass.js"
+import { getUserById } from "../../../../../../services/userController.js"
 import { getBibliographyById, updateBibliography, deleteBibliography } from "../../../../../../services/bibliographyController.js"
 
 
@@ -21,7 +22,8 @@ export default async function apiResponse(request, response) {
 				)
 
 			case "PUT":
-				const userToUpdateBibliography = await getUserByCredentials(body.email, body.password)
+				const userId = decodeToken(query.user_id)
+				const userToUpdateBibliography = await getUserById(userId.user_id)
 				const bibliographyToUpdate = await getBibliographyById(parseInt(query.bibliography_id))
 				const bibliographyUpdated = await updateBibliography(
 					bibliographyToUpdate,
@@ -40,7 +42,8 @@ export default async function apiResponse(request, response) {
 				)
 
 			case "DELETE":
-				const userToDeleteBibliography = await getUserByCredentials(body.email, body.password)
+				const userIdReq = decodeToken(query.user_id)
+				const userToDeleteBibliography = await getUserById(userIdReq.user_id)
 				const bibliographyToDelete = await getBibliographyById(parseInt(query.bibliography_id))
 				let hasBibliographyDeleted = false
 				if ( userToDeleteBibliography.id === bibliographyToDelete.user_id ) {

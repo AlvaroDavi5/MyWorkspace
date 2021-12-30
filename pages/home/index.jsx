@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 import { Flex, Box, Image, useColorModeValue } from '@chakra-ui/react'
-import { parseCookies } from 'nookies'
 import DocumentHead from "../components/document_head.jsx"
 import Navbar from "../components/navbar.jsx"
 import style from "./style/home.module.css"
@@ -48,16 +47,14 @@ function Card(props) {
 export default function Home(props) {
 	const colorMode = useColorModeValue('light', 'dark')
 	const pageBgColor = (colorMode == 'light' ? 'clear_lake' : 'dark_forest')
-	const [ usr_id, setUserId ] = useState('')
-
+	const [ userToken, setUserToken ] = useState(null)
+	
 	useEffect(() => {
-		const { 'myworkspace-user_id': user_id } = parseCookies()
-
-		if (parseInt(user_id) == parseInt(props.user_id)) {
-			setUserId(parseInt(user_id))
+		if (props.userToken) {
+			setUserToken((props.userToken))
 		}
 		else {
-			setUserId('')
+			setUserToken('')
 		}
 	}, [])
 
@@ -73,13 +70,13 @@ export default function Home(props) {
 				backgroundColor={pageBgColor}
 				justifyContent='space-between'
 			>
-				<Card pageHref={`${usr_id}/projects`} imgSource="../assets/projects.png">
+				<Card pageHref={`${userToken}/projects`} imgSource="../assets/projects.png">
 					Projetos
 				</Card>
-				<Card pageHref={`${usr_id}/tasks`} imgSource="../assets/tasks.png">
+				<Card pageHref={`${userToken}/tasks`} imgSource="../assets/tasks.png">
 					Tarefas
 				</Card>
-				<Card pageHref={`${usr_id}/bibliographies`} imgSource="../assets/bibliographies.png">
+				<Card pageHref={`${userToken}/bibliographies`} imgSource="../assets/bibliographies.png">
 					Consultas Bibliográficas
 				</Card>
 			</Flex>

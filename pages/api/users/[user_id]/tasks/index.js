@@ -1,4 +1,5 @@
-import { getUserByCredentials } from "../../../../../services/userController.js"
+import { decodeToken } from "../../../../../services/encryptPass.js"
+import { getUserById } from "../../../../../services/userController.js"
 import { getTasksByUserId, createTask } from "../../../../../services/taskController.js"
 
 
@@ -8,7 +9,8 @@ export default async function apiResponse(request, response) {
 	try {
 		switch (request.method) {
 			case "GET":
-				const tasksReq = await getTasksByUserId(parseInt(query.user_id))
+				const userId = decodeToken(query.user_id)
+				const tasksReq = await getTasksByUserId(parseInt(userId.user_id))
 
 				// ? OK
 				return response.status(200).json(
@@ -21,7 +23,8 @@ export default async function apiResponse(request, response) {
 				)
 
 			case "POST":
-				const userReq = await getUserByCredentials(body.email, body.password)
+				const userIdReq = decodeToken(query.user_id)
+				const userReq = await getUserById(userIdReq.user_id)
 				const taskReq = await createTask(
 					userReq.id, body.name,
 					body.deadline_date, body.deadline_time,

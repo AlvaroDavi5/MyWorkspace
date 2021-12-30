@@ -1,4 +1,4 @@
-import { encrypt } from "./encryptPass.js"
+import { hashValue, decodeToken } from "./encryptPass.js"
 const connection = require("../database/connection.js")
 const Users = require("../database/models/users.js")
 const UserPreferences = require("../database/models/user_preferences.js")
@@ -13,7 +13,7 @@ const UserPreferences = require("../database/models/user_preferences.js")
 */
 async function createUser(name, email, password, phone, cpf, uf, return_id) {
 	Users.init(connection)
-	const pass = await encrypt(password)
+	const pass = await hashValue(password)
 
 	try {
 		const user = await Users.create(
@@ -82,6 +82,12 @@ async function searchUser(email) {
 	}
 }
 
+async function getUserIdByToken(token) {
+	const userToken = decodeToken(token)
+
+	return parseInt(userToken.user_id)
+}
+
 async function getUserByCredentials(email, password) {
 	Users.init(connection)
 
@@ -89,7 +95,7 @@ async function getUserByCredentials(email, password) {
 		const user = await Users.findOne({
 			where: {
 				email: email,
-				password: encrypt(password)
+				password: hashValue(password)
 			}
 		})
 
@@ -113,7 +119,7 @@ async function updateUser(user, name, email, password, phone, cpf, uf) {
 	try {
 		if (name) { user.name = name }
 		if (email) { user.email = email }
-		if (password) { user.password = encrypt(password) }
+		if (password) { user.password = hashValue(password) }
 		if (phone) { user.phone = phone }
 		if (cpf) { user.cpf = cpf }
 		if (uf) { user.uf = uf }
@@ -237,5 +243,5 @@ async function deletePreference(preference) {
 }
 
 
-export { createUser, getUserById, getAllUsers, searchUser, getUserByCredentials, updateUser, deleteUser,
+export { createUser, getUserById, getAllUsers, searchUser, getUserIdByToken, getUserByCredentials, updateUser, deleteUser,
 createPreference, getPreferenceById, getAllPreferences, getPreferenceIdByUserId, updatePreferences, deletePreference }

@@ -206,10 +206,15 @@ export default function Register({ stateList }) {
 export async function getStaticProps(context) {
 
 	const statesList = await getAllBrazilStates()
+	const orderedStatelist = statesList.sort((a, b) => {
+		if (a.nome < b.nome) return -1
+		if (a.nome > b.nome) return 1
+		return 0
+	})
 
 	return {
 		props: {
-			stateList: statesList
+			stateList: orderedStatelist
 		}
 	}
 }
