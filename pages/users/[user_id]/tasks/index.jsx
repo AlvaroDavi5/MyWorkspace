@@ -182,9 +182,9 @@ export default function TasksPage({ taskList }) {
 
 		for (let i = 0; i < taskList.length; i++) {
 			tasks.push(
-				<ListItem key={(taskList[0]).id}
-					userId={usr_id} date={`${(taskList[0]).deadline_date}`}
-					name={`${(taskList[0]).name}`} desc={`${(taskList[0]).description}`}
+				<ListItem key={(taskList[i]).id}
+					userId={usr_id} date={`${(taskList[i]).deadline_date}`}
+					name={`${(taskList[i]).name}`} desc={`${(taskList[i]).description}`}
 					isOpenEdit={isOpen} onOpenEdit={onOpen} onCloseEdit={onClose}
 				/>
 			)

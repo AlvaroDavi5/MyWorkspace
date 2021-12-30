@@ -2,7 +2,7 @@ const connection = require("../database/connection.js")
 const Bibliographies = require("../database/models/bibliographies.js")
 
 
-async function createBibliography(user_id, author, name, publication_date, returnId) {
+async function createBibliography(user_id, author, name, publication_date, return_id) {
 	Bibliographies.init(connection)
 
 	try {
@@ -15,7 +15,7 @@ async function createBibliography(user_id, author, name, publication_date, retur
 			}
 		)
 
-		if (returnId == true) {
+		if (return_id == true) {
 			return bibliography.id
 		}
 		else {

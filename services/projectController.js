@@ -3,7 +3,7 @@ const Projects = require("../database/models/projects.js")
 const ProjTasks = require("../database/models/proj_tasks.js")
 
 
-async function createProject(user_id, name, returnId) {
+async function createProject(user_id, name) {
 	Projects.init(connection)
 
 	try {
@@ -14,12 +14,7 @@ async function createProject(user_id, name, returnId) {
 			}
 		)
 
-		if (returnId == true) {
-			return project.id
-		}
-		else {
-			return true
-		}
+		return project.id
 	}
 	catch ({ message }) {
 		return false
@@ -44,6 +39,23 @@ async function getAllProjects() {
 
 	try {
 		const projects = await Projects.findAll()
+
+		return projects
+	}
+	catch ({ message }) {
+		return null
+	}
+}
+
+async function getProjectsByUserId(user_id) {
+	Projects.init(connection)
+
+	try {
+		const projects = await Projects.findAll({
+			where: {
+				user_id: user_id
+			}
+		})
 
 		return projects
 	}
@@ -98,7 +110,7 @@ async function deleteProject(project) {
 	}
 }
 
-async function createProjTask(proj_id, task_num, name, description, deadline, situation, was_finished, returnId) {
+async function createProjTask(proj_id, task_num, name, description, deadline, situation, was_finished, return_id) {
 	Projects.init(connection)
 
 	try {
@@ -114,7 +126,7 @@ async function createProjTask(proj_id, task_num, name, description, deadline, si
 			}
 		)
 
-		if (returnId == true) {
+		if (return_id == true) {
 			return proj_task.id
 		}
 		else {
@@ -152,6 +164,23 @@ async function getAllProjTasks() {
 	}
 }
 
+async function getProjTasksByProjId(proj_id) {
+	ProjTasks.init(connection)
+
+	try {
+		const proj_tasks = await ProjTasks.findAll({
+			where: {
+				proj_id: proj_id
+			}
+		})
+
+		return proj_tasks
+	}
+	catch ({ message }) {
+		return null
+	}
+}
+
 async function getProjTaskIdByName(name) {
 	ProjTasks.init(connection)
 
@@ -179,7 +208,7 @@ async function updateProjTask(proj_task, proj_id, task_num, name, description, d
 		if (description) { proj_task.description = description }
 		if (deadline) { proj_task.deadline = deadline }
 		if (situation) { proj_task.situation = situation }
-		if (was_finished) { proj_task.was_finished = was_finished }
+		if (was_finished != null && was_finished != undefined) { proj_task.was_finished = was_finished }
 
 		await proj_task.save()
 
@@ -204,5 +233,5 @@ async function deleteProjTask(proj_task) {
 }
 
 
-export { createProject, getProjectById, getAllProjects, getProjectIdByName, updateProject, deleteProject,
-createProjTask, getProjTaskById, getAllProjTasks, getProjTaskIdByName, updateProjTask, deleteProjTask }
+export { createProject, getProjectById, getAllProjects, getProjectsByUserId, getProjectIdByName, updateProject, deleteProject,
+createProjTask, getProjTaskById, getAllProjTasks, getProjTasksByProjId, getProjTaskIdByName, updateProjTask, deleteProjTask }
