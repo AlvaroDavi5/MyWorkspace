@@ -1,32 +1,60 @@
-import { getTaskById } from "../../../../../../services/taskController.js"
+import { getUserByCredentials } from "../../../../../../services/userController.js"
+import { getTaskById, updateTask, deleteTask } from "../../../../../../services/taskController.js"
 
 
 export default async function apiResponse(request, response) {
-	const { method, query } = request
+	const { method, query, body } = request
 
 	try {
 		switch (request.method) {
 			case "GET":
-				const taskReq = await getTaskById(parseInt(query['task_id']))
+				const taskReq = await getTaskById(parseInt(query.task_id))
 
 				// ? OK
 				return response.status(200).json(
 					{
-						success: true,
+						success: !!taskReq,
 						query: query,
 						method: method,
 						data: taskReq
 					}
 				)
 
-			case "POST":
-				// ? Forbidden
-				return response.status(403).json(
+			case "PUT":
+				const userToUpdateTask = await getUserByCredentials(body.email, body.password)
+				const taskToUpdate = await getTaskById(parseInt(query.task_id))
+				const taskUpdated = await updateTask(
+					taskToUpdate,
+					userToUpdateTask.id, body.new_name,
+					body.new_deadline_date, body.new_deadline_time,
+					body.new_description
+				)
+
+				// ? OK
+				return response.status(200).json(
 					{
-						success: false,
+						success: taskUpdated,
 						query: query,
 						method: method,
-						message: "Post not allowed!"
+						message: taskUpdated ? "Task updated successfully!" : "Error to update task!"
+					}
+				)
+
+			case "DELETE":
+				const userToDeleteTask = await getUserByCredentials(body.email, body.password)
+				const taskToDelete = await getTaskById(parseInt(query.task_id))
+				let hasTaskDeleted = false
+				if ( userToDeleteTask.id === taskToDelete.user_id ) {
+					hasTaskDeleted = await deleteTask(taskToDelete)
+				}
+
+				// ? OK
+				return response.status(200).json(
+					{
+						success: !!hasTaskDeleted,
+						query: query,
+						method: method,
+						message: !!hasTaskDeleted ? "Task deleted successfully!" : "Error to delete task!"
 					}
 				)
 

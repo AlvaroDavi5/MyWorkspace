@@ -1,4 +1,4 @@
-import { createUser, searchUser } from "../../../../services/userController.js"
+import { createUser, createPreference, searchUser } from "../../../../services/userController.js"
 
 
 export default async function apiResponse(request, response) {
@@ -22,15 +22,17 @@ export default async function apiResponse(request, response) {
 				}
 
 				const userReq = await createUser(
-					body['name'],
-					body['email'],
-					body['password'],
-					body['phone'],
-					body['cpf'],
-					body['uf'],
+					body.name, body.email,
+					body.password, body.phone,
+					body.cpf, body.uf,
+					true
+				)
+				const prefReq = await createPreference(
+					userReq,
+					body.image_path, body.default_theme,
 					false
 				)
-				const created = await !!userReq
+				const created = !!userReq && !!prefReq
 
 				// ? Created
 				return response.status(201).json(
@@ -38,7 +40,7 @@ export default async function apiResponse(request, response) {
 						success: created,
 						query: query,
 						method: method,
-						message: "User created successfully"
+						message: created ? "User created successfully!" : "Error to create user!"
 					}
 				)
 

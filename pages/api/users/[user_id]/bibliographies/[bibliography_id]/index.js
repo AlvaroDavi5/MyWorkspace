@@ -1,32 +1,59 @@
-import { getBibliographyById } from "../../../../../../services/bibliographyController.js"
+import { getUserByCredentials } from "../../../../../../services/userController.js"
+import { getBibliographyById, updateBibliography, deleteBibliography } from "../../../../../../services/bibliographyController.js"
 
 
 export default async function apiResponse(request, response) {
-	const { method, query } = request
+	const { method, query, body } = request
 
 	try {
 		switch (request.method) {
 			case "GET":
-				const biblioReq = await getBibliographyById(parseInt(query['bibliography_id']))
+				const biblioReq = await getBibliographyById(parseInt(query.bibliography_id))
 
 				// ? OK
 				return response.status(200).json(
 					{
-						success: true,
+						success: !!biblioReq,
 						query: query,
 						method: method,
 						data: biblioReq
 					}
 				)
 
-			case "POST":
-				// ? Forbidden
-				return response.status(403).json(
+			case "PUT":
+				const userToUpdateBibliography = await getUserByCredentials(body.email, body.password)
+				const bibliographyToUpdate = await getBibliographyById(parseInt(query.bibliography_id))
+				const bibliographyUpdated = await updateBibliography(
+					bibliographyToUpdate,
+					userToUpdateBibliography.id, body.new_author,
+					body.new_name, body.new_publication_date
+				)
+
+				// ? OK
+				return response.status(200).json(
 					{
-						success: false,
+						success: bibliographyUpdated,
 						query: query,
 						method: method,
-						message: "Post not allowed!"
+						message: bibliographyUpdated ? "Bibliography updated successfully!" : "Error to update bibliography!"
+					}
+				)
+
+			case "DELETE":
+				const userToDeleteBibliography = await getUserByCredentials(body.email, body.password)
+				const bibliographyToDelete = await getBibliographyById(parseInt(query.bibliography_id))
+				let hasBibliographyDeleted = false
+				if ( userToDeleteBibliography.id === bibliographyToDelete.user_id ) {
+					hasBibliographyDeleted = await deleteBibliography(bibliographyToDelete)
+				}
+
+				// ? OK
+				return response.status(200).json(
+					{
+						success: !!hasBibliographyDeleted,
+						query: query,
+						method: method,
+						message: !!hasBibliographyDeleted ? "Bibliography deleted successfully!" : "Error to delete bibliography!"
 					}
 				)
 

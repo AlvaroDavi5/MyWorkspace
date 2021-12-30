@@ -8,14 +8,14 @@ export default async function apiResponse(request, response) {
 		switch (request.method) {
 			/* get data from api */
 			case "GET":
-				const userReq = await getUserById(parseInt(query['user_id']))
+				const userReq = await getUserById(parseInt(query.user_id))
 				const prefIdReq = await getPreferenceIdByUserId(userReq.id)
 				const prefReq = await getPreferenceById(prefIdReq)
 
 				// ? OK
 				return response.status(200).json(
 					{
-						success: true,
+						success: !!userReq,
 						query: query,
 						method: method,
 						data: { user: userReq, preference: prefReq }

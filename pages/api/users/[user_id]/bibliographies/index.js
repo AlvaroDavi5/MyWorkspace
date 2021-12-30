@@ -1,3 +1,4 @@
+import { getUserByCredentials } from "../../../../../services/userController.js"
 import { getAllBibliographies, createBibliography } from "../../../../../services/bibliographyController.js"
 
 
@@ -12,7 +13,7 @@ export default async function apiResponse(request, response) {
 				// ? OK
 				return response.status(200).json(
 					{
-						success: true,
+						success: !!bibliographiesReq,
 						query: query,
 						method: method,
 						data: bibliographiesReq
@@ -20,10 +21,11 @@ export default async function apiResponse(request, response) {
 				)
 
 			case "POST":
+				const userReq = await getUserByCredentials(body.email, body.password)
 				const biblioReq = await createBibliography(
-					body['user_id'],
-					body['author'], body['name'],
-					body['publication_date'],
+					userReq.id,
+					body.author, body.name,
+					body.publication_date,
 					false
 				)
 
@@ -33,7 +35,7 @@ export default async function apiResponse(request, response) {
 						success: biblioReq,
 						query: query,
 						method: method,
-						message: "Bibliography saved successfull!"
+						message: biblioReq ? "Bibliography created successfully!" : "Error to create bibliography!"
 					}
 				)
 

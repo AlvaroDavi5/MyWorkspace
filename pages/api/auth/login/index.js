@@ -16,7 +16,7 @@ export default async function apiResponse(request, response) {
 				// ? OK
 				return response.status(200).json(
 					{
-						success: true,
+						success: !!userReq,
 						query: query,
 						method: method,
 						data: { user: userReq, preference: prefReq }

@@ -1,4 +1,5 @@
-import { getAllTasksByUserId, createTask } from "../../../../../services/taskController.js"
+import { getUserByCredentials } from "../../../../../services/userController.js"
+import { getTasksByUserId, createTask } from "../../../../../services/taskController.js"
 
 
 export default async function apiResponse(request, response) {
@@ -7,12 +8,12 @@ export default async function apiResponse(request, response) {
 	try {
 		switch (request.method) {
 			case "GET":
-				const tasksReq = await getAllTasksByUserId(parseInt(query['user_id']))
+				const tasksReq = await getTasksByUserId(parseInt(query.user_id))
 
 				// ? OK
 				return response.status(200).json(
 					{
-						success: true,
+						success: !!tasksReq,
 						query: query,
 						method: method,
 						data: tasksReq
@@ -20,12 +21,11 @@ export default async function apiResponse(request, response) {
 				)
 
 			case "POST":
+				const userReq = await getUserByCredentials(body.email, body.password)
 				const taskReq = await createTask(
-					body['user_id'],
-					body['name'],
-					body['deadline_date'], body['deadline_time'],
-					body['description'],
-					false
+					userReq.id, body.name,
+					body.deadline_date, body.deadline_time,
+					body.description, false
 				)
 					
 				// ? Created
@@ -34,7 +34,7 @@ export default async function apiResponse(request, response) {
 						success: taskReq,
 						query: query,
 						method: method,
-						message: "Task created successfull!"
+						message: taskReq ? "Task created successfully!" : "Error to create task!"
 					}
 				)
 
