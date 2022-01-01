@@ -10,13 +10,13 @@ export default async function apiResponse(request, response) {
 				const userAlreadyExists = await searchUser(body.email)
 
 				if (userAlreadyExists) {
-					// ? Conflict
-					return response.status(409).json(
+					// ? Accepted
+					return response.status(202).json(
 						{
 							success: !userAlreadyExists,
 							query: query,
 							method: method,
-							message: "User already exists"
+							message: "User already exists!"
 						}
 					)
 				}

@@ -7,37 +7,37 @@ export default async function apiResponse(request, response) {
 	const { method, query, body } = request
 
 	try {
+		const userData = decodeToken(query.user_id).decoded
+		const userToManipulateTask = await getUserById(userData.user_id)
+
 		switch (request.method) {
 			case "GET":
-				const userId = decodeToken(query.user_id)
-				const tasksReq = await getTasksByUserId(parseInt(userId.user_id))
+				const tasksToGet = await getTasksByUserId(userToManipulateTask.id)
 
 				// ? OK
 				return response.status(200).json(
 					{
-						success: !!tasksReq,
+						success: !!tasksToGet,
 						query: query,
 						method: method,
-						data: tasksReq
+						data: tasksToGet
 					}
 				)
 
 			case "POST":
-				const userIdReq = decodeToken(query.user_id)
-				const userReq = await getUserById(userIdReq.user_id)
-				const taskReq = await createTask(
-					userReq.id, body.name,
+				const taskToCreate = await createTask(
+					userToManipulateTask.id, body.name,
 					body.deadline_date, body.deadline_time,
 					body.description, false
 				)
-					
+
 				// ? Created
 				return response.status(201).json(
 					{
-						success: taskReq,
+						success: !!taskToCreate,
 						query: query,
 						method: method,
-						message: taskReq ? "Task created successfully!" : "Error to create task!"
+						message: !!taskToCreate ? "Task created successfully!" : "Error to create task!"
 					}
 				)
 

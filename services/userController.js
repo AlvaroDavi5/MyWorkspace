@@ -83,7 +83,7 @@ async function searchUser(email) {
 }
 
 async function getUserIdByToken(token) {
-	const userToken = decodeToken(token)
+	const userToken = decodeToken(token).decoded
 
 	return parseInt(userToken.user_id)
 }

@@ -46,7 +46,21 @@ function generateToken(user_id, user_email) {
 function decodeToken(token) {
 	const decoded = jwt.decode(token, static_dotenv.secure.secret_key)
 
-	return decoded
+	try {
+		const verified = jwt.verify(token, static_dotenv.secure.secret_key)
+		if (verified) {
+			return {
+				message: "Token verified successfully!",
+				decoded: decoded
+			}
+		}
+	}
+	catch (error) {
+		return {
+			message: error.message,
+			decoded: null
+		}
+	}
 }
 
 export { hashValue, encryptPass, decryptPass, generateToken, decodeToken }

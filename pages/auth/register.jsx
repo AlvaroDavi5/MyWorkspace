@@ -42,9 +42,9 @@ export default function Register({ stateList }) {
 					uf: data.uf
 				}
 			)
-			const registered = reqData.data.message
+			const registerMessage = reqData.data.message
 
-			if (registered == "User already exists") {
+			if (registerMessage == "User already exists!") {
 				setLoadButton(false)
 				toast({
 					status: toastStatuses[2][0],
@@ -54,7 +54,7 @@ export default function Register({ stateList }) {
 					isClosable: true
 				})
 			}
-			else {
+			else if (registerMessage == "User created successfully!") {
 				setLoadButton(false)
 				toast({
 					status: toastStatuses[0][0],
@@ -64,11 +64,22 @@ export default function Register({ stateList }) {
 					isClosable: true
 				})
 			}
+			else {
+				setLoadButton(false)
+				toast({
+					status: toastStatuses[2][0],
+					title: toastStatuses[2][1],
+					description: toastStatuses[2][2],
+					duration: 1500,
+					isClosable: true
+				})
+			}
 		}
 		catch (error) {
+			setLoadButton(false)
 			toast({
 				status: toastStatuses[1][0],
-				description: "Erro ao cadastrar usuário!",
+				title: "Erro ao cadastrar usuário!",
 				description: `${error}`,
 				duration: 1500,
 				isClosable: true

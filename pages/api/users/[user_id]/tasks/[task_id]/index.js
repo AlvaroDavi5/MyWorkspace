@@ -1,33 +1,36 @@
 import { decodeToken } from "../../../../../../services/encryptPass.js"
 import { getUserById } from "../../../../../../services/userController.js"
-import { getTaskById, updateTask, deleteTask } from "../../../../../../services/taskController.js"
+import { getTasksByUserId, updateTask, deleteTask } from "../../../../../../services/taskController.js"
 
 
 export default async function apiResponse(request, response) {
 	const { method, query, body } = request
 
 	try {
+		const userData = decodeToken(query.user_id).decoded
+		const userToManipulateTask = await getUserById(userData.user_id)
+
 		switch (request.method) {
 			case "GET":
-				const taskReq = await getTaskById(parseInt(query.task_id))
+				const tasksToGet = await getTasksByUserId(userToManipulateTask.id)
+				const taskToGet = tasksToGet.find(task => task.id == query.task_id)
 
 				// ? OK
 				return response.status(200).json(
 					{
-						success: !!taskReq,
+						success: !!taskToGet,
 						query: query,
 						method: method,
-						data: taskReq
+						data: taskToGet
 					}
 				)
 
 			case "PUT":
-				const userId = decodeToken(query.user_id)
-				const userToUpdateTask = await getUserById(userId.user_id)
-				const taskToUpdate = await getTaskById(parseInt(query.task_id))
-				const taskUpdated = await updateTask(
+				const tasksToUpdate = await getTasksByUserId(userToManipulateTask.id)
+				const taskToUpdate = tasksToUpdate.find(task => task.id == query.task_id)
+				const hasTaskUpdated = await updateTask(
 					taskToUpdate,
-					userToUpdateTask.id, body.new_name,
+					userToManipulateTask.id, body.new_name,
 					body.new_deadline_date, body.new_deadline_time,
 					body.new_description
 				)
@@ -35,19 +38,18 @@ export default async function apiResponse(request, response) {
 				// ? OK
 				return response.status(200).json(
 					{
-						success: taskUpdated,
+						success: hasTaskUpdated,
 						query: query,
 						method: method,
-						message: taskUpdated ? "Task updated successfully!" : "Error to update task!"
+						message: hasTaskUpdated ? "Task updated successfully!" : "Error to update task!"
 					}
 				)
 
 			case "DELETE":
-				const userIdReq = decodeToken(query.user_id)
-				const userToDeleteTask = await getUserById(userIdReq.user_id)
-				const taskToDelete = await getTaskById(parseInt(query.task_id))
+				const tasksToDelete = await getTasksByUserId(userToManipulateTask.id)
+				const taskToDelete = tasksToDelete.find(task => task.id == query.task_id)
 				let hasTaskDeleted = false
-				if ( userToDeleteTask.id === taskToDelete.user_id ) {
+				if (userToManipulateTask.id == taskToDelete.user_id) {
 					hasTaskDeleted = await deleteTask(taskToDelete)
 				}
 

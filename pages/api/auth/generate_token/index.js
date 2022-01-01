@@ -27,9 +27,9 @@ export default async function apiResponse(request, response) {
 				// ? OK
 				return response.status(200).json(
 					{
-						success: !!decoded_token,
-						decoded_token: decoded_token,
-						message: !!decoded_token ? "Token decoded successfully!" : "Error to decode token!",
+						success: !!decoded_token.decoded,
+						decoded_token: decoded_token.decoded,
+						message: decoded_token.message
 					}
 				)
 

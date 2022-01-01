@@ -1,20 +1,23 @@
 import { decodeToken } from "../../../../../../../services/encryptPass.js"
 import { getUserById } from "../../../../../../../services/userController.js"
-import { getProjectById, getProjTaskById, updateProjTask, deleteProjTask } from "../../../../../../../services/projectController.js"
+import { getAllProjTasks, updateProjTask, deleteProjTask, getProjectsByUserId } from "../../../../../../../services/projectController.js"
 
 
 export default async function apiResponse(request, response) {
 	const { method, query, body } = request
 
 	try {
+		const userData = decodeToken(query.user_id).decoded
+		const userToManipulateProjTask = await getUserById(userData.user_id)
+		const projectsToManipulateProjTask = await getProjectsByUserId(userToManipulateProjTask.id)
+		const projectToManipulateProjTask = projectsToManipulateProjTask.find(project => project.id == query.project_id)
+		const allProjTasks = await getAllProjTasks()
+
 		switch (request.method) {
 			case "PUT":
-				const userId = decodeToken(query.user_id)
-				const userToUpdateProjTask = await getUserById(userId.user_id)
-				const projTaskToUpdate = await getProjTaskById(parseInt(query.proj_task_id))
-				const projToUpdateProjTask = await getProjectById(projTaskToUpdate.proj_id)
+				const projTaskToUpdate = allProjTasks.find(projTask => projTask.id == query.proj_task_id)
 				let hasProjTaskUpdated = false
-				if (userToUpdateProjTask.id === projToUpdateProjTask.user_id) {
+				if (userToManipulateProjTask.id == projectToManipulateProjTask.user_id) {
 					hasProjTaskUpdated = await updateProjTask(
 						projTaskToUpdate, projTaskToUpdate.proj_id,
 						body.new_task_num, body.new_name,
@@ -34,12 +37,9 @@ export default async function apiResponse(request, response) {
 				)
 
 			case "DELETE":
-				const userIdReq = decodeToken(query.user_id)
-				const userToDeleteProjTask = await getUserById(userIdReq.user_id)
-				const projTaskToDelete = await getProjTaskById(parseInt(query.proj_task_id))
-				const projToDeleteProjTask = await getProjectById(projTaskToDelete.proj_id)
+				const projTaskToDelete = allProjTasks.find(projTask => projTask.id == query.proj_task_id)
 				let hasProjTaskDeleted = false
-				if ( userToDeleteProjTask.id === projToDeleteProjTask.user_id ) {
+				if (userToManipulateProjTask.id == projectToManipulateProjTask.user_id) {
 					hasProjTaskDeleted = await deleteProjTask(projTaskToDelete)
 				}
 

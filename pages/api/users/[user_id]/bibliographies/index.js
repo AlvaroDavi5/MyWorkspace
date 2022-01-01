@@ -1,31 +1,32 @@
 import { decodeToken } from "../../../../../services/encryptPass.js"
 import { getUserById } from "../../../../../services/userController.js"
-import { getAllBibliographies, createBibliography } from "../../../../../services/bibliographyController.js"
+import { getBibliographiesByUserId, createBibliography } from "../../../../../services/bibliographyController.js"
 
 
 export default async function apiResponse(request, response) {
 	const { method, query, body } = request
 
 	try {
+		const userData = decodeToken(query.user_id).decoded
+		const userToManipulateBibliography = await getUserById(userData.user_id)
+
 		switch (request.method) {
 			case "GET":
-				const bibliographiesReq = await getAllBibliographies()
+				const bibliographiesToGet = await getBibliographiesByUserId(userToManipulateBibliography.id)
 
 				// ? OK
 				return response.status(200).json(
 					{
-						success: !!bibliographiesReq,
+						success: !!bibliographiesToGet,
 						query: query,
 						method: method,
-						data: bibliographiesReq
+						data: bibliographiesToGet
 					}
 				)
 
 			case "POST":
-				const userId = decodeToken(query.user_id)
-				const userReq = await getUserById(userId.user_id)
-				const biblioReq = await createBibliography(
-					userReq.id,
+				const bibliographyToCreate = await createBibliography(
+					userToManipulateBibliography.id,
 					body.author, body.name,
 					body.publication_date,
 					false
@@ -34,10 +35,10 @@ export default async function apiResponse(request, response) {
 				// ? Created
 				return response.status(201).json(
 					{
-						success: biblioReq,
+						success: bibliographyToCreate,
 						query: query,
 						method: method,
-						message: biblioReq ? "Bibliography created successfully!" : "Error to create bibliography!"
+						message: bibliographyToCreate ? "Bibliography created successfully!" : "Error to create bibliography!"
 					}
 				)
 

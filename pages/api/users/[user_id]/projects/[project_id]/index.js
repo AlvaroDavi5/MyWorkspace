@@ -1,60 +1,62 @@
 import { decodeToken } from "../../../../../../services/encryptPass.js"
 import { getUserById } from "../../../../../../services/userController.js"
-import { getProjectById, getProjTasksByProjId, updateProject, deleteProject, deleteProjTask } from "../../../../../../services/projectController.js"
+import { getProjectsByUserId, getProjTasksByProjId, updateProject, deleteProject, deleteProjTask } from "../../../../../../services/projectController.js"
 
 
 export default async function apiResponse(request, response) {
 	const { method, query, body } = request
 
 	try {
+		const userData = decodeToken(query.user_id).decoded
+		const userToManipulateProject = await getUserById(userData.user_id)
+
 		switch (request.method) {
 			case "GET":
-				const projectReq = await getProjectById(parseInt(query.project_id))
-				const projTasksReq = await getProjTasksByProjId(parseInt(query.project_id))
+				const projectsToGet = await getProjectsByUserId(userToManipulateProject.id)
+				const projectToGet = projectsToGet.find(project => project.id == query.project_id)
+				const projTasksToGet = await getProjTasksByProjId(projectToGet.id)
 
 				// ? OK
 				return response.status(200).json(
 					{
-						success: !!projectReq,
+						success: !!projectToGet,
 						query: query,
 						method: method,
 						data: {
-							project: projectReq,
-							project_tasks: projTasksReq
+							project: projectToGet,
+							project_tasks: projTasksToGet
 						}
 					}
 				)
 
 			case "PUT":
-				const userId = decodeToken(query.user_id)
-				const userToUpdateProj = await getUserById(userId.user_id)
-				const projToUpdate = await getProjectById(parseInt(query.project_id))
-				const projectUpdated = await updateProject(
-					projToUpdate,
-					userToUpdateProj.id, body.new_name
+				const projectsToUpdate = await getProjectsByUserId(userToManipulateProject.id)
+				const projectToUpdate = projectsToUpdate.find(project => project.id == query.project_id)
+				const hasProjectUpdated = await updateProject(
+					projectToUpdate,
+					userToManipulateProject.id, body.new_name
 				)
 
 				// ? OK
 				return response.status(200).json(
 					{
-						success: !!projectUpdated,
+						success: !!hasProjectUpdated,
 						query: query,
 						method: method,
-						message: !!projectUpdated ? "Project updated successfully" : "Error to update project!"
+						message: !!hasProjectUpdated ? "Project updated successfully" : "Error to update project!"
 					}
 				)
 
 			case "DELETE":
-				const userIdReq = decodeToken(query.user_id)
-				const userToDeleteProj = await getUserById(userIdReq.user_id)
-				const projToDelete = await getProjectById(parseInt(query.project_id))
+				const projectsToDelete = await getProjectsByUserId(userToManipulateProject.id)
+				const projectToDelete = projectsToDelete.find(project => project.id == query.project_id)
 				let hasProjDeleted = false
-				if ( userToDeleteProj.id === projToDelete.user_id ) {
-					const projTasksToDelete = await getProjTasksByProjId(projToDelete.id)
+				if (userToManipulateProject.id == projectToDelete.user_id) {
+					const projTasksToDelete = await getProjTasksByProjId(projectToDelete.id)
 					projTasksToDelete.forEach(async (projTask) => {
 						await deleteProjTask(projTask)
 					})
-					hasProjDeleted = await deleteProject(projToDelete)
+					hasProjDeleted = await deleteProject(projectToDelete)
 				}
 
 				// ? OK

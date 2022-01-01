@@ -1,52 +1,54 @@
-import { decodeToken } from "../../../../../services/encryptPass.js"
+import { decodeToken } from "../../../../../../services/encryptPass.js"
 import { getUserById } from "../../../../../../services/userController.js"
-import { getBibliographyById, updateBibliography, deleteBibliography } from "../../../../../../services/bibliographyController.js"
+import { getBibliographiesByUserId, updateBibliography, deleteBibliography } from "../../../../../../services/bibliographyController.js"
 
 
 export default async function apiResponse(request, response) {
 	const { method, query, body } = request
 
 	try {
+		const userData = decodeToken(query.user_id).decoded
+		const userToManipulateBibliography = await getUserById(userData.user_id)
+
 		switch (request.method) {
 			case "GET":
-				const biblioReq = await getBibliographyById(parseInt(query.bibliography_id))
+				const bibliographiesToGet = await getBibliographiesByUserId(userToManipulateBibliography.id)
+				const bibliographyToGet = bibliographiesToGet.find(bibliography => bibliography.id == query.bibliography_id)
 
 				// ? OK
 				return response.status(200).json(
 					{
-						success: !!biblioReq,
+						success: !!bibliographyToGet,
 						query: query,
 						method: method,
-						data: biblioReq
+						data: bibliographyToGet
 					}
 				)
 
 			case "PUT":
-				const userId = decodeToken(query.user_id)
-				const userToUpdateBibliography = await getUserById(userId.user_id)
-				const bibliographyToUpdate = await getBibliographyById(parseInt(query.bibliography_id))
-				const bibliographyUpdated = await updateBibliography(
+				const bibliographiesToUpdate = await getBibliographiesByUserId(userToManipulateBibliography.id)
+				const bibliographyToUpdate = bibliographiesToUpdate.find(bibliography => bibliography.id == query.bibliography_id)
+				const hasBibliographyUpdated = await updateBibliography(
 					bibliographyToUpdate,
-					userToUpdateBibliography.id, body.new_author,
+					userToManipulateBibliography.id, body.new_author,
 					body.new_name, body.new_publication_date
 				)
 
 				// ? OK
 				return response.status(200).json(
 					{
-						success: bibliographyUpdated,
+						success: hasBibliographyUpdated,
 						query: query,
 						method: method,
-						message: bibliographyUpdated ? "Bibliography updated successfully!" : "Error to update bibliography!"
+						message: hasBibliographyUpdated ? "Bibliography updated successfully!" : "Error to update bibliography!"
 					}
 				)
 
 			case "DELETE":
-				const userIdReq = decodeToken(query.user_id)
-				const userToDeleteBibliography = await getUserById(userIdReq.user_id)
-				const bibliographyToDelete = await getBibliographyById(parseInt(query.bibliography_id))
+				const bibliographiesToDelete = await getBibliographiesByUserId(userToManipulateBibliography.id)
+				const bibliographyToDelete = bibliographiesToDelete.find(bibliography => bibliography.id == query.bibliography_id)
 				let hasBibliographyDeleted = false
-				if ( userToDeleteBibliography.id === bibliographyToDelete.user_id ) {
+				if (userToManipulateBibliography.id == bibliographyToDelete.user_id) {
 					hasBibliographyDeleted = await deleteBibliography(bibliographyToDelete)
 				}
 

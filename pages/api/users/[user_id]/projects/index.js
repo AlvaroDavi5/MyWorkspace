@@ -7,16 +7,18 @@ export default async function apiResponse(request, response) {
 	const { method, query, body } = request
 
 	try {
+		const userData = decodeToken(query.user_id).decoded
+		const userToManipulateProject = await getUserById(userData.user_id)
+		const allProjTasks = await getAllProjTasks()
+
 		switch (request.method) {
 			case "GET":
-				const userId = decodeToken(query.user_id)
-				const projsReq = await getProjectsByUserId(parseInt(userId.user_id))
-				const projTasksReq = await getAllProjTasks()
+				const projectsToGet = await getProjectsByUserId(userToManipulateProject.id)
 				const projList = []
-				for (let i = 0; i < projsReq.length; i++) {
-					const projTasksList = projTasksReq.filter(projTask => projTask.proj_id === (projsReq[i]).id)
+				for (let i = 0; i < projectsToGet.length; i++) {
+					const projTasksList = allProjTasks.filter(projTask => projTask.proj_id == (projectsToGet[i]).id)
 					projList.push({
-						project: projsReq[i],
+						project: projectsToGet[i],
 						proj_tasks: projTasksList
 					})
 				}
@@ -24,7 +26,7 @@ export default async function apiResponse(request, response) {
 				// ? OK
 				return response.status(200).json(
 					{
-						success: !!projsReq,
+						success: !!projectsToGet,
 						query: query,
 						method: method,
 						data: projList
@@ -32,20 +34,17 @@ export default async function apiResponse(request, response) {
 				)
 
 			case "POST":
-				const userIdReq = await decodeToken(query.user_id)
-				const userReq = await getUserById(parseInt(userIdReq.user_id))
 				let projId = await getProjectIdByName(body.proj_name)
 				let hasCreatedProject = false
-				if (!!userReq && !projId) {
+				if (!!userToManipulateProject && !projId) {
 					projId = await createProject(
-						userReq.id,
+						userToManipulateProject.id,
 						body.proj_name
 					)
 					hasCreatedProject = true
 				}
-				const allProjTasks = await getAllProjTasks()
 				let hasCreatedProjTask = false
-				if (!!userReq && !allProjTasks.find(projTask => projTask.task_num === body.task_num)) {
+				if (!!userToManipulateProject && !allProjTasks.find(projTask => projTask.task_num == body.task_num)) {
 					hasCreatedProjTask = await createProjTask(
 						projId,
 						body.task_num, body.task_name,
