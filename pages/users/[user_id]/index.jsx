@@ -5,7 +5,7 @@ import Home from "../../home/index.jsx"
 export default function UserHomePage({ userToken }) {
 	return (
 		<>
-		<Home userToken={userToken}/>
+			<Home userToken={userToken}/>
 		</>
 	)
 }

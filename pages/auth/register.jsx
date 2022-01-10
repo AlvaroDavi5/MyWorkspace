@@ -37,8 +37,8 @@ export default function Register({ stateList }) {
 					name: data.username,
 					email: data.email,
 					password: data.password,
-					phone: null,
-					cpf: null,
+					phone: data.phone,
+					cpf: data.cpf,
 					uf: data.uf
 				}
 			)
