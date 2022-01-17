@@ -1,4 +1,4 @@
-import { getUserByCredentials, getPreferenceIdByUserId, getPreferenceById } from "../../../../services/userController.js"
+import { generateToken, decodeToken } from "../../../../services/encryptPass.js"
 
 
 export default async function apiResponse(request, response) {
@@ -7,19 +7,29 @@ export default async function apiResponse(request, response) {
 	try {
 		switch (request.method) {
 			case "POST":
-				const userReq = await getUserByCredentials(
-					body['email'],
-					body['password']
+				const token = generateToken(
+					body.user_id,
+					body.user_email
 				)
-				const prefReq = await getPreferenceById(await getPreferenceIdByUserId(userReq.id))
 
 				// ? OK
 				return response.status(200).json(
 					{
-						success: !!userReq,
-						query: query,
-						method: method,
-						data: { user: userReq, preference: prefReq }
+						success: !!token,
+						token: token,
+						message: !!token ? "Token generated successfully!" : "Error to generate token!",
+					}
+				)
+
+			case "PUT":
+				const decoded_token = decodeToken(body.token)
+
+				// ? OK
+				return response.status(200).json(
+					{
+						success: !!decoded_token.decoded,
+						decoded_token: decoded_token.decoded,
+						message: decoded_token.message
 					}
 				)
 

@@ -1,23 +1,66 @@
 import { SHA256, AES } from 'crypto-js'
-const dotenv = require('dotenv')
-dotenv.config({path:__dirname+"/../env/.env.development.local"})
+import jwt from 'jsonwebtoken'
+import static_dotenv from "../config/globals/static_dotenv.js"
 
 
-function encrypt(passwd) {
+function hashValue(value) {
 
-	const hashCode = SHA256(passwd)
+	const hashCode = SHA256(value)
 	const hash = hashCode.toString()
 
 	return hash
 }
 
-function generateToken(user_id) {
+function encryptPass(user_id) {
 
-	const cypher = AES.encrypt(user_id, process.env.CRYPTO_KEY)
-	const token = cypher.toString()
+	const cypher = AES.encrypt(`${user_id}`, static_dotenv.secure.secret_key)
+	AES.decrypt(cypher, static_dotenv.secure.secret_key)
+	const encriptedPass = cypher.toString()
+
+	return encriptedPass
+}
+
+function decryptPass(cypher) {
+
+	const decypher = AES.decrypt(cypher, static_dotenv.secure.secret_key)
+	const decryptedPass = decypher.toString()
+
+	return decryptedPass
+}
+
+function generateToken(user_id, user_email) {
+	const token = jwt.sign(
+		{
+			user_id: user_id,
+			user_email: user_email
+		},
+		static_dotenv.secure.secret_key,
+		{
+			expiresIn: '3h'
+		}
+	)
 
 	return token
 }
 
+function decodeToken(token) {
+	const decoded = jwt.decode(token, static_dotenv.secure.secret_key)
 
-export { encrypt, generateToken }
+	try {
+		const verified = jwt.verify(token, static_dotenv.secure.secret_key)
+		if (verified) {
+			return {
+				message: "Token verified successfully!",
+				decoded: decoded
+			}
+		}
+	}
+	catch (error) {
+		return {
+			message: error.message,
+			decoded: null
+		}
+	}
+}
+
+export { hashValue, encryptPass, decryptPass, generateToken, decodeToken }

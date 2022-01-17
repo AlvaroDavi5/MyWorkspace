@@ -2,7 +2,7 @@ const connection = require("../database/connection.js")
 const Bibliographies = require("../database/models/bibliographies.js")
 
 
-async function createBibliography(user_id, author, name, publication_date, returnId) {
+async function createBibliography(user_id, author, name, publication_date, return_id) {
 	Bibliographies.init(connection)
 
 	try {
@@ -15,7 +15,7 @@ async function createBibliography(user_id, author, name, publication_date, retur
 			}
 		)
 
-		if (returnId == true) {
+		if (return_id == true) {
 			return bibliography.id
 		}
 		else {
@@ -50,6 +50,23 @@ async function getAllBibliographies() {
 	}
 	catch ({ message }) {
 		return null
+	}
+}
+
+async function getBibliographiesByUserId(user_id) {
+	Bibliographies.init(connection)
+
+	try {
+		const bibliographies = await Bibliographies.findAll({
+			where: {
+				user_id: user_id
+			}
+		})
+
+		return bibliographies
+	}
+	catch ({ message }) {
+		return message
 	}
 }
 
@@ -102,4 +119,4 @@ async function deleteBibliography(bibliography) {
 }
 
 
-export { createBibliography, getBibliographyById, getAllBibliographies, getBibliographyIdByUserId, updateBibliography, deleteBibliography }
+export { createBibliography, getBibliographyById, getAllBibliographies, getBibliographiesByUserId, getBibliographyIdByUserId, updateBibliography, deleteBibliography }

@@ -1,41 +1,49 @@
-import { getAllBibliographies, createBibliography } from "../../../../../services/bibliographyController.js"
+import { decodeToken } from "../../../../../services/encryptPass.js"
+import { getUserById } from "../../../../../services/userController.js"
+import { getBibliographiesByUserId, createBibliography } from "../../../../../services/bibliographyController.js"
 
 
 export default async function apiResponse(request, response) {
 	const { method, query, body } = request
 
 	try {
+		const userData = decodeToken(query.user_id).decoded
+		const userToManipulateBibliography = await getUserById(userData.user_id)
+
 		switch (request.method) {
 			case "GET":
-				const bibliographiesReq = await getAllBibliographies()
+				const bibliographiesToGet = await getBibliographiesByUserId(userToManipulateBibliography.id)
 
-				return response.status(201).json(
+				// ? OK
+				return response.status(200).json(
 					{
-						success: true,
+						success: !!bibliographiesToGet,
 						query: query,
 						method: method,
-						data: bibliographiesReq
+						data: bibliographiesToGet
 					}
 				)
 
 			case "POST":
-				const biblioReq = await createBibliography(
-					body['user_id'],
-					body['author'], body['name'],
-					body['publication_date'],
+				const bibliographyToCreate = await createBibliography(
+					userToManipulateBibliography.id,
+					body.author, body.name,
+					body.publication_date,
 					false
 				)
 
+				// ? Created
 				return response.status(201).json(
 					{
-						success: biblioReq,
+						success: bibliographyToCreate,
 						query: query,
 						method: method,
-						message: "Bibliography saved successfull!"
+						message: bibliographyToCreate ? "Bibliography created successfully!" : "Error to create bibliography!"
 					}
 				)
 
 			default:
+				// ? Unauthorized
 				return response.status(401).json(
 					{
 						success: false,
@@ -47,6 +55,7 @@ export default async function apiResponse(request, response) {
 		}
 	}
 	catch ({ message }) {
+		// ? Not found
 		return response.status(404).json(
 			{
 				success: false,

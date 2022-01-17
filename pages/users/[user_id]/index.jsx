@@ -1,21 +1,21 @@
+import { parseCookies } from 'nookies'
 import Home from "../../home/index.jsx"
 
 
-export default function UserHomePage({ user_id }) {
+export default function UserHomePage({ userToken }) {
 	return (
 		<>
-		<Home user_id={user_id}/>
+			<Home userToken={userToken}/>
 		</>
 	)
 }
 
 export async function getServerSideProps(context) {
-
-	const usr_id = context.query['user_id']
+	const { "myworkspace-user_token": token } = parseCookies(context)
 
 	return {
 		props: {
-			user_id: usr_id
+			userToken: token
 		}
 	}
 }

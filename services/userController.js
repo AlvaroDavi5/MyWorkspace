@@ -1,4 +1,4 @@
-import { encrypt } from "./encryptPass.js"
+import { hashValue, decodeToken } from "./encryptPass.js"
 const connection = require("../database/connection.js")
 const Users = require("../database/models/users.js")
 const UserPreferences = require("../database/models/user_preferences.js")
@@ -11,9 +11,9 @@ const UserPreferences = require("../database/models/user_preferences.js")
   ? Update
   ? Delete
 */
-async function createUser(name, email, password, phone, cpf, uf, returnId) {
+async function createUser(name, email, password, phone, cpf, uf, return_id) {
 	Users.init(connection)
-	const pass = await encrypt(password)
+	const pass = await hashValue(password)
 
 	try {
 		const user = await Users.create(
@@ -27,7 +27,7 @@ async function createUser(name, email, password, phone, cpf, uf, returnId) {
 			}
 		)
 
-		if (returnId == true) {
+		if (return_id == true) {
 			return user.id
 		}
 		else {
@@ -43,7 +43,7 @@ async function getUserById(id) {
 	Users.init(connection)
 
 	try {
-		const user = await Users.findByPk(id)
+		const user = await Users.scope('withoutSensibleData').findByPk(id)
 
 		return user
 	}
@@ -56,7 +56,7 @@ async function getAllUsers() {
 	Users.init(connection)
 
 	try {
-		const users = await Users.findAll()
+		const users = await Users.scope('withoutSensibleData').findAll()
 
 		return users
 	}
@@ -82,6 +82,12 @@ async function searchUser(email) {
 	}
 }
 
+async function getUserIdByToken(token) {
+	const userToken = decodeToken(token).decoded
+
+	return parseInt(userToken.user_id)
+}
+
 async function getUserByCredentials(email, password) {
 	Users.init(connection)
 
@@ -89,11 +95,18 @@ async function getUserByCredentials(email, password) {
 		const user = await Users.findOne({
 			where: {
 				email: email,
-				password: encrypt(password)
+				password: hashValue(password)
 			}
 		})
 
-		return user
+		return {
+			id: user.id,
+			name: user.name,
+			email: user.email,
+			phone: user.phone,
+			cpf: user.cpf,
+			uf: user.uf
+		}
 	}
 	catch ({ message }) {
 		return null
@@ -106,7 +119,7 @@ async function updateUser(user, name, email, password, phone, cpf, uf) {
 	try {
 		if (name) { user.name = name }
 		if (email) { user.email = email }
-		if (password) { user.password = encrypt(password) }
+		if (password) { user.password = hashValue(password) }
 		if (phone) { user.phone = phone }
 		if (cpf) { user.cpf = cpf }
 		if (uf) { user.uf = uf }
@@ -133,7 +146,7 @@ async function deleteUser(user) {
 	}
 }
 
-async function createPreference(user_id, image_path, default_theme, returnId) {
+async function createPreference(user_id, image_path, default_theme, return_id) {
 	UserPreferences.init(connection)
 
 	try {
@@ -145,7 +158,7 @@ async function createPreference(user_id, image_path, default_theme, returnId) {
 			}
 		)
 
-		if (returnId == true) {
+		if (return_id == true) {
 			return preference.id
 		}
 		else {
@@ -200,11 +213,10 @@ async function getPreferenceIdByUserId(user_id) {
 	}
 }
 
-async function updatePreferences(preference, user_id, image_path, default_theme) {
+async function updatePreferences(preference, image_path, default_theme) {
 	UserPreferences.init(connection)
 
 	try {
-		if (user_id) { preference.user_id = user_id }
 		if (image_path) { preference.image_path = image_path }
 		if (default_theme) { preference.default_theme = default_theme }
 
@@ -231,5 +243,5 @@ async function deletePreference(preference) {
 }
 
 
-export { createUser, getUserById, getAllUsers, searchUser, getUserByCredentials, updateUser, deleteUser,
+export { createUser, getUserById, getAllUsers, searchUser, getUserIdByToken, getUserByCredentials, updateUser, deleteUser,
 createPreference, getPreferenceById, getAllPreferences, getPreferenceIdByUserId, updatePreferences, deletePreference }

@@ -10,6 +10,7 @@ import { FaTrashAlt, FaEdit } from 'react-icons/fa'
 import { parseCookies } from 'nookies'
 import DocumentHead from "../../../components/document_head.jsx"
 import Navbar from "../../../components/navbar.jsx"
+import globals_variables from "../../../../config/globals/modifiable.js"
 
 
 function TaskEditorModal(props) {
@@ -174,16 +175,16 @@ export default function TasksPage({ taskList }) {
 	const pageBgColor = (colorMode == 'light' ? 'clear_lake' : 'dark_forest')
 	const boxBgColor = (colorMode == 'light' ? 'marine' : 'primary')
 	const { isOpen, onOpen, onClose } = useDisclosure()
-	const [ usr_id, setUserId ] = useState('')
+	const [ userToken, setUserToken ] = useState('')
 
 	function tasksRender() {
 		const tasks = []
 
 		for (let i = 0; i < taskList.length; i++) {
 			tasks.push(
-				<ListItem key={(taskList[0]).id}
-					userId={usr_id} date={`${(taskList[0]).deadline_date}`}
-					name={`${(taskList[0]).name}`} desc={`${(taskList[0]).description}`}
+				<ListItem key={(taskList[i]).id}
+					userToken={userToken} date={`${(taskList[i]).deadline_date}`}
+					name={`${(taskList[i]).name}`} desc={`${(taskList[i]).description}`}
 					isOpenEdit={isOpen} onOpenEdit={onOpen} onCloseEdit={onClose}
 				/>
 			)
@@ -193,13 +194,13 @@ export default function TasksPage({ taskList }) {
 	}
 
 	useEffect(() => {
-		const { 'myworkspace-user_id': user_id } = parseCookies()
+		const { "myworkspace-user_token": token } = parseCookies()
 
-		if (user_id) {
-			setUserId(parseInt(user_id))
+		if (token) {
+			setUserToken(token)
 		}
 		else {
-			setUserId('')
+			setUserToken('')
 		}
 	}, [])
 
@@ -254,9 +255,9 @@ export default function TasksPage({ taskList }) {
 }
 
 export async function getServerSideProps(context) {
-	const user_id = (context.query)['user_id']
+	const userId = (context.query)['user_id']
 
-	const req = await fetch(`http://localhost:8080/api/users/${user_id}/tasks`)
+	const req = await fetch(`${globals_variables.general.app_url}/api/users/${userId}/tasks`)
 	const tasksReq = await req.json()
 
 	return {

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Flex, Box, Image, useColorModeValue } from '@chakra-ui/react'
+import { Flex, Box, useColorModeValue } from '@chakra-ui/react'
 import { parseCookies } from 'nookies'
 import DocumentHead from "../../../components/document_head.jsx"
 import Navbar from "../../../components/navbar.jsx"
@@ -8,16 +8,16 @@ import Navbar from "../../../components/navbar.jsx"
 export default function ProjectsPage() {
 	const colorMode = useColorModeValue('light', 'dark')
 	const pageBgColor = (colorMode == 'light' ? 'clear_lake' : 'dark_forest')
-	const [ usr_id, setUserId ] = useState('')
+	const [ userToken, setUserToken ] = useState('')
 
 	useEffect(() => {
-		const { 'myworkspace-user_id': user_id } = parseCookies()
+		const { "myworkspace-user_token": token } = parseCookies()
 
-		if (user_id) {
-			setUserId(parseInt(user_id))
+		if (token) {
+			setUserToken(token)
 		}
 		else {
-			setUserId('')
+			setUserToken('')
 		}
 	}, [])
 

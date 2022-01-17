@@ -21,17 +21,17 @@ function MenuDrawer() {
 
 	return (
 		<>
-			<Button
+			<IconButton
 				ref={btnRef}
 				variant='ghost'
 				color='black'
 				bg={boxBgColor}
-				boxShadow='1px 1px 2px 2px rgba(0, 0, 0, 0.3)'
 				onClick={onOpen}
 				height='10'
+				width='10'
 			>
-				<MdMenu size='30'/>
-			</Button>
+				<MdMenu size={['30', '50']}/>
+			</IconButton>
 
 			<Drawer
 				isOpen={isOpen}
@@ -42,7 +42,8 @@ function MenuDrawer() {
 				<DrawerOverlay/>
 				<DrawerContent>
 					<DrawerCloseButton
-						boxShadow='1px 1px 2px 2px rgba(0, 0, 0, 0.3)'
+						size='30px'
+						margin='5px'
 					/>
 					<DrawerHeader background={boxBgColor}>
 						Menu
@@ -76,8 +77,8 @@ export default function Navbar(props) {
 	return (
 		<Flex
 			bg={boxBgColor}
-			w='100%'
-			h='100px'
+			width='100%'
+			height={['80px', '100px']}
 			p='5'
 			color='black'
 			boxShadow='1px 1px 2px 2px rgba(0, 0, 0, 0.3)'
@@ -99,6 +100,7 @@ export default function Navbar(props) {
 						variant='mw_button'
 						bg={textColor}
 						padding='5px'
+						marginRight='5px'
 						display='list-item'
 					>
 						<DiGithubBadge size='60'/>
@@ -112,26 +114,25 @@ export default function Navbar(props) {
 				justifySelf='center'
 				textAlign='center'
 				margin='5px'
-				fontSize='xx-large'
+				fontSize={['xl', 'xx-large']}
+				fontWeight={['bold', 'normal']}
 			>
 				{props.pageName}
 			</Center>
 
-			<div
+			<Flex
 				className="menu-button"
-				flex='1'
 			>
 				<IconButton
-					icon={colorMode == 'light' ? <BiMoon size='30'/> : <BiSun size='30'/>}
+					icon={colorMode == 'light' ? <BiMoon size={['30', '50']}/> : <BiSun size={['30', '50']}/>}
 					variant='ghost'
 					backgroundColor={boxBgColor}
 					color='black'
-					marginRight='50px'
-					boxShadow='1px 1px 2px 2px rgba(0, 0, 0, 0.3)'
+					marginRight={['10px', '50px']}
 					onClick={toggleColorMode}
 				/>
 				<MenuDrawer/>
-			</div>
+			</Flex>
 		</Flex>
 	)
 }

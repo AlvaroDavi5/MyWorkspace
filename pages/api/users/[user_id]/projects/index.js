@@ -1,51 +1,72 @@
-import { getAllProjects, getAllProjTasks, createProject, createProjTask } from "../../../../../services/projectController.js"
+import { decodeToken } from "../../../../../services/encryptPass.js"
+import { getUserById } from "../../../../../services/userController.js"
+import { getProjectIdByName, getProjectsByUserId, getAllProjTasks, createProject, createProjTask } from "../../../../../services/projectController.js"
 
 
 export default async function apiResponse(request, response) {
 	const { method, query, body } = request
 
 	try {
+		const userData = decodeToken(query.user_id).decoded
+		const userToManipulateProject = await getUserById(userData.user_id)
+		const allProjTasks = await getAllProjTasks()
+
 		switch (request.method) {
 			case "GET":
-				const projsReq = await getAllProjects()
-				const projTasksReq = await getAllProjTasks()
+				const projectsToGet = await getProjectsByUserId(userToManipulateProject.id)
+				const projList = []
+				for (let i = 0; i < projectsToGet.length; i++) {
+					const projTasksList = allProjTasks.filter(projTask => projTask.proj_id == (projectsToGet[i]).id)
+					projList.push({
+						project: projectsToGet[i],
+						proj_tasks: projTasksList
+					})
+				}
 
-				return response.status(201).json(
+				// ? OK
+				return response.status(200).json(
 					{
-						success: true,
+						success: !!projectsToGet,
 						query: query,
 						method: method,
-						data: { projects: projsReq, proj_tasks: projTasksReq }
+						data: projList
 					}
 				)
 
 			case "POST":
-				const projReq = await createProject(
-					body['user_id'],
-					body['name'],
-					true
-				)
-				const projTaskReq = await createProjTask(
-					projReq,
-					body['task_num'],
-					body['name'],
-					body['description'],
-					body['deadline'],
-					body['situation'],
-					body['was_finished'],
-					false
-				)
+				let projId = await getProjectIdByName(body.proj_name)
+				let hasCreatedProject = false
+				if (!!userToManipulateProject && !projId) {
+					projId = await createProject(
+						userToManipulateProject.id,
+						body.proj_name
+					)
+					hasCreatedProject = true
+				}
+				let hasCreatedProjTask = false
+				if (!!userToManipulateProject && !allProjTasks.find(projTask => projTask.task_num == body.task_num)) {
+					hasCreatedProjTask = await createProjTask(
+						projId,
+						body.task_num, body.task_name,
+						body.description, body.deadline,
+						body.situation, body.was_finished,
+						false
+					)
+				}
+				const hasCreated = !!hasCreatedProject || !!hasCreatedProjTask
 
+				// ? Created
 				return response.status(201).json(
 					{
-						success: projTaskReq,
+						success: hasCreated,
 						query: query,
 						method: method,
-						message: "Project created successfull!"
+						message: hasCreated ? "Project or project task created successfully!" : "Error to create project or project task!"
 					}
 				)
 
 			default:
+				// ? Unauthorized
 				return response.status(401).json(
 					{
 						success: false,
@@ -57,6 +78,7 @@ export default async function apiResponse(request, response) {
 		}
 	}
 	catch ({ message }) {
+		// ? Not found
 		return response.status(404).json(
 			{
 				success: false,

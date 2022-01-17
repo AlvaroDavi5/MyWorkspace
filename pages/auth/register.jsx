@@ -13,6 +13,7 @@ import { toastStatuses } from "../auth/auth_context.jsx"
 import DocumentHead from "../components/document_head.jsx"
 import { getAllBrazilStates } from "../../services/apiRequester"
 import MinNavbar from "../components/min_navbar.jsx"
+import globals_variables from "../../config/globals/modifiable.js"
 
 
 export default function Register({ stateList }) {
@@ -31,19 +32,19 @@ export default function Register({ stateList }) {
 
 		try {
 			const reqData = await axios.post(
-				"http://localhost:8080/api/auth/register/",
+				`${globals_variables.general.app_url}/api/auth/register/`,
 				{
 					name: data.username,
 					email: data.email,
 					password: data.password,
-					phone: null,
-					cpf: null,
+					phone: data.phone,
+					cpf: data.cpf,
 					uf: data.uf
 				}
 			)
-			const registered = reqData.data.message
+			const registerMessage = reqData.data.message
 
-			if (registered == "User already exists") {
+			if (registerMessage == "User already exists!") {
 				setLoadButton(false)
 				toast({
 					status: toastStatuses[2][0],
@@ -53,7 +54,7 @@ export default function Register({ stateList }) {
 					isClosable: true
 				})
 			}
-			else {
+			else if (registerMessage == "User created successfully!") {
 				setLoadButton(false)
 				toast({
 					status: toastStatuses[0][0],
@@ -63,11 +64,22 @@ export default function Register({ stateList }) {
 					isClosable: true
 				})
 			}
+			else {
+				setLoadButton(false)
+				toast({
+					status: toastStatuses[2][0],
+					title: toastStatuses[2][1],
+					description: toastStatuses[2][2],
+					duration: 1500,
+					isClosable: true
+				})
+			}
 		}
 		catch (error) {
+			setLoadButton(false)
 			toast({
 				status: toastStatuses[1][0],
-				description: "Erro ao cadastrar usuário!",
+				title: "Erro ao cadastrar usuário!",
 				description: `${error}`,
 				duration: 1500,
 				isClosable: true
@@ -205,10 +217,15 @@ export default function Register({ stateList }) {
 export async function getStaticProps(context) {
 
 	const statesList = await getAllBrazilStates()
+	const orderedStatelist = statesList.sort((a, b) => {
+		if (a.nome < b.nome) return -1
+		if (a.nome > b.nome) return 1
+		return 0
+	})
 
 	return {
 		props: {
-			stateList: statesList
+			stateList: orderedStatelist
 		}
 	}
 }

@@ -8,10 +8,10 @@ import Login from "./auth/login.jsx"
 export default function AppIndex() {
 
 	useEffect(() => {
-		const { 'myworkspace-user_id': user_id } = parseCookies()
+		const { "myworkspace-user_token": token } = parseCookies()
 
-		if (user_id) {
-			Router.push(`/users/${parseInt(user_id)}`)
+		if (token) {
+			Router.push(`/users/${token}`)
 		}
 		else {
 			Router.push('/')

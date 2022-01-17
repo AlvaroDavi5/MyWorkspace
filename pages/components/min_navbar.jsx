@@ -2,7 +2,7 @@ import Link from 'next/link'
 import {
 	useColorMode,
 	Flex,
-	Center, Button, IconButton
+	Center, IconButton
 } from '@chakra-ui/react'
 import { BiSun, BiMoon } from 'react-icons/bi'
 import { DiGithubBadge } from 'react-icons/di'
@@ -17,8 +17,8 @@ export default function MinNavbar(props) {
 	return (
 		<Flex
 			bg={boxBgColor}
-			w='100%'
-			h='100px'
+			width='100%'
+			height={['80px', '100px']}
 			p='5'
 			color='black'
 			boxShadow='1px 1px 2px 2px rgba(0, 0, 0, 0.3)'
@@ -33,17 +33,18 @@ export default function MinNavbar(props) {
 			>
 				<Link href="https://github.com/AlvaroDavi5/MyWorkspace" passHref
 				>
-					<Button
+					<IconButton
 						size='xl'
 						boxShadow='1px 1px 2px 2px rgba(0, 0, 0, 0.3)'
 						color={iconColor}
 						variant='mw_button'
 						bg={textColor}
 						padding='5px'
+						marginRight='5px'
 						display='list-item'
 					>
 						<DiGithubBadge size='60'/>
-					</Button>
+					</IconButton>
 				</Link>
 			</div>
 
@@ -53,7 +54,8 @@ export default function MinNavbar(props) {
 				justifySelf='center'
 				textAlign='center'
 				margin='5px'
-				fontSize='xx-large'
+				fontSize={['xl', 'xx-large']}
+				fontWeight={['bold', 'normal']}
 			>
 				{props.pageName}
 			</Center>
@@ -63,12 +65,12 @@ export default function MinNavbar(props) {
 				flex='1'
 			>
 				<IconButton
-					icon={colorMode == 'light' ? <BiMoon size='30'/> : <BiSun size='30'/>}
+					icon={colorMode == 'light' ? <BiMoon size={['30', '50']}/> : <BiSun size={['30', '50']}/>}
 					variant='ghost'
 					backgroundColor={boxBgColor}
 					color='black'
+					marginLeft='10px'
 					marginRight='50px'
-					boxShadow='1px 1px 2px 2px rgba(0, 0, 0, 0.3)'
 					onClick={toggleColorMode}
 				/>
 			</div>

@@ -3,6 +3,7 @@ import Router from 'next/router'
 import { useToast } from '@chakra-ui/react'
 import { setCookie } from 'nookies'
 import axios from 'axios'
+import globals_variables from "../../config/globals/modifiable.js"
 
 
 export const AuthContext = createContext({})
@@ -22,7 +23,7 @@ export default function AuthProvider({ children }) {
 		try {
 			// // change API URL after deploy | cloud database | hosting service implementation
 			const { data, ...reqData } = await axios.post(
-				"http://localhost:8080/api/auth/login/",
+				`${globals_variables.general.app_url}/api/auth/login/`,
 				{
 					email,
 					password
@@ -42,13 +43,22 @@ export default function AuthProvider({ children }) {
 				})
 			}
 
+			// generate user token
+			const userToken = await axios.post(
+				`${globals_variables.general.app_url}/api/auth/generate_token/`,
+				{
+					user_id: data.data.user['id'],
+					user_email: email
+				}
+			)
+
 			// saving user auth on cookies
-			setCookie(undefined, 'myworkspace-user_id', data.data.user['id'], {
-				maxAge: 60 * 60 * 1 // 1 hour
+			setCookie(undefined, "myworkspace-user_token", userToken.data.token, {
+				maxAge: 60 * 60 * 3 // 3 hours
 			})
 
 			// redirecting route
-			Router.push(`/users/${data.data.user['id']}`)			
+			Router.push(`/users/${userToken.data.token}`)			
 		}
 		catch (error) {
 			toast({
@@ -60,8 +70,6 @@ export default function AuthProvider({ children }) {
 			})
 			console.log(error)
 		}
-
-		return user
 	}
 
 	return (
