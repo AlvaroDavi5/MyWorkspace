@@ -4,6 +4,7 @@
 	"version": "0.1.0",
 	"description": "Web platform (and Progressive Web App) aimed at teachers, so they can organize their tasks, projects and academic study contents.",
 	"license": "GPL-3.0-only",
+	"main": "/pages/_app.js",
 	"private": false,
 	"os": [
 		"linux",
@@ -21,7 +22,7 @@
 		"dev": "next dev -p 8080",
 		"build": "next build",
 		"start": "next start -p 3000",
-		"db_config": "yarn sequelize db:drop && yarn sequelize db:create && yarn sequelize db:migrate && yarn sequelize db:seed:all",
+		"db_config": "yarn sequelize-cli db:drop && yarn sequelize-cli db:create && yarn sequelize-cli db:migrate && yarn sequelize-cli db:seed:all",
 		"lint": "next lint",
 		"format": "prettier --write \"./**/*.{js,ts,jsx,tsx,json}\""
 	},
@@ -37,6 +38,7 @@
 		"framer-motion": "^5.4.5",
 		"fs": "^0.0.1-security",
 		"jsonwebtoken": "^8.5.1",
+		"mysql2": "^2.3.3",
 		"next": "^12.0.7",
 		"next-compose-plugins": "^2.2.1",
 		"next-images": "^1.8.4",
