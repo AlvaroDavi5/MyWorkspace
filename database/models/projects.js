@@ -18,4 +18,4 @@ class Projects extends Model {
 }
 
 
-module.exports = Projects;
+module.exports = Projects

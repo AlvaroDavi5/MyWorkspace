@@ -1,5 +1,5 @@
 import { decodeToken } from "../../../../services/encryptPass.js"
-import { getUserById, getPreferenceById, getPreferenceIdByUserId, updateUser, deleteUser, updatePreferences, deletePreference } from "../../../../services/userController.js"
+import { getUserById, getPreferenceById, getPreferenceIdByUserId, updateUser, deleteUser, updatePreference, deletePreference } from "../../../../services/userController.js"
 
 
 export default async function apiResponse(request, response) {
@@ -43,7 +43,7 @@ export default async function apiResponse(request, response) {
 					body.new_password, body.new_phone,
 					body.new_cpf, body.new_uf
 				)
-				const hasPrefUpdated = await updatePreferences(preferenceToManipulate,
+				const hasPrefUpdated = await updatePreference(preferenceToManipulate,
 					body.new_image_path, body.new_default_theme
 				)
 

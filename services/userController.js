@@ -13,7 +13,7 @@ const UserPreferences = require("../database/models/user_preferences.js")
 */
 async function createUser(name, email, password, phone, cpf, uf, return_id) {
 	Users.init(connection)
-	const pass = await hashValue(password)
+	const pass = hashValue(password)
 
 	try {
 		const user = await Users.create(
@@ -213,7 +213,7 @@ async function getPreferenceIdByUserId(user_id) {
 	}
 }
 
-async function updatePreferences(preference, image_path, default_theme) {
+async function updatePreference(preference, image_path, default_theme) {
 	UserPreferences.init(connection)
 
 	try {
@@ -244,4 +244,4 @@ async function deletePreference(preference) {
 
 
 export { createUser, getUserById, getAllUsers, searchUser, getUserIdByToken, getUserByCredentials, updateUser, deleteUser,
-createPreference, getPreferenceById, getAllPreferences, getPreferenceIdByUserId, updatePreferences, deletePreference }
+createPreference, getPreferenceById, getAllPreferences, getPreferenceIdByUserId, updatePreference, deletePreference }

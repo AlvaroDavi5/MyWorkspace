@@ -6,7 +6,7 @@ module.exports = {
 	database: static_dotenv.db.database, // database name
 	username: static_dotenv.db.username, // database username
 	password: static_dotenv.db.password, // database password
-	host: globals_variables.db.host, // database host (change to 'db' if you use docker or to 'localhost' if you use local machine)
+	host: globals_variables.db.host, // database host (change to 'db' if your connection its between docker containers or to 'localhost' if you use local machine)
 	charset: 'utf8', // database charset encoding
 	dialect: static_dotenv.db.dialect, // one of 'mysql' | 'mariadb' | 'postgres' | 'mssql'
 	port: static_dotenv.db.port, // database port

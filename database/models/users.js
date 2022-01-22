@@ -17,7 +17,7 @@ class Users extends Model {
 				scopes: {
 					withoutSensibleData: {
 						attributes: {
-							exclude: ['email', 'phone', 'password', 'cpf']
+							exclude: ['email', 'password', 'phone', 'cpf']
 						},
 					}
 				},
@@ -35,4 +35,4 @@ class Users extends Model {
 }
 
 
-module.exports = Users;
+module.exports = Users

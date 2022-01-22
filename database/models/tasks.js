@@ -20,4 +20,4 @@ class Tasks extends Model {
 }
 
 
-module.exports = Tasks;
+module.exports = Tasks

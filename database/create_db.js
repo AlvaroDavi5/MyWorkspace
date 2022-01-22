@@ -1,14 +1,10 @@
-const { Sequelize } = require('sequelize')
-const DBConfig = require("./db_config.js")
+const connection = require("./connection.js")
 const Users = require("./models/users.js")
 const UserPreferences = require("./models/user_preferences.js")
 const Projects = require("./models/projects.js")
 const ProjTasks = require("./models/proj_tasks.js")
 const Tasks = require("./models/tasks.js")
 const Bibliographies = require("./models/bibliographies.js")
-
-
-const connection = new Sequelize(DBConfig)
 
 
 /* database tables creation */

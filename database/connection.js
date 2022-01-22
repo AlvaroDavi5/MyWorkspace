@@ -11,7 +11,7 @@ const connection = new Sequelize(DBConfig)
 
 /* testing the connection */
 try {
-	connection.authenticate()
+	await connection.authenticate()
 	console.log('Database connection has been established successfully.')
 }
 catch (error) {
