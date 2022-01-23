@@ -11,9 +11,9 @@ function hashValue(value) {
 	return hash
 }
 
-function encryptPass(user_id) {
+function encryptPass(pass_phrase) {
 
-	const cypher = AES.encrypt(`${user_id}`, static_dotenv.secure.secret_key)
+	const cypher = AES.encrypt(`${pass_phrase}`, static_dotenv.secure.secret_key)
 	AES.decrypt(cypher, static_dotenv.secure.secret_key)
 	const encriptedPass = cypher.toString()
 

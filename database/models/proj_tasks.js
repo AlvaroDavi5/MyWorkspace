@@ -22,4 +22,4 @@ class ProjTasks extends Model {
 }
 
 
-module.exports = ProjTasks;
+module.exports = ProjTasks

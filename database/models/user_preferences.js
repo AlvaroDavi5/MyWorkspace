@@ -18,4 +18,4 @@ class UserPreferences extends Model {
 }
 
 
-module.exports = UserPreferences;
+module.exports = UserPreferences

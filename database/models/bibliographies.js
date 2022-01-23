@@ -19,4 +19,4 @@ class Bibliographies extends Model {
 }
 
 
-module.exports = Bibliographies;
+module.exports = Bibliographies
