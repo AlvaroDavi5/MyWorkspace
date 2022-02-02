@@ -5,7 +5,7 @@ class Projects extends Model {
 	static init(connection) {
 		super.init({
 			user_id: DataTypes.INTEGER,
-			name: DataTypes.STRING(100)		
+			name: DataTypes.STRING(100)
 		},
 		{ sequelize: connection }
 		)

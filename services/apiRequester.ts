@@ -33,7 +33,7 @@ async function getBrazilState(uf:String) {
 	try {
 		let query = await fetch(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${uf}`)
 		const data = await query.json()
-		
+
 		return data
 	}
 	catch(error) {

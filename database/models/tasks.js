@@ -8,7 +8,7 @@ class Tasks extends Model {
 			name: DataTypes.STRING(100),
 			deadline_date: DataTypes.DATE,
 			deadline_time: DataTypes.TIME,
-			description: DataTypes.STRING(355)		
+			description: DataTypes.STRING(355)
 		},
 		{ sequelize: connection }
 		)

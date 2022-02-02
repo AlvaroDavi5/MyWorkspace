@@ -58,7 +58,7 @@ export default function AuthProvider({ children }) {
 			})
 
 			// redirecting route
-			Router.push(`/users/${userToken.data.token}`)			
+			Router.push(`/users/${userToken.data.token}`)
 		}
 		catch (error) {
 			toast({

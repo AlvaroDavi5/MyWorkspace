@@ -9,7 +9,7 @@ const static_dotenv = {
 		username: process.env.DB_USERNAME,
 		password: process.env.DB_PASSWORD,
 		dialect: process.env.DB_DBMS_NAME,
-		port: process.env.DB_PORT	
+		port: process.env.DB_PORT
 	},
 	secure: {
 		secret_key: process.env.CRYPTO_KEY,
