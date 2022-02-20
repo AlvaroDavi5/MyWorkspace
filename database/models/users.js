@@ -14,6 +14,8 @@ class Users extends Model {
 				uf: DataTypes.STRING(2)
 			},
 			{
+				modelName: 'Users',
+				tableName: 'users',
 				scopes: {
 					withoutSensibleData: {
 						attributes: {
@@ -27,10 +29,41 @@ class Users extends Model {
 	}
 
 	static associate(models) {
-		this.hasOne(models.UserPreferences, {foreignKey: 'user_id', targetKey: 'id', as: 'preference'})
-		this.hasMany(models.Projects, {foreignKey: 'user_id', targetKey: 'id', as: 'projects'})
-		this.hasMany(models.Tasks, {foreignKey: 'user_id', targetKey: 'id', as: 'tasks'})
-		this.hasMany(models.Bibliographies, {foreignKey: 'user_id', targetKey: 'id', as: 'bibliographies'})
+		this.hasOne(
+			models.UserPreferences,
+			{
+				foreignKey: 'user_id',
+				targetKey: 'id',
+				as: 'preference'
+			}
+		)
+
+		this.hasMany(
+			models.Projects,
+			{
+				foreignKey: 'user_id',
+				targetKey: 'id',
+				as: 'projects'
+			}
+		)
+
+		this.hasMany(
+			models.Tasks,
+			{
+				foreignKey: 'user_id',
+				targetKey: 'id',
+				as: 'tasks'
+			}
+		)
+
+		this.hasMany(
+			models.Bibliographies,
+			{
+				foreignKey: 'user_id',
+				targetKey: 'id',
+				as: 'bibliographies'
+			}
+		)
 	}
 }
 
