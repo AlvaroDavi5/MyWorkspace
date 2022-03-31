@@ -30,6 +30,7 @@ Projects.associate(connection.models)
 ProjTasks.associate(connection.models) // passing all models from connection
 Tasks.associate(connection.models)
 Bibliographies.associate(connection.models)
+connection.sync({ force: true })
 
 
 module.exports = connection;
