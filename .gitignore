@@ -30,7 +30,7 @@ yarn-error.log*
 .env.test
 .env.development
 .env.production
-/env
+/env/*
 # files extensions
 *.docx
 *.xlsx
@@ -49,6 +49,4 @@ TODO.txt
 
 # --------- except ---------
 
-!*.ts
-!*.tsx
-
+!/env/.env
