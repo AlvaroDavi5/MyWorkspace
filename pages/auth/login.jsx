@@ -80,18 +80,20 @@ export default function Login() {
 												maxHeight={['70px', '90px']} maxWidth={['90%', '40vw']} background='green.100'
 											/>
 										</InputGroup>
-										<FormHelperText fontWeight='bold'>
-											<Link href="/auth/register" passHref>
-												<>
-													<Box display={['none', 'contents']}>
-														Não possui uma conta? Cadastre-se aqui!
-													</Box>
-													<Box display={['contents', 'none']}>
-														Cadastrar-se →
-													</Box>
-												</>
-											</Link>
-										</FormHelperText>
+										<Link href="/auth/register" passHref>
+											<a>
+												<FormHelperText fontWeight='bold'>
+													<>
+														<Box display={['none', 'contents']}>
+															Não possui uma conta? Cadastre-se aqui!
+														</Box>
+														<Box display={['contents', 'none']}>
+															Cadastrar-se →
+														</Box>
+													</>
+												</FormHelperText>
+											</a>
+										</Link>
 									</Box>
 									<Box id="login-pass" margin='10px 10% 0px 15%'>
 										<FormLabel htmlFor='password' marginLeft='15px'>Senha:</FormLabel>
@@ -107,18 +109,20 @@ export default function Login() {
 												</Button>
 											</InputRightElement>
 										</InputGroup>
-										<FormHelperText fontWeight='bold'>
-											<Link href="/auth/recovery" passHref>
-												<>
-													<Box display={['none', 'contents']}>
-														Esqueceu sua senha? Recupere seu acesso aqui!
-													</Box>
-													<Box display={['contents', 'none']}>
-														Recuperar senha →
-													</Box>
-												</>
-											</Link>
-										</FormHelperText>
+										<Link href="/auth/recovery" passHref>
+											<a>
+												<FormHelperText fontWeight='bold'>
+													<>
+														<Box display={['none', 'contents']}>
+															Esqueceu sua senha? Recupere seu acesso aqui!
+														</Box>
+														<Box display={['contents', 'none']}>
+															Recuperar senha →
+														</Box>
+													</>
+												</FormHelperText>
+											</a>
+									</Link>
 									</Box>
 									<Button
 										id="login-submit-button"
