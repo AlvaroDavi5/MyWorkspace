@@ -30,13 +30,13 @@ yarn-error.log*
 .env.test
 .env.development
 .env.production
-/env
+/env/*
 # files extensions
 *.docx
 *.xlsx
 # test files
 *.test.js.snap
-/__snapshots__
+**/__snapshots__
 # PWA configs
 /public/sw.js*
 /public/workbox-*.js*
@@ -49,6 +49,4 @@ TODO.txt
 
 # --------- except ---------
 
-!*.ts
-!*.tsx
-
+!/env/.env

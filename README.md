@@ -40,9 +40,9 @@ npm start
 Finally, open  
 
 * to development server  
-[localhost:8080](http://localhost:8080)  
+[localhost:8080](http://localhost:8080/)  
 * to production server  
-[localhost:3000](http://localhost:3000)  
+[localhost:3000](http://localhost:3000/)  
 
 on your browser to see the result.
 
