@@ -145,7 +145,7 @@ ___
 + Response 404 (application/json)
 
 
-## Read User [/users/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJ1c2VyX2VtYWlsIjoiYWx2YXJvLWFsdmVzQG5vbWFpbC5lZHV1IiwiaWF0IjoxNjQ4OTI2ODE5LCJleHAiOjE2NDg5Mzc2MTl9.UynPhBE9TAJafeFFGs4jIPR-VOdhiSO964wEdPLj30M/]
+## Read User [/users/{user_token}/]
 
 ### Read User Properties [GET]
 + Request (application/json)
@@ -165,7 +165,7 @@ ___
 
 # Group Tasks
 
-## Tasks Create/Read [/users/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJ1c2VyX2VtYWlsIjoiYWx2YXJvLWFsdmVzQG5vbWFpbC5lZHV1IiwiaWF0IjoxNjQ4OTI2ODE5LCJleHAiOjE2NDg5Mzc2MTl9.UynPhBE9TAJafeFFGs4jIPR-VOdhiSO964wEdPLj30M/tasks]
+## Tasks Create/Read [/users/{user_token}/tasks]
 
 ### Read Tasks [GET]
 + Request (application/json)
@@ -196,7 +196,7 @@ ___
 + Response 404 (application/json)
 
 
-## Task Read/Update/Delete [/users/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJ1c2VyX2VtYWlsIjoiYWx2YXJvLWFsdmVzQG5vbWFpbC5lZHV1IiwiaWF0IjoxNjQ4OTI2ODE5LCJleHAiOjE2NDg5Mzc2MTl9.UynPhBE9TAJafeFFGs4jIPR-VOdhiSO964wEdPLj30M/tasks/{task_id}]
+## Task Read/Update/Delete [/users/{user_token}/tasks/{task_id}]
 
 ### Read Task [GET]
 + Request (application/json)
@@ -244,7 +244,7 @@ ___
 
 # Group Projects
 
-## Projects/ProjTasks Create/Read [/users/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJ1c2VyX2VtYWlsIjoiYWx2YXJvLWFsdmVzQG5vbWFpbC5lZHV1IiwiaWF0IjoxNjQ4OTI2ODE5LCJleHAiOjE2NDg5Mzc2MTl9.UynPhBE9TAJafeFFGs4jIPR-VOdhiSO964wEdPLj30M/projects]
+## Projects/ProjTasks Create/Read [/users/{user_token}/projects]
 
 ### Read Projects [GET]
 + Request (application/json)
@@ -275,7 +275,7 @@ ___
 + Response 404 (application/json)
 
 
-## Project Read/Update/Delete [/users/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJ1c2VyX2VtYWlsIjoiYWx2YXJvLWFsdmVzQG5vbWFpbC5lZHV1IiwiaWF0IjoxNjQ4OTI2ODE5LCJleHAiOjE2NDg5Mzc2MTl9.UynPhBE9TAJafeFFGs4jIPR-VOdhiSO964wEdPLj30M/projects/{project_id}]
+## Project Read/Update/Delete [/users/{user_token}/projects/{project_id}]
 
 ### Read Project [GET]
 + Request (application/json)
@@ -320,7 +320,7 @@ ___
 + Response 404 (application/json)
 
 
-## ProjTask Read/Update/Delete [/users/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJ1c2VyX2VtYWlsIjoiYWx2YXJvLWFsdmVzQG5vbWFpbC5lZHV1IiwiaWF0IjoxNjQ4OTI2ODE5LCJleHAiOjE2NDg5Mzc2MTl9.UynPhBE9TAJafeFFGs4jIPR-VOdhiSO964wEdPLj30M/projects/{project_id}/{proj_task_id}]
+## ProjTask Read/Update/Delete [/users/{user_token}/projects/{project_id}/{proj_task_id}]
 
 ### Update ProjTask [PUT]
 + Request (application/json)
@@ -354,7 +354,7 @@ ___
 
 # Group Bibliographies
 
-## Bibliographies Create/Read [/users/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJ1c2VyX2VtYWlsIjoiYWx2YXJvLWFsdmVzQG5vbWFpbC5lZHV1IiwiaWF0IjoxNjQ4OTI2ODE5LCJleHAiOjE2NDg5Mzc2MTl9.UynPhBE9TAJafeFFGs4jIPR-VOdhiSO964wEdPLj30M/bibliographies]
+## Bibliographies Create/Read [/users/{user_token}/bibliographies]
 
 ### Read Bibliographies [GET]
 + Request (application/json)
@@ -385,7 +385,7 @@ ___
 + Response 404 (application/json)
 
 
-## Bibliography Read/Update/Delete [/users/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJ1c2VyX2VtYWlsIjoiYWx2YXJvLWFsdmVzQG5vbWFpbC5lZHV1IiwiaWF0IjoxNjQ4OTI2ODE5LCJleHAiOjE2NDg5Mzc2MTl9.UynPhBE9TAJafeFFGs4jIPR-VOdhiSO964wEdPLj30M/bibliographies/{bibliography_id}]
+## Bibliography Read/Update/Delete [/users/{user_token}/bibliographies/{bibliography_id}]
 
 ### Read Bibliography [GET]
 + Request (application/json)
