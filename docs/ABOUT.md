@@ -21,7 +21,7 @@ Approaching areas such as: development techniques, design patterns, mapping of d
 **PWA Plugin:** Next-PWA  
 <br/>
 
-### Color Palette:
+#### Color Palette:
 <span style="color:#AEF0D1">clear_lake</span> - <span style="color:#015249">dark_forest</span>
 <br>
 <span style="color:#229052">primary</span> - <span style="color:#03652E">secondary</span>
@@ -39,19 +39,22 @@ marine: #57BC90
 feather: #77C9D4
 sleek_grey: #A5A5AF
 ```
+<br>
 
-#### Pages:
-[MockFlow Pages Scheme](https://wireframepro.mockflow.com/view/M6865e8225ab76c72f2773456e696b6fa1626432534880)
-<br><br>
+### Pages:
+[MockFlow Pages Scheme](https://wireframepro.mockflow.com/view/M6865e8225ab76c72f2773456e696b6fa1626432534880)  
+<br>
 
 ### Database:
 	Type: Relational
 	DBMS/RDBMS: PostgreSQL
-[DBDesigner Schema](https://dbdesigner.page.link/iNEUbGRhqXn19HYz9)
+[DBDesigner Schema](https://dbdesigner.page.link/iNEUbGRhqXn19HYz9)  
+[DBDiagram Schema](https://dbdiagram.io/d/61fffdf585022f4ee547ca2e)  
 <br>
 
 ### API Documentation:
-[Apiary API Doc](https://app.apiary.io/myworkspaceapi/editor)
+[Apiary API Doc](https://app.apiary.io/myworkspaceapi/editor)  
+<br>
 
 #### Used APIs:
-[IBGE](https://servicodados.ibge.gov.br/api/docs)
+[IBGE](https://servicodados.ibge.gov.br/api/docs)  
