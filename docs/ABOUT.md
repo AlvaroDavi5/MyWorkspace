@@ -17,9 +17,9 @@ Approaching areas such as: development techniques, design patterns, mapping of d
 **Laguages:** JavaScript / TypeScript / JSX + HTML + CSS  
 **Framework:** Next.js  
 **UI-Tool:** Chakra-UI  
-**ORM and Query Builder:** Sequelize
-**PWA Plugin:** Next-PWA
-<br/><br/>
+**ORM and Query Builder:** Sequelize  
+**PWA Plugin:** Next-PWA  
+<br/>
 
 ### Color Palette:
 <span style="color:#AEF0D1">clear_lake</span> - <span style="color:#015249">dark_forest</span>
