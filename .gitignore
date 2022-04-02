@@ -36,7 +36,7 @@ yarn-error.log*
 *.xlsx
 # test files
 *.test.js.snap
-/__snapshots__
+**/__snapshots__
 # PWA configs
 /public/sw.js*
 /public/workbox-*.js*
