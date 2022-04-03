@@ -1,9 +1,7 @@
-const connection = require("../database/connection")
-const Bibliographies = require("../database/models/bibliographies")
+import Bibliographies from "../database/models/bibliographies"
 
 
-async function createBibliography(user_id, author, name, publication_date, return_id) {
-	Bibliographies.init(connection)
+async function createBibliography(user_id: number, author: string, name: string, publication_date: Date, return_id: boolean): Promise<number | boolean> {
 
 	try {
 		const bibliography = await Bibliographies.create(
@@ -27,8 +25,7 @@ async function createBibliography(user_id, author, name, publication_date, retur
 	}
 }
 
-async function getBibliographyById(id) {
-	Bibliographies.init(connection)
+async function getBibliographyById(id: number): Promise<Bibliographies | null> {
 
 	try {
 		const bibliography = await Bibliographies.findByPk(id)
@@ -40,8 +37,7 @@ async function getBibliographyById(id) {
 	}
 }
 
-async function getAllBibliographies() {
-	Bibliographies.init(connection)
+async function getAllBibliographies(): Promise<Bibliographies[] | Bibliographies | null> {
 
 	try {
 		const bibliographies = await Bibliographies.findAll()
@@ -53,8 +49,7 @@ async function getAllBibliographies() {
 	}
 }
 
-async function getBibliographiesByUserId(user_id) {
-	Bibliographies.init(connection)
+async function getBibliographiesByUserId(user_id: number): Promise<Bibliographies[] | null> {
 
 	try {
 		const bibliographies = await Bibliographies.findAll({
@@ -66,12 +61,11 @@ async function getBibliographiesByUserId(user_id) {
 		return bibliographies
 	}
 	catch ({ message }) {
-		return message
+		return null
 	}
 }
 
-async function getBibliographyIdByUserId(user_id) {
-	Bibliographies.init(connection)
+async function getBibliographyIdByUserId(user_id: number): Promise<number | null> {
 
 	try {
 		const bibliography = await Bibliographies.findOne({
@@ -80,15 +74,19 @@ async function getBibliographyIdByUserId(user_id) {
 			}
 		})
 
-		return bibliography.id
+		if (!!bibliography?.id) {
+			return bibliography.id
+		}
+		else {
+			return 0
+		}
 	}
 	catch ({ message }) {
 		return null
 	}
 }
 
-async function updateBibliography(bibliography, user_id, author, name, publication_date) {
-	Bibliographies.init(connection)
+async function updateBibliography(bibliography: Bibliographies, user_id: number, author: string, name: string, publication_date: Date): Promise<boolean> {
 
 	try {
 		if (user_id) { bibliography.user_id = user_id }
@@ -105,8 +103,7 @@ async function updateBibliography(bibliography, user_id, author, name, publicati
 	}
 }
 
-async function deleteBibliography(bibliography) {
-	Bibliographies.init(connection)
+async function deleteBibliography(bibliography: Bibliographies): Promise<boolean> {
 
 	try {
 		await bibliography.destroy()

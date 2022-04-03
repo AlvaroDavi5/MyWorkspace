@@ -1,9 +1,7 @@
-const connection = require("../database/connection")
-const Tasks = require("../database/models/tasks")
+import Tasks from "../database/models/tasks"
 
 
-async function createTask(user_id, name, deadline_date, deadline_time, description, return_id) {
-	Tasks.init(connection)
+async function createTask(user_id: number, name: string, deadline_date: Date, deadline_time: Date, description: string, return_id: boolean): Promise<number | boolean> {
 
 	try {
 		const task = await Tasks.create(
@@ -28,8 +26,7 @@ async function createTask(user_id, name, deadline_date, deadline_time, descripti
 	}
 }
 
-async function getTaskById(id) {
-	Tasks.init(connection)
+async function getTaskById(id: number): Promise<Tasks | null> {
 
 	try {
 		const task = await Tasks.findByPk(id)
@@ -41,8 +38,7 @@ async function getTaskById(id) {
 	}
 }
 
-async function getAllTasks() {
-	Tasks.init(connection)
+async function getAllTasks(): Promise<Tasks[] | Tasks | null> {
 
 	try {
 		const tasks = await Tasks.findAll()
@@ -54,8 +50,7 @@ async function getAllTasks() {
 	}
 }
 
-async function getTasksByUserId(user_id) {
-	Tasks.init(connection)
+async function getTasksByUserId(user_id: number): Promise<Tasks[] | Tasks | null> {
 
 	try {
 		const tasks = await Tasks.findAll({
@@ -67,12 +62,11 @@ async function getTasksByUserId(user_id) {
 		return tasks
 	}
 	catch ({ message }) {
-		return message
+		return null
 	}
 }
 
-async function getTaskIdByUserId(user_id) {
-	Tasks.init(connection)
+async function getTaskIdByUserId(user_id: number): Promise<number | null> {
 
 	try {
 		const task = await Tasks.findOne({
@@ -81,15 +75,19 @@ async function getTaskIdByUserId(user_id) {
 			}
 		})
 
-		return task.id
+		if (task?.id) {
+			return task.id
+		}
+		else {
+			return 0
+		}
 	}
 	catch ({ message }) {
 		return null
 	}
 }
 
-async function updateTask(task, user_id, name, deadline_date, deadline_time, description) {
-	Tasks.init(connection)
+async function updateTask(task: Tasks, user_id: number, name: string, deadline_date: Date, deadline_time: Date, description: string): Promise<boolean> {
 
 	try {
 		if (user_id) { task.user_id = user_id }
@@ -107,8 +105,7 @@ async function updateTask(task, user_id, name, deadline_date, deadline_time, des
 	}
 }
 
-async function deleteTask(task) {
-	Tasks.init(connection)
+async function deleteTask(task: Tasks): Promise<boolean> {
 
 	try {
 		await task.destroy()

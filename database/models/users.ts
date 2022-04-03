@@ -52,6 +52,11 @@ Users.init(
 		modelName: 'Users',
 		tableName: 'users',
 		scopes: {
+			withoutPassword: {
+				attributes: {
+					exclude: ['password']
+				}
+			},
 			withoutSensibleData: {
 				attributes: {
 					exclude: ['email', 'password', 'phone', 'cpf']

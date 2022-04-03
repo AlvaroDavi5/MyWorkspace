@@ -1,10 +1,8 @@
-const connection = require("../database/connection")
-const Projects = require("../database/models/projects")
-const ProjTasks = require("../database/models/proj_tasks")
+import Projects from "../database/models/projects"
+import ProjTasks from "../database/models/proj_tasks"
 
 
-async function createProject(user_id, name) {
-	Projects.init(connection)
+async function createProject(user_id: number, name: string): Promise<number | boolean> {
 
 	try {
 		const project = await Projects.create(
@@ -21,8 +19,7 @@ async function createProject(user_id, name) {
 	}
 }
 
-async function getProjectById(id) {
-	Projects.init(connection)
+async function getProjectById(id: number): Promise<Projects | null> {
 
 	try {
 		const project = await Projects.findByPk(id)
@@ -34,8 +31,7 @@ async function getProjectById(id) {
 	}
 }
 
-async function getAllProjects() {
-	Projects.init(connection)
+async function getAllProjects(): Promise<Projects[] | Projects | null> {
 
 	try {
 		const projects = await Projects.findAll()
@@ -47,8 +43,7 @@ async function getAllProjects() {
 	}
 }
 
-async function getProjectsByUserId(user_id) {
-	Projects.init(connection)
+async function getProjectsByUserId(user_id: number): Promise<Projects[] | Projects | null> {
 
 	try {
 		const projects = await Projects.findAll({
@@ -64,8 +59,7 @@ async function getProjectsByUserId(user_id) {
 	}
 }
 
-async function getProjectIdByName(name) {
-	Projects.init(connection)
+async function getProjectIdByName(name: string): Promise<number | null> {
 
 	try {
 		const project = await Projects.findOne({
@@ -74,15 +68,19 @@ async function getProjectIdByName(name) {
 			}
 		})
 
-		return project.id
+		if (project?.id) {
+			return project.id
+		}
+		else {
+			return 0
+		}
 	}
 	catch ({ message }) {
 		return null
 	}
 }
 
-async function updateProject(project, user_id, name) {
-	Projects.init(connection)
+async function updateProject(project: Projects, user_id: number, name: string): Promise<boolean> {
 
 	try {
 		if (user_id) { project.user_id = user_id }
@@ -97,8 +95,7 @@ async function updateProject(project, user_id, name) {
 	}
 }
 
-async function deleteProject(project) {
-	Projects.init(connection)
+async function deleteProject(project: Projects): Promise<boolean> {
 
 	try {
 		await project.destroy()
@@ -110,8 +107,7 @@ async function deleteProject(project) {
 	}
 }
 
-async function createProjTask(proj_id, task_num, name, description, deadline, situation, was_finished, return_id) {
-	Projects.init(connection)
+async function createProjTask(proj_id: number, task_num: number, name: string, description: string, deadline: Date, situation: number, was_finished: boolean, return_id: boolean): Promise<number | boolean> {
 
 	try {
 		const proj_task = await ProjTasks.create(
@@ -138,8 +134,7 @@ async function createProjTask(proj_id, task_num, name, description, deadline, si
 	}
 }
 
-async function getProjTaskById(id) {
-	ProjTasks.init(connection)
+async function getProjTaskById(id: number): Promise<ProjTasks | null> {
 
 	try {
 		const proj_task = await ProjTasks.findByPk(id)
@@ -151,8 +146,7 @@ async function getProjTaskById(id) {
 	}
 }
 
-async function getAllProjTasks() {
-	ProjTasks.init(connection)
+async function getAllProjTasks(): Promise<ProjTasks[] | ProjTasks | null> {
 
 	try {
 		const proj_tasks = await ProjTasks.findAll()
@@ -164,8 +158,7 @@ async function getAllProjTasks() {
 	}
 }
 
-async function getProjTasksByProjId(proj_id) {
-	ProjTasks.init(connection)
+async function getProjTasksByProjId(proj_id: number): Promise<ProjTasks[] | ProjTasks | null> {
 
 	try {
 		const proj_tasks = await ProjTasks.findAll({
@@ -181,8 +174,7 @@ async function getProjTasksByProjId(proj_id) {
 	}
 }
 
-async function getProjTaskIdByName(name) {
-	ProjTasks.init(connection)
+async function getProjTaskIdByName(name: string): Promise<number | null> {
 
 	try {
 		const proj_task = await ProjTasks.findOne({
@@ -191,15 +183,19 @@ async function getProjTaskIdByName(name) {
 			}
 		})
 
-		return proj_task.id
+		if (proj_task?.id) {
+			return proj_task.id
+		}
+		else {
+			return 0
+		}
 	}
 	catch ({ message }) {
 		return null
 	}
 }
 
-async function updateProjTask(proj_task, proj_id, task_num, name, description, deadline, situation, was_finished) {
-	ProjTasks.init(connection)
+async function updateProjTask(proj_task: ProjTasks, proj_id: number, task_num: number, name: string, description: string, deadline: Date, situation: number, was_finished: boolean): Promise<boolean> {
 
 	try {
 		if (proj_id) { proj_task.proj_id = proj_id }
@@ -219,8 +215,7 @@ async function updateProjTask(proj_task, proj_id, task_num, name, description, d
 	}
 }
 
-async function deleteProjTask(proj_task) {
-	ProjTasks.init(connection)
+async function deleteProjTask(proj_task: ProjTasks): Promise<boolean> {
 
 	try {
 		await proj_task.destroy()

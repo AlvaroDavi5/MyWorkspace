@@ -10,7 +10,7 @@ import { useState, useEffect } from 'react'
 *? removeItem('item_key')
 *  * remove item from localStorage
 **/
-export function storeUserId(defaultId = 0) {
+function storeUserId(defaultId = 0) {
 	// rendered on front-end
 	const [user_id] = useState(null)
 
@@ -22,7 +22,7 @@ export function storeUserId(defaultId = 0) {
 	)
 }
 
-export function removeUserId() {
+function removeUserId() {
 	const [user_id] = useState(null)
 
 	useEffect(() => {
@@ -32,7 +32,7 @@ export function removeUserId() {
 	)
 }
 
-export function getStoredUserId() {
+function getStoredUserId() {
 	const [value] = useState(null)
 
 	useEffect(() => {
@@ -44,7 +44,7 @@ export function getStoredUserId() {
 	return value
 }
 
-export function storeUserToken(defaultToken='') {
+function storeUserToken(defaultToken='') {
 	const [token] = useState(null)
 
 	useEffect(() => {
@@ -54,7 +54,7 @@ export function storeUserToken(defaultToken='') {
 	)
 }
 
-export function removeUserToken() {
+function removeUserToken() {
 	const [token] = useState(null)
 
 	useEffect(() => {
@@ -64,7 +64,7 @@ export function removeUserToken() {
 	)
 }
 
-export function getStoredUserToken() {
+function getStoredUserToken() {
 	const [value] = useState(null)
 
 	useEffect(() => {
@@ -75,3 +75,6 @@ export function getStoredUserToken() {
 
 	return value
 }
+
+
+export { storeUserId, removeUserId, getStoredUserId, storeUserToken, removeUserToken, getStoredUserToken }

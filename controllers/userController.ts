@@ -1,7 +1,6 @@
-import { hashValue, decodeToken } from "./encryptPass"
-const connection = require("../database/connection")
-const Users = require("../database/models/users")
-const UserPreferences = require("../database/models/user_preferences")
+import { hashValue, decodeToken } from "../services/encryptPass"
+import Users from "../database/models/users"
+import UserPreferences from "../database/models/user_preferences"
 
 
 /*
@@ -11,8 +10,7 @@ const UserPreferences = require("../database/models/user_preferences")
   ? Update
   ? Delete
 */
-async function createUser(name, email, password, phone, cpf, uf, return_id) {
-	Users.init(connection)
+async function createUser(name: string, email: string, password: string, phone: string, cpf: string, uf: string, return_id: boolean): Promise<number | boolean> {
 	const pass = hashValue(password)
 
 	try {
@@ -39,8 +37,7 @@ async function createUser(name, email, password, phone, cpf, uf, return_id) {
 	}
 }
 
-async function getUserById(id) {
-	Users.init(connection)
+async function getUserById(id: number): Promise<Users | null> {
 
 	try {
 		const user = await Users.scope('withoutSensibleData').findByPk(id)
@@ -52,8 +49,7 @@ async function getUserById(id) {
 	}
 }
 
-async function getAllUsers() {
-	Users.init(connection)
+async function getAllUsers(): Promise<Users[] | Users | null> {
 
 	try {
 		const users = await Users.scope('withoutSensibleData').findAll()
@@ -65,8 +61,7 @@ async function getAllUsers() {
 	}
 }
 
-async function searchUser(email) {
-	Users.init(connection)
+async function searchUser(email: string): Promise<boolean> {
 
 	try {
 		const user = await Users.findOne({
@@ -82,39 +77,31 @@ async function searchUser(email) {
 	}
 }
 
-async function getUserIdByToken(token) {
-	const userToken = decodeToken(token).decoded
+async function getUserIdByToken(token: string): Promise<number> {
+
+	const userToken = decodeToken(token)?.decoded
 
 	return parseInt(userToken.user_id)
 }
 
-async function getUserByCredentials(email, password) {
-	Users.init(connection)
+async function getUserByCredentials(email: string, password: string): Promise<Users | null> {
 
 	try {
-		const user = await Users.findOne({
+		const user = await Users.scope('withoutPassword').findOne({
 			where: {
 				email: email,
 				password: hashValue(password)
 			}
 		})
 
-		return {
-			id: user.id,
-			name: user.name,
-			email: user.email,
-			phone: user.phone,
-			cpf: user.cpf,
-			uf: user.uf
-		}
+		return user
 	}
 	catch ({ message }) {
 		return null
 	}
 }
 
-async function updateUser(user, name, email, password, phone, cpf, uf) {
-	Users.init(connection)
+async function updateUser(user: Users, name: string, email: string, password: string, phone: string, cpf: string, uf: string): Promise<boolean> {
 
 	try {
 		if (name) { user.name = name }
@@ -133,8 +120,7 @@ async function updateUser(user, name, email, password, phone, cpf, uf) {
 	}
 }
 
-async function deleteUser(user) {
-	Users.init(connection)
+async function deleteUser(user: Users): Promise<boolean> {
 
 	try {
 		await user.destroy()
@@ -146,8 +132,7 @@ async function deleteUser(user) {
 	}
 }
 
-async function createPreference(user_id, image_path, default_theme, return_id) {
-	UserPreferences.init(connection)
+async function createPreference(user_id: number, image_path: string, default_theme: number, return_id: boolean): Promise<number | boolean> {
 
 	try {
 		const preference = await UserPreferences.create(
@@ -170,8 +155,7 @@ async function createPreference(user_id, image_path, default_theme, return_id) {
 	}
 }
 
-async function getPreferenceById(id) {
-	UserPreferences.init(connection)
+async function getPreferenceById(id: number): Promise<UserPreferences | null> {
 
 	try {
 		const preference = await UserPreferences.findByPk(id)
@@ -183,8 +167,7 @@ async function getPreferenceById(id) {
 	}
 }
 
-async function getAllPreferences() {
-	UserPreferences.init(connection)
+async function getAllPreferences(): Promise<UserPreferences[] | UserPreferences | null> {
 
 	try {
 		const preferences = await UserPreferences.findAll()
@@ -196,8 +179,7 @@ async function getAllPreferences() {
 	}
 }
 
-async function getPreferenceIdByUserId(user_id) {
-	UserPreferences.init(connection)
+async function getPreferenceIdByUserId(user_id: number): Promise<number | null> {
 
 	try {
 		const preference = await UserPreferences.findOne({
@@ -206,15 +188,19 @@ async function getPreferenceIdByUserId(user_id) {
 			}
 		})
 
-		return preference.id
+		if (!!preference?.id) {
+			return preference.id
+		}
+		else {
+			return 0
+		}
 	}
 	catch ({ message }) {
 		return null
 	}
 }
 
-async function updatePreference(preference, image_path, default_theme) {
-	UserPreferences.init(connection)
+async function updatePreference(preference: UserPreferences, image_path: string, default_theme: number): Promise<boolean> {
 
 	try {
 		if (image_path) { preference.image_path = image_path }
@@ -229,8 +215,7 @@ async function updatePreference(preference, image_path, default_theme) {
 	}
 }
 
-async function deletePreference(preference) {
-	UserPreferences.init(connection)
+async function deletePreference(preference: UserPreferences): Promise<boolean> {
 
 	try {
 		await preference.destroy()

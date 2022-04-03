@@ -2,7 +2,7 @@ import { Dialect } from 'sequelize/types'
 import path from 'path'
 import dotenv from 'dotenv' // use environment variables to save sesitive data like database password
 dotenv.config({path:__dirname+"/../.env.development.local"})
-import { DatabaseConfig } from "./_types_interfaces"
+import { DatabaseConfig } from "./_interfaces"
 
 
 function getDialect(dialect: string): Dialect {
