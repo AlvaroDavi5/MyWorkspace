@@ -1,7 +1,7 @@
-import { hashValue, decodeToken } from "./encryptPass.js"
-const connection = require("../database/connection.js")
-const Users = require("../database/models/users.js")
-const UserPreferences = require("../database/models/user_preferences.js")
+import { hashValue, decodeToken } from "./encryptPass"
+const connection = require("../database/connection")
+const Users = require("../database/models/users")
+const UserPreferences = require("../database/models/user_preferences")
 
 
 /*

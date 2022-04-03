@@ -1,5 +1,5 @@
-const connection = require("../database/connection.js")
-const Tasks = require("../database/models/tasks.js")
+const connection = require("../database/connection")
+const Tasks = require("../database/models/tasks")
 
 
 async function createTask(user_id, name, deadline_date, deadline_time, description, return_id) {

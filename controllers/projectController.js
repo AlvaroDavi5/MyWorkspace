@@ -1,6 +1,6 @@
-const connection = require("../database/connection.js")
-const Projects = require("../database/models/projects.js")
-const ProjTasks = require("../database/models/proj_tasks.js")
+const connection = require("../database/connection")
+const Projects = require("../database/models/projects")
+const ProjTasks = require("../database/models/proj_tasks")
 
 
 async function createProject(user_id, name) {

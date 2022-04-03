@@ -1,5 +1,5 @@
-const connection = require("../database/connection.js")
-const Bibliographies = require("../database/models/bibliographies.js")
+const connection = require("../database/connection")
+const Bibliographies = require("../database/models/bibliographies")
 
 
 async function createBibliography(user_id, author, name, publication_date, return_id) {
