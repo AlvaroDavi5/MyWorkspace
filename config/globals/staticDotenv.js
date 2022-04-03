@@ -3,7 +3,7 @@ const dotenv = require('dotenv') // use environment variables to save sesitive d
 dotenv.config({path:__dirname+"/../../env/.env.development.local"})
 
 
-const static_dotenv = {
+const staticDotenv = {
 	db: {
 		database: process.env.DB_NAME,
 		username: process.env.DB_USERNAME,
@@ -22,4 +22,4 @@ const static_dotenv = {
 }
 
 
-module.exports = static_dotenv
+module.exports = staticDotenv

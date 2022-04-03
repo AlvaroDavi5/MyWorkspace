@@ -1,4 +1,4 @@
-const crypto = require("../../services/encryptPass.js")
+const crypto = require("../../services/encryptPass")
 
 
 test("hashing test", () => {

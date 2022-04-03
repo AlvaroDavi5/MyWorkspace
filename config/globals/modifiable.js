@@ -2,7 +2,7 @@
 
 const globals_variables = {
 	db: {
-		host: 'localhost' || 'db'
+		host: 'db' || 'localhost'
 	},
 	general: {
 		app_url: "http://localhost:8080"

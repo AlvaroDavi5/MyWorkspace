@@ -1,14 +1,14 @@
 const globals_variables = require("../config/globals/modifiable")
-const static_dotenv = require("../config/globals/static_dotenv")
+const staticDotenv = require("../config/globals/staticDotenv")
 
 
 const config = {
-	database: static_dotenv.db.database,
-	username: static_dotenv.db.username,
-	password: static_dotenv.db.password,
+	database: staticDotenv.db.database,
+	username: staticDotenv.db.username,
+	password: staticDotenv.db.password,
 	host: globals_variables.db.host,
 	charset: 'utf8',
-	dialect: static_dotenv.db.dialect,
+	dialect: staticDotenv.db.dialect,
 	/*
 	dialectOptions: {
 		ssl: {

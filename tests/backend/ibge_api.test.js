@@ -1,9 +1,9 @@
-const apiReq = require("../../services/apiRequester.ts")
+import { getAllBrazilStates } from "../../services/apiRequester"
 
 
 // testing async function
 test("fetching IBGE API", () => {
-	return apiReq.getAllBrazilStates().then(data => {
-		expect(data[2].sigla).toBe('AM')
+	return getAllBrazilStates().then((data) => {
+		expect(data[2]?.sigla).toBe('AM')
 	})
 })

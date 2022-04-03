@@ -1,9 +1,10 @@
 import React from 'react'
 import renderer from 'react-test-renderer'
-import ServiceTherms from "../../pages/components/service_therms.jsx"
+import ServiceTherms from "../../pages/components/service_therms"
 
 
 test('render Service Therms', () => {
+	// rendering
 	const component = renderer.create(
 		<ServiceTherms author="AlvaroDavi5"/>,
 	)
