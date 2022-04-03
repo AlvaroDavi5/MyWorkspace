@@ -43,6 +43,12 @@
       "@pages/*": [
         "./pages/*"
       ],
+      "@middlewares/*": [
+        "./services/*"
+      ],
+      "@controllers/*": [
+        "./services/*"
+      ],
       "@services/*": [
         "./services/*"
       ],

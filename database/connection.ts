@@ -1,5 +1,5 @@
-const Sequelize = require('sequelize')
-const DBConfig = require("./db_config.js")
+import { Sequelize } from 'sequelize'
+import DBConfig from "./dbConfig"
 
 
 /* connecting to a database */
@@ -23,4 +23,4 @@ catch (error) {
 //connection.close()
 
 
-module.exports = connection;
+export default connection
