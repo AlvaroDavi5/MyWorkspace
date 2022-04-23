@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import Router from 'next/router'
 import { Box } from '@chakra-ui/react'
 import { parseCookies } from 'nookies'
-import Login from "./auth/login.jsx"
+import Login from "./auth/login"
 
 
 export default function AppIndex() {

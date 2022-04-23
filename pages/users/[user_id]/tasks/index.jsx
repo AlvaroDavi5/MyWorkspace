@@ -8,8 +8,8 @@ import {
 import { IoCreateOutline } from 'react-icons/io5'
 import { FaTrashAlt, FaEdit } from 'react-icons/fa'
 import { parseCookies } from 'nookies'
-import DocumentHead from "../../../components/document_head.jsx"
-import Navbar from "../../../components/navbar.jsx"
+import DocumentHead from "../../../components/document_head"
+import Navbar from "../../../components/navbar"
 import globals_variables from "../../../../config/globals/modifiable.js"
 
 

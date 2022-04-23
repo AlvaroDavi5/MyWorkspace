@@ -9,10 +9,10 @@ import {
 } from '@chakra-ui/react'
 import { FaEye, FaEyeSlash, FaUserCircle } from 'react-icons/fa'
 import axios from 'axios'
-import { toastStatuses } from "../auth/auth_context.jsx"
-import DocumentHead from "../components/document_head.jsx"
+import { toastStatuses } from "../auth/auth_context"
+import DocumentHead from "../components/document_head"
 import { getAllBrazilStates } from "../../services/apiRequester"
-import MinNavbar from "../components/min_navbar.jsx"
+import MinNavbar from "../components/min_navbar"
 import globals_variables from "../../config/globals/modifiable.js"
 
 

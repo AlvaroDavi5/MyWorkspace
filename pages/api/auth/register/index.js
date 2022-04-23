@@ -1,4 +1,4 @@
-import { createUser, createPreference, searchUser } from "../../../../services/userController.js"
+import { createUser, createPreference, searchUser } from "../../../../controllers/userController"
 
 
 export default async function apiResponse(request, response) {

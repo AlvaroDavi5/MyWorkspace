@@ -1,5 +1,5 @@
-import { decodeToken } from "../../../../services/encryptPass.js"
-import { getUserById, getPreferenceById, getPreferenceIdByUserId, updateUser, deleteUser, updatePreference, deletePreference } from "../../../../services/userController.js"
+import { decodeToken } from "../../../../services/encryptPass"
+import { getUserById, getPreferenceById, getPreferenceIdByUserId, updateUser, deleteUser, updatePreference, deletePreference } from "../../../../controllers/userController"
 
 
 export default async function apiResponse(request, response) {

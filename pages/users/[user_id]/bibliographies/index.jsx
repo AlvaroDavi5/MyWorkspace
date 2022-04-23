@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 import { Flex, Box, useColorModeValue } from '@chakra-ui/react'
 import { parseCookies } from 'nookies'
-import DocumentHead from "../../../components/document_head.jsx"
-import Navbar from "../../../components/navbar.jsx"
+import DocumentHead from "../../../components/document_head"
+import Navbar from "../../../components/navbar"
 
 
 export default function BibliographiesPage() {

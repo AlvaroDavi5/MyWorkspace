@@ -1,6 +1,6 @@
-import { decodeToken } from "../../../../../../services/encryptPass.js"
-import { getUserById } from "../../../../../../services/userController.js"
-import { getBibliographiesByUserId, updateBibliography, deleteBibliography } from "../../../../../../services/bibliographyController.js"
+import { decodeToken } from "../../../../../../services/encryptPass"
+import { getUserById } from "../../../../../../controllers/userController"
+import { getBibliographiesByUserId, updateBibliography, deleteBibliography } from "../../../../../../controllers/bibliographyController"
 
 
 export default async function apiResponse(request, response) {

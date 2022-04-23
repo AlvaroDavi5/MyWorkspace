@@ -1,4 +1,4 @@
-import { getUserByCredentials, getPreferenceIdByUserId, getPreferenceById } from "../../../../services/userController.js"
+import { getUserByCredentials, getPreferenceIdByUserId, getPreferenceById } from "../../../../controllers/userController"
 
 
 export default async function apiResponse(request, response) {

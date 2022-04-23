@@ -1,5 +1,5 @@
 import { parseCookies } from 'nookies'
-import Home from "../../home/index.jsx"
+import Home from "../../home/index"
 
 
 export default function UserHomePage({ userToken }) {

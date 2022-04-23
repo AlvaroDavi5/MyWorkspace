@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Flex, Box, Image, useColorModeValue } from '@chakra-ui/react'
-import DocumentHead from "../components/document_head.jsx"
-import Navbar from "../components/navbar.jsx"
+import DocumentHead from "../components/document_head"
+import Navbar from "../components/navbar"
 import style from "./style/home.module.css"
 
 

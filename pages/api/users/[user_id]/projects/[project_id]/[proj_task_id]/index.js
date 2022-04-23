@@ -1,6 +1,6 @@
-import { decodeToken } from "../../../../../../../services/encryptPass.js"
-import { getUserById } from "../../../../../../../services/userController.js"
-import { getAllProjTasks, updateProjTask, deleteProjTask, getProjectsByUserId } from "../../../../../../../services/projectController.js"
+import { decodeToken } from "../../../../../../../services/encryptPass"
+import { getUserById } from "../../../../../../../controllers/userController"
+import { getAllProjTasks, updateProjTask, deleteProjTask, getProjectsByUserId } from "../../../../../../../controllers/projectController"
 
 
 export default async function apiResponse(request, response) {

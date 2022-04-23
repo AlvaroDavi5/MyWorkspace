@@ -8,9 +8,9 @@ import {
 	FormLabel, FormControl, FormHelperText
 } from '@chakra-ui/react'
 import { FaEye, FaEyeSlash } from 'react-icons/fa'
-import { AuthContext } from "./auth_context.jsx"
-import DocumentHead from "../components/document_head.jsx"
-import MinNavbar from "../components/min_navbar.jsx"
+import { AuthContext } from "./auth_context"
+import DocumentHead from "../components/document_head"
+import MinNavbar from "../components/min_navbar"
 
 
 export default function Login() {

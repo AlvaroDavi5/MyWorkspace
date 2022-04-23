@@ -1,4 +1,4 @@
-import { generateToken, decodeToken } from "../../../../services/encryptPass.js"
+import { generateToken, decodeToken } from "../../../../services/encryptPass"
 
 
 export default async function apiResponse(request, response) {

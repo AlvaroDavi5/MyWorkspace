@@ -1,6 +1,6 @@
-import { decodeToken } from "../../../../../services/encryptPass.js"
-import { getUserById } from "../../../../../services/userController.js"
-import { getTasksByUserId, createTask } from "../../../../../services/taskController.js"
+import { decodeToken } from "../../../../../services/encryptPass"
+import { getUserById } from "../../../../../controllers/userController"
+import { getTasksByUserId, createTask } from "../../../../../controllers/taskController"
 
 
 export default async function apiResponse(request, response) {
