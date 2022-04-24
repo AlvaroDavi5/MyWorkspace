@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { getUserByCredentials, getPreferenceIdByUserId, getPreferenceById } from "../../../../controllers/userController"
+import { getUserByCredentials, getPreferenceIdByUserId, getPreferenceById } from "@controllers/userController"
 import { httpConstants } from "@config/globals/httpConstants"
 
 

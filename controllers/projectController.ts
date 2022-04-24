@@ -1,5 +1,5 @@
-import Projects from "../database/models/projects"
-import ProjTasks from "../database/models/proj_tasks"
+import Projects from "@root/database/models/projects"
+import ProjTasks from "@root/database/models/proj_tasks"
 
 
 async function createProject(user_id: number, name: string): Promise<number | boolean> {

@@ -1,3 +1,9 @@
+/**
+ * @type {import('next').NextConfig}
+**/
+const nextConfig = {
+	reactStrictMode: true,
+}
 const withPlugins = require('next-compose-plugins')
 const withPwa = require('next-pwa')
 const withImages = require('next-images')
@@ -32,6 +38,9 @@ module.exports = withPlugins([
 				sw: "/sw.js" // service-worker
 			}
 		}
+	],
+	[
+		nextConfig
 	]
 	// others plugins here
 ])

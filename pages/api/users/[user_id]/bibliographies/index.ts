@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { decodeToken } from "../../../../../services/encryptPass"
-import { getUserById } from "../../../../../controllers/userController"
-import { getBibliographiesByUserId, createBibliography } from "../../../../../controllers/bibliographyController"
+import { decodeToken } from "@services/encryptPass"
+import { getUserById } from "@controllers/userController"
+import { getBibliographiesByUserId, createBibliography } from "@controllers/bibliographyController"
 import { httpConstants } from "@config/globals/httpConstants"
 
 

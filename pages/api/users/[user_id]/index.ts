@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { decodeToken } from "../../../../services/encryptPass"
-import { getUserById, getPreferenceById, getPreferenceIdByUserId, updateUser, deleteUser, updatePreference, deletePreference } from "../../../../controllers/userController"
+import { decodeToken } from "@services/encryptPass"
+import { getUserById, getPreferenceById, getPreferenceIdByUserId, updateUser, deleteUser, updatePreference, deletePreference } from "@controllers/userController"
 import { httpConstants } from "@config/globals/httpConstants"
 
 

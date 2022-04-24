@@ -46,6 +46,12 @@
       "@pages/*": [
         "./pages/*"
       ],
+      "@api/*": [
+        "./pages/api/*"
+      ],
+      "@database/*": [
+        "./database/*"
+      ],
       "@middlewares/*": [
         "./middlewares/*"
       ],

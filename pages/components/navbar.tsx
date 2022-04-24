@@ -68,7 +68,7 @@ function MenuDrawer() {
 	)
 }
 
-export default function Navbar(props) {
+export default function Navbar(props: any) {
 	const { colorMode, toggleColorMode } = useColorMode()
 	const boxBgColor = (colorMode == 'light' ? 'marine' : 'primary')
 	const textColor = (colorMode == 'light' ? 'white' : 'black')
@@ -93,7 +93,8 @@ export default function Navbar(props) {
 			>
 				<Link href="https://github.com/AlvaroDavi5/MyWorkspace" passHref
 				>
-					<Button
+					<IconButton
+						aria-label="GitHub"
 						size='xl'
 						boxShadow='1px 1px 2px 2px rgba(0, 0, 0, 0.3)'
 						color={iconColor}
@@ -104,7 +105,7 @@ export default function Navbar(props) {
 						display='list-item'
 					>
 						<DiGithubBadge size='60'/>
-					</Button>
+					</IconButton>
 				</Link>
 			</div>
 
@@ -124,6 +125,7 @@ export default function Navbar(props) {
 				className="menu-button"
 			>
 				<IconButton
+					aria-label='Toggle color mode'
 					icon={colorMode == 'light' ? <BiMoon size={['30', '50']}/> : <BiSun size={['30', '50']}/>}
 					variant='ghost'
 					backgroundColor={boxBgColor}

@@ -1,6 +1,6 @@
-import { hashValue, decodeToken } from "../services/encryptPass"
-import Users from "../database/models/users"
-import UserPreferences from "../database/models/user_preferences"
+import { hashValue, decodeToken } from "@services/encryptPass"
+import Users from "@root/database/models/users"
+import UserPreferences from "@root/database/models/user_preferences"
 
 
 /*

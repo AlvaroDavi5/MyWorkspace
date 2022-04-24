@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { generateToken, decodeToken } from "../../../../services/encryptPass"
+import { generateToken, decodeToken } from "@services/encryptPass"
 import { httpConstants } from "@config/globals/httpConstants"
 
 

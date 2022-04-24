@@ -1,4 +1,4 @@
-import Bibliographies from "../database/models/bibliographies"
+import Bibliographies from "@root/database/models/bibliographies"
 
 
 async function createBibliography(user_id: number, author: string, name: string, publication_date: Date, return_id: boolean): Promise<number | boolean> {

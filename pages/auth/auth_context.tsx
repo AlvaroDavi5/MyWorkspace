@@ -1,9 +1,10 @@
 import { createContext, useState } from 'react'
+import { ReactElement } from 'react'
 import Router from 'next/router'
 import { useToast } from '@chakra-ui/react'
 import { setCookie } from 'nookies'
 import axios from 'axios'
-import globals_variables from "../../config/globals/modifiable.js"
+import globals_variables from "@config/globals/modifiable.js"
 
 
 export const AuthContext = createContext({})
@@ -14,7 +15,7 @@ export const toastStatuses = [
 	['warning', "Oops!", "Algo inesperado aconteceu, por favor, tente novamente dentro de alguns instantes!"]
 ]
 
-export default function AuthProvider({ children }) {
+export default function AuthProvider({ children }: { children: ReactElement }) {
 	const toast = useToast()
 	const [ user, setUser ] = useState(null)
 	const isAuthenticated = !!user
@@ -35,7 +36,7 @@ export default function AuthProvider({ children }) {
 			// send feedback to user
 			if (!!(data.data.user['id'])) {
 				toast({
-					status: toastStatuses[0][0],
+					status: 'success',
 					title: toastStatuses[0][1],
 					description: toastStatuses[0][2],
 					duration: 1500,
@@ -62,7 +63,7 @@ export default function AuthProvider({ children }) {
 		}
 		catch (error) {
 			toast({
-				status: toastStatuses[1][0],
+				status: 'error',
 				title: toastStatuses[1][1],
 				description: toastStatuses[1][2],
 				duration: 1500,
@@ -79,7 +80,7 @@ export default function AuthProvider({ children }) {
 	)
 }
 
-export async function getServerSideProps(context) {
+export async function getServerSideProps(context: any) {
 
 	return {
 		context: context

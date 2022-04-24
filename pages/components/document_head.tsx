@@ -1,7 +1,7 @@
 import Head from 'next/head'
 
 
-export default function DocumentHead(props) {
+export default function DocumentHead(props: any) {
 	return (
 		<Head>
 			<title>{props.title} - MyWorkspace</title>

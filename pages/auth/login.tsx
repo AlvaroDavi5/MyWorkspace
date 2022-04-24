@@ -15,7 +15,7 @@ import MinNavbar from "../components/min_navbar"
 
 export default function Login() {
 	const { register, handleSubmit } = useForm()
-	const { SignIn } = useContext(AuthContext)
+	const { SignIn }: any = useContext(AuthContext)
 
 	const colorMode = useColorModeValue('light', 'dark')
 	const pageBgColor = (colorMode == 'light' ? 'clear_lake' : 'dark_forest')
@@ -24,7 +24,7 @@ export default function Login() {
 	const [showPass, setShowPass] = useState(false)
 	const handleShowPass = () => { setShowPass(!showPass) }
 
-	async function handleSignIn(data) {
+	async function handleSignIn(data: any | undefined) {
 		setLoadButton(true)
 
 		const logged = await SignIn(data)

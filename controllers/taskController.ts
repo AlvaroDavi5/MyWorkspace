@@ -1,4 +1,4 @@
-import Tasks from "../database/models/tasks"
+import Tasks from "@root/database/models/tasks"
 
 
 async function createTask(user_id: number, name: string, deadline_date: Date, deadline_time: Date, description: string, return_id: boolean): Promise<number | boolean> {

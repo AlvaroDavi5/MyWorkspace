@@ -5,7 +5,7 @@ import Navbar from "../components/navbar"
 import style from "./style/home.module.css"
 
 
-function Card(props) {
+function Card(props: any) {
 	const colorMode = useColorModeValue('light', 'dark')
 	const boxBgColor = (colorMode == 'light' ? 'marine' : 'primary')
 
@@ -44,10 +44,10 @@ function Card(props) {
 	)
 }
 
-export default function Home(props) {
+export default function Home(props: any) {
 	const colorMode = useColorModeValue('light', 'dark')
 	const pageBgColor = (colorMode == 'light' ? 'clear_lake' : 'dark_forest')
-	const [ userToken, setUserToken ] = useState(null)
+	const [ userToken, setUserToken ] = useState('')
 	
 	useEffect(() => {
 		if (props.userToken) {

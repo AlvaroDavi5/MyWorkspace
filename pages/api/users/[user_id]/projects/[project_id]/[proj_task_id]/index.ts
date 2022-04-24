@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { decodeToken } from "../../../../../../../services/encryptPass"
-import { getUserById } from "../../../../../../../controllers/userController"
-import { getAllProjTasks, updateProjTask, deleteProjTask, getProjectsByUserId } from "../../../../../../../controllers/projectController"
+import { decodeToken } from "@services/encryptPass"
+import { getUserById } from "@controllers/userController"
+import { getAllProjTasks, updateProjTask, deleteProjTask, getProjectsByUserId } from "@controllers/projectController"
 import { httpConstants } from "@config/globals/httpConstants"
 
 

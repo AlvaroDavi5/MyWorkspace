@@ -11,12 +11,12 @@ import { FaEye, FaEyeSlash, FaUserCircle } from 'react-icons/fa'
 import axios from 'axios'
 import { toastStatuses } from "../auth/auth_context"
 import DocumentHead from "../components/document_head"
-import { getAllBrazilStates } from "../../services/apiRequester"
+import { getAllBrazilStates } from "@services/apiRequester"
 import MinNavbar from "../components/min_navbar"
-import globals_variables from "../../config/globals/modifiable.js"
+import globals_variables from "@config/globals/modifiable.js"
 
 
-export default function Register({ stateList }) {
+export default function Register({ stateList }: any) {
 	const { register, handleSubmit } = useForm()
 
 	const colorMode = useColorModeValue('light', 'dark')
@@ -27,7 +27,7 @@ export default function Register({ stateList }) {
 	const [showPass, setShowPass] = useState(false)
 	const handleShowPass = () => { setShowPass(!showPass) }
 
-	async function handleSignUp(data) {
+	async function handleSignUp(data: any | undefined) {
 		setLoadButton(true)
 
 		try {
@@ -47,7 +47,7 @@ export default function Register({ stateList }) {
 			if (registerMessage == "User already exists!") {
 				setLoadButton(false)
 				toast({
-					status: toastStatuses[2][0],
+					status: 'warning',
 					title: toastStatuses[2][1],
 					description: `Usuário ${data.username} já cadastrado!`,
 					duration: 1500,
@@ -57,7 +57,7 @@ export default function Register({ stateList }) {
 			else if (registerMessage == "User created successfully!") {
 				setLoadButton(false)
 				toast({
-					status: toastStatuses[0][0],
+					status: 'success',
 					title: `Usuário ${data.username} cadastrado com sucesso.`,
 					description: "Volte à tela de login e insira suas credenciais para acessar.",
 					duration: 1500,
@@ -67,7 +67,7 @@ export default function Register({ stateList }) {
 			else {
 				setLoadButton(false)
 				toast({
-					status: toastStatuses[2][0],
+					status: 'warning',
 					title: toastStatuses[2][1],
 					description: toastStatuses[2][2],
 					duration: 1500,
@@ -78,7 +78,7 @@ export default function Register({ stateList }) {
 		catch (error) {
 			setLoadButton(false)
 			toast({
-				status: toastStatuses[1][0],
+				status: 'error',
 				title: "Erro ao cadastrar usuário!",
 				description: `${error}`,
 				duration: 1500,
@@ -88,13 +88,15 @@ export default function Register({ stateList }) {
 	}
 
 	function stateOptionsRender() {
-		return stateList.map(state => {
-			return (
-				<option key={state.id} value={state.sigla}>
-					{state.nome}
-				</option>
-			)
-		})
+		return stateList.map(
+			(state: any) => {
+				return (
+					<option key={state.id} value={state.sigla}>
+						{state.nome}
+					</option>
+				)
+			}
+		)
 	}
 
 	return (
@@ -148,7 +150,7 @@ export default function Register({ stateList }) {
 											<Input
 												type={showPass ? 'text' : 'password'} {...register('password')}
 												placeholder='Jamais compartilhe sua senha!'
-												maxLength='18' maxWidth='27vw' background='green.100'
+												maxLength={18} maxWidth='27vw' background='green.100'
 											/>
 											<InputRightElement width="72px">
 												<Button onClick={handleShowPass} h="28px" size="sm" background='green.100'>
@@ -214,7 +216,7 @@ export default function Register({ stateList }) {
 	)
 }
 
-export async function getStaticProps(context) {
+export async function getStaticProps(context: any) {
 
 	const statesList = await getAllBrazilStates()
 	const orderedStatelist = statesList.sort((a, b) => {

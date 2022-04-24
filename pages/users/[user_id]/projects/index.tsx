@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 import { Flex, Box, useColorModeValue } from '@chakra-ui/react'
 import { parseCookies } from 'nookies'
-import DocumentHead from "../../../components/document_head"
-import Navbar from "../../../components/navbar"
+import DocumentHead from "@pages/components/document_head"
+import Navbar from "@pages/components/navbar"
 
 
 export default function ProjectsPage() {

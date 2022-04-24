@@ -8,12 +8,12 @@ import {
 import { IoCreateOutline } from 'react-icons/io5'
 import { FaTrashAlt, FaEdit } from 'react-icons/fa'
 import { parseCookies } from 'nookies'
-import DocumentHead from "../../../components/document_head"
-import Navbar from "../../../components/navbar"
-import globals_variables from "../../../../config/globals/modifiable.js"
+import DocumentHead from "@pages/components/document_head"
+import Navbar from "@pages/components/navbar"
+import globals_variables from "@config/globals/modifiable.js"
 
 
-function TaskEditorModal(props) {
+function TaskEditorModal(props: any) {
 	return (
 		<Modal
 			isOpen={props.isOpen} onClose={props.onClose}
@@ -28,10 +28,10 @@ function TaskEditorModal(props) {
 				<ModalCloseButton/>
 
 				<ModalBody>
-					<Input type='text' maxLength='95' placeholder='Nome da tarefa' maxWidth='95%' marginTop='20px' marginLeft='10px' marginRight='10px' background='green.100'/><br/>
+					<Input type='text' maxLength={95} placeholder='Nome da tarefa' maxWidth='95%' marginTop='20px' marginLeft='10px' marginRight='10px' background='green.100'/><br/>
 					<Input type='date' maxWidth='14vw' marginTop='20px' marginLeft='10%' background='green.100'/>
 					<Input type='time' maxWidth='9vw' marginTop='20px' marginLeft='10%' background='green.100'/>
-					<Textarea type='text' maxLength='350' placeholder='Descrição da tarefa' marginTop='20px' background='green.100'/>
+					<Textarea maxLength={350} placeholder='Descrição da tarefa' marginTop='20px' background='green.100'/>
 				</ModalBody>
 
 				<ModalFooter>
@@ -62,7 +62,7 @@ function TaskEditorModal(props) {
 	)
 }
 
-function ListItem(props) {
+function ListItem(props: any) {
 	const colorMode = useColorModeValue('light', 'dark')
 	const boxBgColor = (colorMode == 'light' ? 'marine' : 'primary')
 	const nameContinue = (((props.name).toString()).length > 55) ? '...' : ''
@@ -85,7 +85,7 @@ function ListItem(props) {
 		datePriorityColor = "blue"
 	}
 
-	function dateFormatter(date) {
+	function dateFormatter(date: number) {
 		const strDate = date.toString()
 
 		if (strDate.length == 1) {
@@ -97,80 +97,82 @@ function ListItem(props) {
 	}
 
 	return (
-		<TaskEditorModal
-			isOpen={props.isOpenEdit} onOpen={props.onOpenEdit} onClose={props.onCloseEdit}
-			bgColor={boxBgColor}
-		/>,
+		<>
+			<TaskEditorModal
+				isOpen={props.isOpenEdit} onOpen={props.onOpenEdit} onClose={props.onCloseEdit}
+				bgColor={boxBgColor}
+			/>
 
-		<Flex
-			width='90vw'
-			height='75px'
-			boxShadow='1px 1px 10px 4px rgba(0, 0, 0, 0.3)'
-			margin='20px'
-			borderRadius='10px'
-			bgColor={boxBgColor}
-			flexDirection='row'
-			justifyContent='space-between'
-		>
-			<Box
-				backgroundColor={datePriorityColor}
+			<Flex
+				width='90vw'
+				height='75px'
+				boxShadow='1px 1px 10px 4px rgba(0, 0, 0, 0.3)'
+				margin='20px'
 				borderRadius='10px'
-				height='20pt'
-				width='110px'
-				marginTop='25px'
-				marginLeft='15px'
-				justifyContent='center'
-				alignContent='center'
-				textAlign='center'
-			>
-				{
-					` ${dateFormatter(date.getDate()+1)}
-					/ ${dateFormatter(date.getMonth()+1)}
-					/ ${date.getFullYear()} `
-				}
-			</Box>
-			<Flex
-				justifyContent='center'
-				textAlign='center'
-				flexDirection='column'
+				bgColor={boxBgColor}
+				flexDirection='row'
+				justifyContent='space-between'
 			>
 				<Box
-					margin='5px'
-					fontWeight='bold'
-					fontSize='14pt'
+					backgroundColor={datePriorityColor}
+					borderRadius='10px'
+					height='20pt'
+					width='110px'
+					marginTop='25px'
+					marginLeft='15px'
+					justifyContent='center'
+					alignContent='center'
+					textAlign='center'
 				>
-					{((props.name.slice(0, 55)).toString()).concat(nameContinue)}
+					{
+						` ${dateFormatter(date.getDate()+1)}
+						/ ${dateFormatter(date.getMonth()+1)}
+						/ ${date.getFullYear()} `
+					}
 				</Box>
-				<Box
-					margin='6px'
+				<Flex
+					justifyContent='center'
+					textAlign='center'
+					flexDirection='column'
 				>
-					{((props.desc.slice(0, 110)).toString()).concat(descContinue)}
-				</Box>
+					<Box
+						margin='5px'
+						fontWeight='bold'
+						fontSize='14pt'
+					>
+						{((props.name.slice(0, 55)).toString()).concat(nameContinue)}
+					</Box>
+					<Box
+						margin='6px'
+					>
+						{((props.desc.slice(0, 110)).toString()).concat(descContinue)}
+					</Box>
+				</Flex>
+				<Flex
+					position='relative'
+				>
+				<Button
+					variant='ghost'
+					color='black'
+					marginTop='20px'
+				>
+					<FaEdit onClick={props.onOpenEdit}/>
+				</Button>
+				<Button
+					variant='ghost'
+					color='black'
+					marginTop='20px'
+					marginRight='10px'
+				>
+					<FaTrashAlt/>
+				</Button>
+				</Flex>
 			</Flex>
-			<Flex
-				position='relative'
-			>
-			<Button
-				variant='ghost'
-				color='black'
-				marginTop='20px'
-			>
-				<FaEdit onClick={props.onOpenEdit}/>
-			</Button>
-			<Button
-				variant='ghost'
-				color='black'
-				marginTop='20px'
-				marginRight='10px'
-			>
-				<FaTrashAlt/>
-			</Button>
-			</Flex>
-		</Flex>
+		</>
 	)
 }
 
-export default function TasksPage({ taskList }) {
+export default function TasksPage({ taskList }: any) {
 	const colorMode = useColorModeValue('light', 'dark')
 	const pageBgColor = (colorMode == 'light' ? 'clear_lake' : 'dark_forest')
 	const boxBgColor = (colorMode == 'light' ? 'marine' : 'primary')
@@ -224,6 +226,7 @@ export default function TasksPage({ taskList }) {
 					width='100%'
 				>
 					<IconButton
+						aria-label='add new task'
 						variant='ghost'
 						bgColor={boxBgColor}
 						color='black'
@@ -254,7 +257,7 @@ export default function TasksPage({ taskList }) {
 	)
 }
 
-export async function getServerSideProps(context) {
+export async function getServerSideProps(context: any) {
 	const userId = (context.query)['user_id']
 
 	const req = await fetch(`${globals_variables.general.app_url}/api/users/${userId}/tasks`)

@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { createUser, createPreference, searchUser } from "../../../../controllers/userController"
+import { createUser, createPreference, searchUser } from "@controllers/userController"
 import { httpConstants } from "@config/globals/httpConstants"
 
 

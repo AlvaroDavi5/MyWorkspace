@@ -8,7 +8,7 @@ import { BiSun, BiMoon } from 'react-icons/bi'
 import { DiGithubBadge } from 'react-icons/di'
 
 
-export default function MinNavbar(props) {
+export default function MinNavbar(props: any) {
 	const { colorMode, toggleColorMode } = useColorMode()
 	const boxBgColor = (colorMode == 'light' ? 'marine' : 'primary')
 	const textColor = (colorMode == 'light' ? 'white' : 'black')
@@ -34,6 +34,7 @@ export default function MinNavbar(props) {
 				<Link href="https://github.com/AlvaroDavi5/MyWorkspace" passHref
 				>
 					<IconButton
+						aria-label="GitHub"
 						size='xl'
 						boxShadow='1px 1px 2px 2px rgba(0, 0, 0, 0.3)'
 						color={iconColor}
@@ -65,6 +66,7 @@ export default function MinNavbar(props) {
 				flex='1'
 			>
 				<IconButton
+					aria-label='Toggle color mode'
 					icon={colorMode == 'light' ? <BiMoon size={['30', '50']}/> : <BiSun size={['30', '50']}/>}
 					variant='ghost'
 					backgroundColor={boxBgColor}

@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
 
-export default function ServiceTherms(props) {
+export default function ServiceTherms(props: any) {
 
 	const [ authorName, setAuthorName ] = useState(props.author)
 
