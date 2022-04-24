@@ -1,21 +1,22 @@
+import type { NextApiRequest, NextApiResponse } from 'next'
 import { decodeToken } from "../../../../../services/encryptPass"
 import { getUserById } from "../../../../../controllers/userController"
 import { getTasksByUserId, createTask } from "../../../../../controllers/taskController"
+import { httpConstants } from "@config/globals/httpConstants"
 
 
-export default async function apiResponse(request, response) {
+export default async function apiResponse(request: NextApiRequest, response: NextApiResponse): Promise<void> {
 	const { method, query, body } = request
 
 	try {
-		const userData = decodeToken(query.user_id).decoded
+		const userData = decodeToken(query.user_id)?.decoded
 		const userToManipulateTask = await getUserById(userData.user_id)
 
 		switch (request.method) {
 			case "GET":
-				const tasksToGet = await getTasksByUserId(userToManipulateTask.id)
+				const tasksToGet = await getTasksByUserId(Number(userToManipulateTask?.id))
 
-				// ? OK
-				return response.status(200).json(
+				return response.status(httpConstants.status.OK).json(
 					{
 						success: !!tasksToGet,
 						query: query,
@@ -26,24 +27,24 @@ export default async function apiResponse(request, response) {
 
 			case "POST":
 				const taskToCreate = await createTask(
-					userToManipulateTask.id, body.name,
+					Number(userToManipulateTask?.id), body.name,
 					body.deadline_date, body.deadline_time,
 					body.description, false
 				)
 
-				// ? Created
-				return response.status(201).json(
+				return response.status(httpConstants.status.CREATED).json(
 					{
 						success: !!taskToCreate,
 						query: query,
 						method: method,
-						message: !!taskToCreate ? "Task created successfully!" : "Error to create task!"
+						message: !!taskToCreate
+							? httpConstants.messages.created("Task")
+							: httpConstants.messages.notCreated("task")
 					}
 				)
 
 			default:
-				// ? Unauthorized
-				return response.status(401).json(
+				return response.status(httpConstants.status.UNAUTHORIZED).json(
 					{
 						success: false,
 						query: query,
@@ -54,8 +55,7 @@ export default async function apiResponse(request, response) {
 		}
 	}
 	catch ({ message }) {
-		// ? Not Found
-		return response.status(404).json(
+		return response.status(httpConstants.status.NOT_FOUND).json(
 			{
 				success: false,
 				message: message

@@ -1,21 +1,22 @@
+import type { NextApiRequest, NextApiResponse } from 'next'
 import { decodeToken } from "../../../../services/encryptPass"
 import { getUserById, getPreferenceById, getPreferenceIdByUserId, updateUser, deleteUser, updatePreference, deletePreference } from "../../../../controllers/userController"
+import { httpConstants } from "@config/globals/httpConstants"
 
 
-export default async function apiResponse(request, response) {
+export default async function apiResponse(request: NextApiRequest, response: NextApiResponse): Promise<void> {
 	const { method, query, body } = request
 
 	try {
-		const userData = decodeToken(query.user_id).decoded
+		const userData = decodeToken(query.user_id)?.decoded
 		const userToManipulate = await getUserById(userData.user_id)
-		const prefId = await getPreferenceIdByUserId(userToManipulate.id)
-		const preferenceToManipulate = await getPreferenceById(prefId)
+		const prefId = await getPreferenceIdByUserId(Number(userToManipulate?.id))
+		const preferenceToManipulate = await getPreferenceById(Number(prefId))
 
 		switch (request.method) {
 			/* get data from api */
 			case "GET":
-				// ? OK
-				return response.status(200).json(
+				return response.status(httpConstants.status.OK).json(
 					{
 						success: !!userToManipulate,
 						query: query,
@@ -26,8 +27,7 @@ export default async function apiResponse(request, response) {
 
 			/* post new data on api */
 			case "POST":
-				// ? Forbidden
-				return response.status(403).json(
+				return response.status(httpConstants.status.FORBIDDEN).json(
 					{
 						success: false,
 						query: query,
@@ -47,13 +47,14 @@ export default async function apiResponse(request, response) {
 					body.new_image_path, body.new_default_theme
 				)
 
-				// ? OK
-				return response.status(200).json(
+				return response.status(httpConstants.status.OK).json(
 					{
 						success: hasUserUpdated && hasPrefUpdated,
 						query: query,
 						method: method,
-						message: hasUserUpdated ? "User updated successfully!" : "Error to update user!"
+						message: hasUserUpdated
+							? httpConstants.messages.updated("User")
+							: httpConstants.messages.notUpdated("user")
 					}
 				)
 
@@ -62,19 +63,19 @@ export default async function apiResponse(request, response) {
 				const hasUserDeleted = await deleteUser(userToManipulate)
 				const hasPrefDeleted = await deletePreference(preferenceToManipulate)
 
-				// ? OK
-				return response.status(200).json(
+				return response.status(httpConstants.status.OK).json(
 					{
 						success: hasUserDeleted && hasPrefDeleted,
 						query: query,
 						method: method,
-						message: hasUserDeleted ? "User deleted successfully!" : "Error to delete user!"
+						message: hasUserDeleted
+							? httpConstants.messages.deleted("User")
+							: httpConstants.messages.notDeleted("user")
 					}
 				)
 
 			default:
-				// ? Unauthorized
-				return response.status(401).json(
+				return response.status(httpConstants.status.UNAUTHORIZED).json(
 					{
 						success: false,
 						query: query,
@@ -86,8 +87,7 @@ export default async function apiResponse(request, response) {
 	}
 	catch ({ message }) {
 		/* return error */
-		// ? Not Found
-		return response.status(404).json(
+		return response.status(httpConstants.status.NOT_FOUND).json(
 			{
 				success: false,
 				message: message

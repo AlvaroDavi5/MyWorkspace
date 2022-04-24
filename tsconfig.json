@@ -40,14 +40,17 @@
       "@root/*": [
         "./*"
       ],
+      "@config/*": [
+        "./config/*"
+      ],
       "@pages/*": [
         "./pages/*"
       ],
       "@middlewares/*": [
-        "./services/*"
+        "./middlewares/*"
       ],
       "@controllers/*": [
-        "./services/*"
+        "./controllers/*"
       ],
       "@services/*": [
         "./services/*"

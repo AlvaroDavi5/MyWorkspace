@@ -31,7 +31,7 @@ async function getProjectById(id: number): Promise<Projects | null> {
 	}
 }
 
-async function getAllProjects(): Promise<Projects[] | Projects | null> {
+async function getAllProjects(): Promise<Projects[]> {
 
 	try {
 		const projects = await Projects.findAll()
@@ -39,11 +39,11 @@ async function getAllProjects(): Promise<Projects[] | Projects | null> {
 		return projects
 	}
 	catch ({ message }) {
-		return null
+		return []
 	}
 }
 
-async function getProjectsByUserId(user_id: number): Promise<Projects[] | Projects | null> {
+async function getProjectsByUserId(user_id: number): Promise<Projects[]> {
 
 	try {
 		const projects = await Projects.findAll({
@@ -55,7 +55,7 @@ async function getProjectsByUserId(user_id: number): Promise<Projects[] | Projec
 		return projects
 	}
 	catch ({ message }) {
-		return null
+		return []
 	}
 }
 
@@ -80,13 +80,13 @@ async function getProjectIdByName(name: string): Promise<number | null> {
 	}
 }
 
-async function updateProject(project: Projects, user_id: number, name: string): Promise<boolean> {
+async function updateProject(project: Projects | undefined | null, user_id: number, name: string): Promise<boolean> {
 
 	try {
-		if (user_id) { project.user_id = user_id }
-		if (name) { project.name = name }
+		if (user_id && project) { project.user_id = user_id }
+		if (name && project) { project.name = name }
 
-		await project.save()
+		await project?.save()
 
 		return true
 	}
@@ -95,10 +95,10 @@ async function updateProject(project: Projects, user_id: number, name: string): 
 	}
 }
 
-async function deleteProject(project: Projects): Promise<boolean> {
+async function deleteProject(project: Projects | undefined | null): Promise<boolean> {
 
 	try {
-		await project.destroy()
+		await project?.destroy()
 
 		return true
 	}
@@ -146,7 +146,7 @@ async function getProjTaskById(id: number): Promise<ProjTasks | null> {
 	}
 }
 
-async function getAllProjTasks(): Promise<ProjTasks[] | ProjTasks | null> {
+async function getAllProjTasks(): Promise<ProjTasks[]> {
 
 	try {
 		const proj_tasks = await ProjTasks.findAll()
@@ -154,11 +154,11 @@ async function getAllProjTasks(): Promise<ProjTasks[] | ProjTasks | null> {
 		return proj_tasks
 	}
 	catch ({ message }) {
-		return null
+		return []
 	}
 }
 
-async function getProjTasksByProjId(proj_id: number): Promise<ProjTasks[] | ProjTasks | null> {
+async function getProjTasksByProjId(proj_id: number): Promise<ProjTasks[]> {
 
 	try {
 		const proj_tasks = await ProjTasks.findAll({
@@ -170,7 +170,7 @@ async function getProjTasksByProjId(proj_id: number): Promise<ProjTasks[] | Proj
 		return proj_tasks
 	}
 	catch ({ message }) {
-		return null
+		return []
 	}
 }
 
@@ -195,18 +195,18 @@ async function getProjTaskIdByName(name: string): Promise<number | null> {
 	}
 }
 
-async function updateProjTask(proj_task: ProjTasks, proj_id: number, task_num: number, name: string, description: string, deadline: Date, situation: number, was_finished: boolean): Promise<boolean> {
+async function updateProjTask(proj_task: ProjTasks | undefined | null, proj_id: number, task_num: number, name: string, description: string, deadline: Date, situation: number, was_finished: boolean): Promise<boolean> {
 
 	try {
-		if (proj_id) { proj_task.proj_id = proj_id }
-		if (task_num) { proj_task.task_num = task_num }
-		if (name) { proj_task.name = name }
-		if (description) { proj_task.description = description }
-		if (deadline) { proj_task.deadline = deadline }
-		if (situation) { proj_task.situation = situation }
-		if (was_finished != null && was_finished != undefined) { proj_task.was_finished = was_finished }
+		if (proj_id && proj_task) { proj_task.proj_id = proj_id }
+		if (task_num && proj_task) { proj_task.task_num = task_num }
+		if (name && proj_task) { proj_task.name = name }
+		if (description && proj_task) { proj_task.description = description }
+		if (deadline && proj_task) { proj_task.deadline = deadline }
+		if (situation && proj_task) { proj_task.situation = situation }
+		if (was_finished != null && was_finished != undefined && proj_task) { proj_task.was_finished = was_finished }
 
-		await proj_task.save()
+		await proj_task?.save()
 
 		return true
 	}
@@ -215,10 +215,10 @@ async function updateProjTask(proj_task: ProjTasks, proj_id: number, task_num: n
 	}
 }
 
-async function deleteProjTask(proj_task: ProjTasks): Promise<boolean> {
+async function deleteProjTask(proj_task: ProjTasks | undefined | null): Promise<boolean> {
 
 	try {
-		await proj_task.destroy()
+		await proj_task?.destroy()
 
 		return true
 	}

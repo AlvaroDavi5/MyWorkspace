@@ -49,7 +49,7 @@ async function getUserById(id: number): Promise<Users | null> {
 	}
 }
 
-async function getAllUsers(): Promise<Users[] | Users | null> {
+async function getAllUsers(): Promise<Users[]> {
 
 	try {
 		const users = await Users.scope('withoutSensibleData').findAll()
@@ -57,7 +57,7 @@ async function getAllUsers(): Promise<Users[] | Users | null> {
 		return users
 	}
 	catch ({ message }) {
-		return null
+		return []
 	}
 }
 
@@ -101,17 +101,17 @@ async function getUserByCredentials(email: string, password: string): Promise<Us
 	}
 }
 
-async function updateUser(user: Users, name: string, email: string, password: string, phone: string, cpf: string, uf: string): Promise<boolean> {
+async function updateUser(user: Users | undefined | null, name: string, email: string, password: string, phone: string, cpf: string, uf: string): Promise<boolean> {
 
 	try {
-		if (name) { user.name = name }
-		if (email) { user.email = email }
-		if (password) { user.password = hashValue(password) }
-		if (phone) { user.phone = phone }
-		if (cpf) { user.cpf = cpf }
-		if (uf) { user.uf = uf }
+		if (name && user) { user.name = name }
+		if (email && user) { user.email = email }
+		if (password && user) { user.password = hashValue(password) }
+		if (phone && user) { user.phone = phone }
+		if (cpf && user) { user.cpf = cpf }
+		if (uf && user) { user.uf = uf }
 
-		await user.save()
+		await user?.save()
 
 		return true
 	}
@@ -120,10 +120,10 @@ async function updateUser(user: Users, name: string, email: string, password: st
 	}
 }
 
-async function deleteUser(user: Users): Promise<boolean> {
+async function deleteUser(user: Users | undefined | null): Promise<boolean> {
 
 	try {
-		await user.destroy()
+		await user?.destroy()
 
 		return true
 	}
@@ -167,7 +167,7 @@ async function getPreferenceById(id: number): Promise<UserPreferences | null> {
 	}
 }
 
-async function getAllPreferences(): Promise<UserPreferences[] | UserPreferences | null> {
+async function getAllPreferences(): Promise<UserPreferences[]> {
 
 	try {
 		const preferences = await UserPreferences.findAll()
@@ -175,7 +175,7 @@ async function getAllPreferences(): Promise<UserPreferences[] | UserPreferences 
 		return preferences
 	}
 	catch ({ message }) {
-		return null
+		return []
 	}
 }
 
@@ -200,13 +200,13 @@ async function getPreferenceIdByUserId(user_id: number): Promise<number | null> 
 	}
 }
 
-async function updatePreference(preference: UserPreferences, image_path: string, default_theme: number): Promise<boolean> {
+async function updatePreference(preference: UserPreferences | undefined | null, image_path: string, default_theme: number): Promise<boolean> {
 
 	try {
-		if (image_path) { preference.image_path = image_path }
-		if (default_theme) { preference.default_theme = default_theme }
+		if (image_path && preference) { preference.image_path = image_path }
+		if (default_theme && preference) { preference.default_theme = default_theme }
 
-		await preference.save()
+		await preference?.save()
 
 		return true
 	}
@@ -215,10 +215,10 @@ async function updatePreference(preference: UserPreferences, image_path: string,
 	}
 }
 
-async function deletePreference(preference: UserPreferences): Promise<boolean> {
+async function deletePreference(preference: UserPreferences | undefined | null): Promise<boolean> {
 
 	try {
-		await preference.destroy()
+		await preference?.destroy()
 
 		return true
 	}

@@ -1,7 +1,9 @@
+import type { NextApiRequest, NextApiResponse } from 'next'
 import { createUser, createPreference, searchUser } from "../../../../controllers/userController"
+import { httpConstants } from "@config/globals/httpConstants"
 
 
-export default async function apiResponse(request, response) {
+export default async function apiResponse(request: NextApiRequest, response: NextApiResponse): Promise<void> {
 	const { method, query, body } = request
 
 	try {
@@ -10,8 +12,7 @@ export default async function apiResponse(request, response) {
 				const userAlreadyExists = await searchUser(body.email)
 
 				if (userAlreadyExists) {
-					// ? Accepted
-					return response.status(202).json(
+					return response.status(httpConstants.status.ACCEPTED).json(
 						{
 							success: !userAlreadyExists,
 							query: query,
@@ -28,25 +29,25 @@ export default async function apiResponse(request, response) {
 					true
 				)
 				const prefReq = await createPreference(
-					userReq,
+					Number(userReq),
 					body.image_path, body.default_theme,
 					false
 				)
 				const created = !!userReq && !!prefReq
 
-				// ? Created
-				return response.status(201).json(
+				return response.status(httpConstants.status.CREATED).json(
 					{
 						success: created,
 						query: query,
 						method: method,
-						message: created ? "User created successfully!" : "Error to create user!"
+						message: created
+							? httpConstants.messages.created("User")
+							: httpConstants.messages.notCreated("user")
 					}
 				)
 
 			default:
-				// ? Unauthorized
-				return response.status(401).json(
+				return response.status(httpConstants.status.UNAUTHORIZED).json(
 					{
 						success: false,
 						query: query,
@@ -57,8 +58,7 @@ export default async function apiResponse(request, response) {
 		}
 	}
 	catch ({ message }) {
-		// ? Not Found
-		return response.status(404).json(
+		return response.status(httpConstants.status.NOT_FOUND).json(
 			{
 				success: false,
 				message: message

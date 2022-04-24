@@ -86,15 +86,15 @@ async function getBibliographyIdByUserId(user_id: number): Promise<number | null
 	}
 }
 
-async function updateBibliography(bibliography: Bibliographies, user_id: number, author: string, name: string, publication_date: Date): Promise<boolean> {
+async function updateBibliography(bibliography: Bibliographies | undefined | null, user_id: number, author: string, name: string, publication_date: Date): Promise<boolean> {
 
 	try {
-		if (user_id) { bibliography.user_id = user_id }
-		if (author) { bibliography.author = author }
-		if (name) { bibliography.name = name }
-		if (publication_date) { bibliography.publication_date = publication_date }
+		if (user_id && bibliography) { bibliography.user_id = user_id }
+		if (author && bibliography) { bibliography.author = author }
+		if (name && bibliography) { bibliography.name = name }
+		if (publication_date && bibliography) { bibliography.publication_date = publication_date }
 
-		await bibliography.save()
+		await bibliography?.save()
 
 		return true
 	}
@@ -103,10 +103,10 @@ async function updateBibliography(bibliography: Bibliographies, user_id: number,
 	}
 }
 
-async function deleteBibliography(bibliography: Bibliographies): Promise<boolean> {
+async function deleteBibliography(bibliography: Bibliographies | undefined | null): Promise<boolean> {
 
 	try {
-		await bibliography.destroy()
+		await bibliography?.destroy()
 
 		return true
 	}

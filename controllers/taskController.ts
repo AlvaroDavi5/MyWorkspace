@@ -50,7 +50,7 @@ async function getAllTasks(): Promise<Tasks[] | Tasks | null> {
 	}
 }
 
-async function getTasksByUserId(user_id: number): Promise<Tasks[] | Tasks | null> {
+async function getTasksByUserId(user_id: number): Promise<Tasks[]> {
 
 	try {
 		const tasks = await Tasks.findAll({
@@ -62,7 +62,7 @@ async function getTasksByUserId(user_id: number): Promise<Tasks[] | Tasks | null
 		return tasks
 	}
 	catch ({ message }) {
-		return null
+		return []
 	}
 }
 
@@ -87,16 +87,16 @@ async function getTaskIdByUserId(user_id: number): Promise<number | null> {
 	}
 }
 
-async function updateTask(task: Tasks, user_id: number, name: string, deadline_date: Date, deadline_time: Date, description: string): Promise<boolean> {
+async function updateTask(task: Tasks | undefined | null, user_id: number, name: string, deadline_date: Date, deadline_time: Date, description: string): Promise<boolean> {
 
 	try {
-		if (user_id) { task.user_id = user_id }
-		if (name) { task.name = name }
-		if (deadline_date) { task.deadline_date = deadline_date }
-		if (deadline_time) { task.deadline_time = deadline_time }
-		if (description) { task.description = description }
+		if (user_id && task) { task.user_id = user_id }
+		if (name && task) { task.name = name }
+		if (deadline_date && task) { task.deadline_date = deadline_date }
+		if (deadline_time && task) { task.deadline_time = deadline_time }
+		if (description && task) { task.description = description }
 
-		await task.save()
+		await task?.save()
 
 		return true
 	}
@@ -105,10 +105,10 @@ async function updateTask(task: Tasks, user_id: number, name: string, deadline_d
 	}
 }
 
-async function deleteTask(task: Tasks): Promise<boolean> {
+async function deleteTask(task: Tasks | undefined | null): Promise<boolean> {
 
 	try {
-		await task.destroy()
+		await task?.destroy()
 
 		return true
 	}

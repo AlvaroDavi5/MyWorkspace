@@ -1,7 +1,9 @@
+import type { NextApiRequest, NextApiResponse } from 'next'
 import { getUserByCredentials, getPreferenceIdByUserId, getPreferenceById } from "../../../../controllers/userController"
+import { httpConstants } from "@config/globals/httpConstants"
 
 
-export default async function apiResponse(request, response) {
+export default async function apiResponse(request: NextApiRequest, response: NextApiResponse): Promise<void> {
 	const { method, query, body } = request
 
 	try {
@@ -11,10 +13,13 @@ export default async function apiResponse(request, response) {
 					body['email'],
 					body['password']
 				)
-				const prefReq = await getPreferenceById(await getPreferenceIdByUserId(userReq.id))
+				const prefReq = await getPreferenceById(
+					Number(await getPreferenceIdByUserId(
+						Number(userReq?.id)
+					))
+				)
 
-				// ? OK
-				return response.status(200).json(
+				return response.status(httpConstants.status.OK).json(
 					{
 						success: !!userReq,
 						query: query,
@@ -24,8 +29,7 @@ export default async function apiResponse(request, response) {
 				)
 
 			default:
-				// ? Unauthorized
-				return response.status(401).json(
+				return response.status(httpConstants.status.UNAUTHORIZED).json(
 					{
 						success: false,
 						query: query,
@@ -36,8 +40,7 @@ export default async function apiResponse(request, response) {
 		}
 	}
 	catch ({ message }) {
-		// ? Not Found
-		return response.status(404).json(
+		return response.status(httpConstants.status.NOT_FOUND).json(
 			{
 				success: false,
 				message: message
