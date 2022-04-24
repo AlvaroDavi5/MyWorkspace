@@ -3,14 +3,20 @@ import { httpConstants } from "@config/globals/httpConstants"
 
 
 export default async function apiResponse(request: NextApiRequest, response: NextApiResponse): Promise<void> {
-	const { method, query } = request
+	const { headers, method, query, body, statusCode, statusMessage, url, cookies } = request
 
 	try {
 		return response.status(httpConstants.status.UNAUTHORIZED).json(
 			{
 				success: false,
-				query: query,
+				url: url,
+				headers: headers,
 				method: method,
+				query: query,
+				body: body,
+				cookies: cookies,
+				statusCode: statusCode,
+				statusMessage: statusMessage,
 				message: "Unauthorized"
 			}
 		)
