@@ -1,7 +1,13 @@
+/**
+ * @type {import('next').NextConfig}
+**/
+const nextConfig = {
+	reactStrictMode: true,
+}
 const withPlugins = require('next-compose-plugins')
 const withPwa = require('next-pwa')
 const withImages = require('next-images')
-const static_dotenv = require("./config/globals/static_dotenv.js")
+const staticDotenv = require("./config/globals/staticDotenv")
 
 
 module.exports = withPlugins([
@@ -25,13 +31,16 @@ module.exports = withPlugins([
 		withPwa,
 		{
 			pwa: {
-				disable: static_dotenv.general.node_env === 'development',
+				disable: staticDotenv.general.node_env === 'development',
 				dest: 'public',
 				register: true,
 				skipWaiting: true,
-				sw: '/sw.js' // service-worker
+				sw: "/sw.js" // service-worker
 			}
 		}
+	],
+	[
+		nextConfig
 	]
 	// others plugins here
 ])

@@ -1,7 +1,7 @@
 import fs from 'fs'
 
 
-function readJSONFile(filePath:string) {
+function readJSONFile(filePath: string): Promise<any[]> {
 
 	return new Promise((resolve, reject) => {
 		fs.readFile(filePath, (err, data) => {
@@ -15,7 +15,7 @@ function readJSONFile(filePath:string) {
 	})
 }
 
-async function getAllBrazilStates() {
+export async function getAllBrazilStates(): Promise<any[]> {
 
 	try {
 		let query = await fetch("https://servicodados.ibge.gov.br/api/v1/localidades/estados")
@@ -23,12 +23,12 @@ async function getAllBrazilStates() {
 
 		return data
 	}
-	catch(error) {
+	catch(error: unknown) {
 		return readJSONFile("./src/template/BrazilStates.json")
 	}
 }
 
-async function getBrazilState(uf:String) {
+export async function getBrazilState(uf: string): Promise<any> {
 
 	try {
 		let query = await fetch(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${uf}`)
@@ -36,13 +36,10 @@ async function getBrazilState(uf:String) {
 
 		return data
 	}
-	catch(error) {
+	catch(error: unknown) {
 		return {
 			data: null,
 			error: error
 		}
 	}
 }
-
-
-export { getAllBrazilStates, getBrazilState }

@@ -40,8 +40,23 @@
       "@root/*": [
         "./*"
       ],
+      "@config/*": [
+        "./config/*"
+      ],
       "@pages/*": [
         "./pages/*"
+      ],
+      "@api/*": [
+        "./pages/api/*"
+      ],
+      "@database/*": [
+        "./database/*"
+      ],
+      "@middlewares/*": [
+        "./middlewares/*"
+      ],
+      "@controllers/*": [
+        "./controllers/*"
       ],
       "@services/*": [
         "./services/*"
