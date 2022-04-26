@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { httpConstants } from "@config/globals/httpConstants"
+import { httpConstants } from "@config/constants/httpConstants"
 
 
 export default async function apiResponse(request: NextApiRequest, response: NextApiResponse): Promise<void> {

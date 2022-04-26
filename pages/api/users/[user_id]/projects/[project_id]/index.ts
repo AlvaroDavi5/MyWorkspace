@@ -2,7 +2,7 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import { decodeToken } from "@services/encryptPass"
 import { getUserById } from "@controllers/userController"
 import { getProjectsByUserId, getProjTasksByProjId, updateProject, deleteProject, deleteProjTask } from "@controllers/projectController"
-import { httpConstants } from "@config/globals/httpConstants"
+import { httpConstants } from "@config/constants/httpConstants"
 
 
 export default async function apiResponse(request: NextApiRequest, response: NextApiResponse): Promise<void> {

@@ -1,6 +1,6 @@
 import { SHA256, AES } from 'crypto-js'
 import jwt from 'jsonwebtoken'
-import staticDotenv from "../config/globals/staticDotenv"
+import staticDotenv from "../config/constants/staticDotenv"
 
 
 function hashValue(value) {

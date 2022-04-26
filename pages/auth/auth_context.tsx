@@ -4,7 +4,7 @@ import Router from 'next/router'
 import { useToast } from '@chakra-ui/react'
 import { setCookie } from 'nookies'
 import axios from 'axios'
-import globals_variables from "@config/globals/modifiable.js"
+import globals_variables from "@config/constants/modifiable.js"
 
 
 export const AuthContext = createContext({})
