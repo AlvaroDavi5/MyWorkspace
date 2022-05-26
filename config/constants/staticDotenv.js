@@ -1,6 +1,5 @@
 const path = require('path')
-const dotenv = require('dotenv') // use environment variables to save sesitive data like API key
-dotenv.config({path:__dirname+"/../../env/.env.development.local"})
+const dotenv = require('dotenv')
 
 
 const staticDotenv = {

@@ -1,5 +1,4 @@
 import 'regenerator-runtime/runtime'
-//import 'bootstrap/dist/css/bootstrap.css'
 import { ChakraProvider, ColorModeProvider, ColorModeScript } from '@chakra-ui/react'
 import type { AppProps } from 'next/app'
 import theme from "@config/theme"
