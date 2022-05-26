@@ -1,3 +1,4 @@
+import Head from 'next/head'
 import Link from 'next/link'
 import { useState, useContext } from 'react'
 import { useForm } from 'react-hook-form'
@@ -36,10 +37,8 @@ export default function Login() {
 
 	return (
 		<>
-			<head>
-				<DocumentHead title="Entre para acessar seu espaço de trabalho"/>
-			</head>
 			<body>
+				<DocumentHead title="Entre para acessar seu espaço de trabalho"/>
 				<MinNavbar pageName="Acessar o MyWorkspace"/>
 
 				<Flex
