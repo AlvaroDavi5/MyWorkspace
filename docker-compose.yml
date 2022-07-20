@@ -1,4 +1,3 @@
-
 # Docker Compose Version
 version: "3.7"
 
@@ -13,15 +12,16 @@ services:
     command: npm run dev
     user: root
     networks:
-      - default
+      - default_network
     ports:
       - 8080:8080
     volumes:
-      - ./:/home/node/MyWorkspace/
+      # host_path:container_path
+      - ./:/home/node/app/
     depends_on:
-     - db
+      - db
     links:
-     - db
+      - db
 
   # Backend
   db:
@@ -34,16 +34,21 @@ services:
       POSTGRES_DB: myworkspace_db
     user: root
     networks:
-      - default
-    #command: sudo -u postgres createuser db_user; sudo -u postgres createdb myworkspace_db; sudo -u postgres psql;
-    # psql=# alter user db_user with encrypted password 'pass';
-    # psql=# grant all privileges on database myworkspace_db to db_user;
+      - default_network
+    #command: ls;
     volumes:
-      - ./.docker/docker_containers/postgresql/:/var/lib/postgresql/
+      - type: volume
+        source: myworkspace_db_volume
+        target: /var/lib/postgresql/
     ports:
       - 5432:5432
 
 # Networks for Containers
 networks:
-  default:
+  default_network:
     driver: bridge
+
+# Volumes for Containers
+volumes:
+  myworkspace_db_volume:
+    name: myworkspace_db_volume
