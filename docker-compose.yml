@@ -36,9 +36,7 @@ services:
     networks:
       - default_network
     volumes:
-      - type: volume
-        source: myworkspace_db_volume
-        target: /var/lib/postgresql/
+      - myworkspace_db_volume:/var/lib/postgresql/
     ports:
       - 5432:5432
 
