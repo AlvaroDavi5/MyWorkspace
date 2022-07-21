@@ -35,7 +35,6 @@ services:
     user: root
     networks:
       - default_network
-    #command: ls;
     volumes:
       - type: volume
         source: myworkspace_db_volume
