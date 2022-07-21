@@ -10,7 +10,7 @@ import { FaTrashAlt, FaEdit } from 'react-icons/fa'
 import { parseCookies } from 'nookies'
 import DocumentHead from "@pages/components/document_head"
 import Navbar from "@pages/components/navbar"
-import globals_variables from "@config/globals/modifiable.js"
+import globals_variables from "@config/constants/modifiable.js"
 
 
 function TaskEditorModal(props: any) {

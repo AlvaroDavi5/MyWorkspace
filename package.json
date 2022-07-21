@@ -18,13 +18,14 @@
 		"bibliographies"
 	],
 	"scripts": {
-		"test": "jest",
 		"dev": "next dev -p 8080",
 		"build": "next build",
 		"start": "next start -p 3000",
 		"db:setup": "yarn sequelize-cli db:drop && yarn sequelize-cli db:create && yarn sequelize-cli db:migrate && yarn sequelize-cli db:seed:all",
+		"test": "jest",
 		"lint": "next lint",
-		"format": "prettier --write \"./**/*.{js,ts,jsx,tsx,json}\""
+		"format": "prettier --write \"./**/*.{js,ts,jsx,tsx,json}\"",
+		"versioning": "semver"
 	},
 	"dependencies": {
 		"@chakra-ui/icons": "^1.1.5",
@@ -32,7 +33,6 @@
 		"@emotion/react": "^11.8.1",
 		"@emotion/styled": "^11.8.1",
 		"axios": "^0.26.0",
-		"bootstrap": "^5.1.3",
 		"crypto-js": "^4.1.1",
 		"dotenv": "^16.0.0",
 		"framer-motion": "^6.2.6",
@@ -54,10 +54,7 @@
 		"react-dom": "^17.0.2",
 		"react-hook-form": "^7.27.1",
 		"react-icons": "^4.3.1",
-		"sequelize": "^6.16.2",
-		"styled-components": "^5.3.3",
-		"styled-icons": "^10.45.0",
-		"typescript": "^4.6.3",
+		"sequelize": "^6.21.3",
 		"web-vitals": "^2.1.4",
 		"webpack": "^5.69.1"
 	},
@@ -68,7 +65,7 @@
 		"@types/react": "^18.0.6",
 		"@types/react-custom-scrollbars": "^4.0.10",
 		"@types/react-dom": "^18.0.2",
-		"@types/sequelize": "^4.28.11",
+		"@types/sequelize": "^4.28.14",
 		"babel-jest": "^27.5.1",
 		"eslint": "^8.9.0",
 		"eslint-config-next": "^12.1.0",
@@ -77,7 +74,8 @@
 		"react-test-renderer": "^17.0.2",
 		"sequelize-cli": "^6.4.1",
 		"ts-jest": "^27.1.4",
-		"ts-node-dev": "^1.1.8"
+		"ts-node-dev": "^1.1.8",
+		"typescript": "^4.6.3"
 	},
 	"repository": {
 		"type": "git",

@@ -49,4 +49,4 @@ TODO.txt
 
 # --------- except ---------
 
-!/env/.env
+!/env/.env.development.local

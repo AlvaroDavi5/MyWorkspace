@@ -1,5 +1,5 @@
-const globals_variables = require("../config/globals/modifiable")
-const staticDotenv = require("../config/globals/staticDotenv")
+const globals_variables = require("../config/constants/modifiable")
+const staticDotenv = require("../config/constants/staticDotenv")
 
 
 const config = {

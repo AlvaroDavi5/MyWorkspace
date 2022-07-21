@@ -7,7 +7,7 @@ const nextConfig = {
 const withPlugins = require('next-compose-plugins')
 const withPwa = require('next-pwa')
 const withImages = require('next-images')
-const staticDotenv = require("./config/globals/staticDotenv")
+const staticDotenv = require("./config/constants/staticDotenv")
 
 
 module.exports = withPlugins([

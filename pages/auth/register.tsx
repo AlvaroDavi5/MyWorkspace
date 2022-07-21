@@ -13,7 +13,7 @@ import { toastStatuses } from "../auth/auth_context"
 import DocumentHead from "../components/document_head"
 import { getAllBrazilStates } from "@services/apiRequester"
 import MinNavbar from "../components/min_navbar"
-import globals_variables from "@config/globals/modifiable.js"
+import globals_variables from "@config/constants/modifiable.js"
 
 
 export default function Register({ stateList }: any) {
