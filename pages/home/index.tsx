@@ -48,10 +48,10 @@ export default function Home(props: any) {
 	const colorMode = useColorModeValue('light', 'dark')
 	const pageBgColor = (colorMode == 'light' ? 'clear_lake' : 'dark_forest')
 	const [ userToken, setUserToken ] = useState('')
-	
+
 	useEffect(() => {
-		if (props.userToken) {
-			setUserToken((props.userToken))
+		if (props?.userToken) {
+			setUserToken(props?.userToken)
 		}
 		else {
 			setUserToken('')

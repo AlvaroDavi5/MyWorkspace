@@ -13,9 +13,6 @@ export default function AppIndex() {
 		if (token) {
 			Router.push(`/users/${token}`)
 		}
-		else {
-			Router.push('/')
-		}
 	}, [])
 
 	return (
