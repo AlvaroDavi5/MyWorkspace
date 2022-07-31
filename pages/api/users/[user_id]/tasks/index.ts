@@ -9,10 +9,10 @@ export default async function apiResponse(request: NextApiRequest, response: Nex
 	const { method, query, body } = request
 
 	try {
-		const userData = decodeToken(query.user_id)?.decoded
+		const userData = decodeToken(query?.user_id)?.decoded
 		const userToManipulateTask = await getUserById(userData.user_id)
 
-		switch (request.method) {
+		switch (request?.method) {
 			case "GET":
 				const tasksToGet = await getTasksByUserId(Number(userToManipulateTask?.id))
 
@@ -27,9 +27,9 @@ export default async function apiResponse(request: NextApiRequest, response: Nex
 
 			case "POST":
 				const taskToCreate = await createTask(
-					Number(userToManipulateTask?.id), body.name,
-					body.deadline_date, body.deadline_time,
-					body.description, false
+					Number(userToManipulateTask?.id), body?.name,
+					body?.deadline_date, body?.deadline_time,
+					body?.description, false
 				)
 
 				return response.status(httpConstants.status.CREATED).json(

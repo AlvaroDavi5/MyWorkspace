@@ -9,13 +9,13 @@ export default async function apiResponse(request: NextApiRequest, response: Nex
 	const { method, query, body } = request
 
 	try {
-		const userData = decodeToken(query.user_id)?.decoded
+		const userData = decodeToken(query?.user_id)?.decoded
 		const userToManipulateProject = await getUserById(userData.user_id)
 
-		switch (request.method) {
+		switch (request?.method) {
 			case "GET":
 				const projectsToGet = await getProjectsByUserId(Number(userToManipulateProject?.id))
-				const projectToGet = projectsToGet.find(project => project.id == Number(query.project_id))
+				const projectToGet = projectsToGet.find(project => project.id == Number(query?.project_id))
 				const projTasksToGet = await getProjTasksByProjId(Number(projectToGet?.id))
 
 				return response.status(httpConstants.status.OK).json(
@@ -32,10 +32,10 @@ export default async function apiResponse(request: NextApiRequest, response: Nex
 
 			case "PUT":
 				const projectsToUpdate = await getProjectsByUserId(Number(userToManipulateProject?.id))
-				const projectToUpdate = projectsToUpdate.find(project => project.id == Number(query.project_id))
+				const projectToUpdate = projectsToUpdate.find(project => project.id == Number(query?.project_id))
 				const hasProjectUpdated = await updateProject(
 					projectToUpdate,
-					Number(userToManipulateProject?.id), body.new_name
+					Number(userToManipulateProject?.id), body?.new_name
 				)
 
 				return response.status(httpConstants.status.OK).json(
@@ -51,7 +51,7 @@ export default async function apiResponse(request: NextApiRequest, response: Nex
 
 			case "DELETE":
 				const projectsToDelete = await getProjectsByUserId(Number(userToManipulateProject?.id))
-				const projectToDelete = projectsToDelete.find(project => project.id == Number(query.project_id))
+				const projectToDelete = projectsToDelete.find(project => project.id == Number(query?.project_id))
 				let hasProjDeleted = false
 				if (userToManipulateProject?.id == projectToDelete?.user_id) {
 					const projTasksToDelete = await getProjTasksByProjId(Number(projectToDelete?.id))

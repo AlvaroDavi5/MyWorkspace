@@ -1,15 +1,33 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
+import Joi from 'joi'
 import { createUser, createPreference, searchUser } from "@controllers/userController"
 import { httpConstants } from "@config/constants/httpConstants"
+import requestValidator from "@middlewares/validators/requestValidator"
 
 
 export default async function apiResponse(request: NextApiRequest, response: NextApiResponse): Promise<void> {
 	const { method, query, body } = request
 
 	try {
-		switch (request.method) {
+		switch (request?.method) {
 			case "POST":
-				const userAlreadyExists = await searchUser(body.email)
+				const registerBodySchema = Joi.object({
+					name: Joi.string().required(),
+					email: Joi.string().email().required(),
+					password: Joi.string().required(),
+					phone: Joi.string().required(),
+					cpf: Joi.string().required(),
+					uf: Joi.string().length(2).required(),
+					image_path: Joi.string().required(),
+					default_theme: Joi.number(),
+				})
+				requestValidator(
+					body,
+					registerBodySchema,
+					response
+				)
+
+				const userAlreadyExists = await searchUser(body?.email)
 
 				if (userAlreadyExists) {
 					return response.status(httpConstants.status.ACCEPTED).json(
@@ -23,14 +41,14 @@ export default async function apiResponse(request: NextApiRequest, response: Nex
 				}
 
 				const userReq = await createUser(
-					body.name, body.email,
-					body.password, body.phone,
-					body.cpf, body.uf,
+					body?.name, body?.email,
+					body?.password, body?.phone,
+					body?.cpf, body?.uf,
 					true
 				)
 				const prefReq = await createPreference(
 					Number(userReq),
-					body.image_path, body.default_theme,
+					body?.image_path, body?.default_theme,
 					false
 				)
 				const created = !!userReq && !!prefReq

@@ -9,11 +9,11 @@ export default async function apiResponse(request: NextApiRequest, response: Nex
 	const { method, query, body } = request
 
 	try {
-		const userData = decodeToken(query.user_id)?.decoded
+		const userData = decodeToken(query?.user_id)?.decoded
 		const userToManipulateProject = await getUserById(userData.user_id)
 		const allProjTasks = await getAllProjTasks()
 
-		switch (request.method) {
+		switch (request?.method) {
 			case "GET":
 				const projectsToGet = await getProjectsByUserId(Number(userToManipulateProject?.id))
 				const projList = []
@@ -35,22 +35,22 @@ export default async function apiResponse(request: NextApiRequest, response: Nex
 				)
 
 			case "POST":
-				let projId: number | boolean | null = await getProjectIdByName(body.proj_name)
+				let projId: number | boolean | null = await getProjectIdByName(body?.proj_name)
 				let hasCreatedProject = false
 				if (!!userToManipulateProject && !projId) {
 					projId = await createProject(
 						userToManipulateProject?.id,
-						body.proj_name
+						body?.proj_name
 					)
 					hasCreatedProject = true
 				}
 				let hasCreatedProjTask: boolean | number = false
-				if (!!userToManipulateProject && !allProjTasks.find(projTask => projTask.task_num == body.task_num)) {
+				if (!!userToManipulateProject && !allProjTasks.find(projTask => projTask.task_num == body?.task_num)) {
 					hasCreatedProjTask = await createProjTask(
 						Number(projId),
-						body.task_num, body.task_name,
-						body.description, body.deadline,
-						body.situation, body.was_finished,
+						body?.task_num, body?.task_name,
+						body?.description, body?.deadline,
+						body?.situation, body?.was_finished,
 						false
 					)
 				}

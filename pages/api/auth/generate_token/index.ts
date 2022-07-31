@@ -1,17 +1,29 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
+import Joi from 'joi'
 import { generateToken, decodeToken } from "@services/encryptPass"
 import { httpConstants } from "@config/constants/httpConstants"
+import requestValidator from "@middlewares/validators/requestValidator"
 
 
 export default async function apiResponse(request: NextApiRequest, response: NextApiResponse): Promise<void> {
 	const { method, query, body } = request
 
 	try {
-		switch (request.method) {
+		switch (request?.method) {
 			case "POST":
+				const generateTokenBodySchema = Joi.object({
+					user_id: Joi.number().required(),
+					user_email: Joi.string().email().required()
+				})
+				requestValidator(
+					body,
+					generateTokenBodySchema,
+					response
+				)
+
 				const token = generateToken(
-					body.user_id,
-					body.user_email
+					body?.user_id,
+					body?.user_email
 				)
 
 				return response.status(httpConstants.status.OK).json(
@@ -25,7 +37,16 @@ export default async function apiResponse(request: NextApiRequest, response: Nex
 				)
 
 			case "PUT":
-				const decoded_token = decodeToken(body.token)
+				const decodeTokenBodySchema = Joi.object({
+					token: Joi.string().required()
+				})
+				requestValidator(
+					body,
+					decodeTokenBodySchema,
+					response
+				)
+
+				const decoded_token = decodeToken(body?.token)
 
 				return response.status(httpConstants.status.OK).json(
 					{

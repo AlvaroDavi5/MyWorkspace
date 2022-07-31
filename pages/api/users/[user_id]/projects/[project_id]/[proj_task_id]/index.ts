@@ -9,22 +9,22 @@ export default async function apiResponse(request: NextApiRequest, response: Nex
 	const { method, query, body } = request
 
 	try {
-		const userData = decodeToken(query.user_id)?.decoded
+		const userData = decodeToken(query?.user_id)?.decoded
 		const userToManipulateProjTask = await getUserById(userData.user_id)
 		const projectsToManipulateProjTask = await getProjectsByUserId(Number(userToManipulateProjTask?.id))
-		const projectToManipulateProjTask = projectsToManipulateProjTask.find(project => project.id == Number(query.project_id))
+		const projectToManipulateProjTask = projectsToManipulateProjTask.find(project => project.id == Number(query?.project_id))
 		const allProjTasks = await getAllProjTasks()
 
-		switch (request.method) {
+		switch (request?.method) {
 			case "PUT":
-				const projTaskToUpdate = allProjTasks.find(projTask => projTask.id == Number(query.proj_task_id))
+				const projTaskToUpdate = allProjTasks.find(projTask => projTask.id == Number(query?.proj_task_id))
 				let hasProjTaskUpdated = false
 				if (userToManipulateProjTask?.id == projectToManipulateProjTask?.user_id) {
 					hasProjTaskUpdated = await updateProjTask(
 						projTaskToUpdate, Number(projTaskToUpdate?.proj_id),
-						body.new_task_num, body.new_name,
-						body.new_description, body.new_deadline,
-						body.new_situation, body.new_was_finished
+						body?.new_task_num, body?.new_name,
+						body?.new_description, body?.new_deadline,
+						body?.new_situation, body?.new_was_finished
 					)
 				}
 
@@ -40,7 +40,7 @@ export default async function apiResponse(request: NextApiRequest, response: Nex
 				)
 
 			case "DELETE":
-				const projTaskToDelete = allProjTasks.find(projTask => projTask.id == Number(query.proj_task_id))
+				const projTaskToDelete = allProjTasks.find(projTask => projTask.id == Number(query?.proj_task_id))
 				let hasProjTaskDeleted = false
 				if (userToManipulateProjTask?.id == projectToManipulateProjTask?.user_id) {
 					hasProjTaskDeleted = await deleteProjTask(projTaskToDelete)
