@@ -19,7 +19,7 @@ export async function getAllBrazilStates(): Promise<any[]> {
 
 	try {
 		let query = await fetch("https://servicodados.ibge.gov.br/api/v1/localidades/estados")
-		const data = await query.json()
+		const data = await query?.json()
 
 		return data
 	}
@@ -32,7 +32,7 @@ export async function getBrazilState(uf: string): Promise<any> {
 
 	try {
 		let query = await fetch(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${uf}`)
-		const data = await query.json()
+		const data = await query?.json()
 
 		return data
 	}

@@ -54,6 +54,12 @@ function decodeToken(token) {
 				decoded: decoded
 			}
 		}
+		else {
+			return {
+				message: "Token not verified!",
+				decoded: decoded
+			}
+		}
 	}
 	catch (error) {
 		return {
