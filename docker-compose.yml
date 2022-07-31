@@ -17,7 +17,7 @@ services:
       - 8080:8080
     volumes:
       # host_path:container_path
-      - ./:/home/node/app/
+      - ./:/home/node/MyWorkspace/
     depends_on:
       - db
     links:
