@@ -6,7 +6,7 @@ export default async function apiResponse(request: NextApiRequest, response: Nex
 	const { headers, method, query, body, statusCode, statusMessage, url, cookies } = request
 
 	try {
-		return response.status(httpConstants.status.UNAUTHORIZED).json(
+		return response.status(httpConstants.status.OK).json(
 			{
 				success: false,
 				url: url,
@@ -17,7 +17,7 @@ export default async function apiResponse(request: NextApiRequest, response: Nex
 				cookies: cookies,
 				statusCode: statusCode,
 				statusMessage: statusMessage,
-				message: "Unauthorized"
+				message: "OK"
 			}
 		)
 	}

@@ -9,13 +9,13 @@ export default async function apiResponse(request: NextApiRequest, response: Nex
 	const { method, query, body } = request
 
 	try {
-		const userData = decodeToken(query.user_id)?.decoded
+		const userData = decodeToken(query?.user_id)?.decoded
 		const userToManipulateBibliography = await getUserById(userData.user_id)
 
-		switch (request.method) {
+		switch (request?.method) {
 			case "GET":
 				const bibliographiesToGet = await getBibliographiesByUserId(Number(userToManipulateBibliography?.id))
-				const bibliographyToGet = bibliographiesToGet?.find(bibliography => bibliography.id == Number(query.bibliography_id))
+				const bibliographyToGet = bibliographiesToGet?.find(bibliography => bibliography.id == Number(query?.bibliography_id))
 
 				return response.status(httpConstants.status.OK).json(
 					{
@@ -28,11 +28,11 @@ export default async function apiResponse(request: NextApiRequest, response: Nex
 
 			case "PUT":
 				const bibliographiesToUpdate = await getBibliographiesByUserId(Number(userToManipulateBibliography?.id))
-				const bibliographyToUpdate = bibliographiesToUpdate?.find(bibliography => bibliography.id == Number(query.bibliography_id))
+				const bibliographyToUpdate = bibliographiesToUpdate?.find(bibliography => bibliography.id == Number(query?.bibliography_id))
 				const hasBibliographyUpdated = await updateBibliography(
 					bibliographyToUpdate,
-					Number(userToManipulateBibliography?.id), body.new_author,
-					body.new_name, body.new_publication_date
+					Number(userToManipulateBibliography?.id), body?.new_author,
+					body?.new_name, body?.new_publication_date
 				)
 
 				return response.status(httpConstants.status.OK).json(
@@ -48,7 +48,7 @@ export default async function apiResponse(request: NextApiRequest, response: Nex
 
 			case "DELETE":
 				const bibliographiesToDelete = await getBibliographiesByUserId(Number(userToManipulateBibliography?.id))
-				const bibliographyToDelete = bibliographiesToDelete?.find(bibliography => bibliography.id == Number(query.bibliography_id))
+				const bibliographyToDelete = bibliographiesToDelete?.find(bibliography => bibliography.id == Number(query?.bibliography_id))
 				let hasBibliographyDeleted = false
 				if (userToManipulateBibliography?.id == bibliographyToDelete?.user_id) {
 					hasBibliographyDeleted = await deleteBibliography(bibliographyToDelete)

@@ -5,14 +5,35 @@
 
 
 ## [Unreleased]
+- ...
 
 ### [X.Y.Z] - YYYY-MM-DD
-- Removed...
+
+#### Added
+- Added...
+
+#### Changed
+- Updated...
+
+#### Fixed
 - Fixed...
+
+#### Removed
+- Updated...
 
 
 ## [Released]
 
 ### [X.Y.Z] - YYYY-MM-DD
+
+#### Added
 - Added...
+
+#### Changed
+- Updated...
+
+#### Fixed
+- Fixed...
+
+#### Removed
 - Updated...

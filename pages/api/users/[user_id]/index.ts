@@ -8,12 +8,12 @@ export default async function apiResponse(request: NextApiRequest, response: Nex
 	const { method, query, body } = request
 
 	try {
-		const userData = decodeToken(query.user_id)?.decoded
+		const userData = decodeToken(query?.user_id)?.decoded
 		const userToManipulate = await getUserById(userData.user_id)
 		const prefId = await getPreferenceIdByUserId(Number(userToManipulate?.id))
 		const preferenceToManipulate = await getPreferenceById(Number(prefId))
 
-		switch (request.method) {
+		switch (request?.method) {
 			/* get data from api */
 			case "GET":
 				return response.status(httpConstants.status.OK).json(
@@ -39,12 +39,12 @@ export default async function apiResponse(request: NextApiRequest, response: Nex
 			/* update data from api */
 			case "PUT":
 				const hasUserUpdated = await updateUser(userToManipulate,
-					body.new_name, body.new_email,
-					body.new_password, body.new_phone,
-					body.new_cpf, body.new_uf
+					body?.new_name, body?.new_email,
+					body?.new_password, body?.new_phone,
+					body?.new_cpf, body?.new_uf
 				)
 				const hasPrefUpdated = await updatePreference(preferenceToManipulate,
-					body.new_image_path, body.new_default_theme
+					body?.new_image_path, body?.new_default_theme
 				)
 
 				return response.status(httpConstants.status.OK).json(

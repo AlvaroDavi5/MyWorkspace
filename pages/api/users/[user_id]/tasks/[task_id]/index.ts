@@ -9,13 +9,13 @@ export default async function apiResponse(request: NextApiRequest, response: Nex
 	const { method, query, body } = request
 
 	try {
-		const userData = decodeToken(query.user_id)?.decoded
+		const userData = decodeToken(query?.user_id)?.decoded
 		const userToManipulateTask = await getUserById(userData.user_id)
 
-		switch (request.method) {
+		switch (request?.method) {
 			case "GET":
 				const tasksToGet = await getTasksByUserId(Number(userToManipulateTask?.id))
-				const taskToGet = tasksToGet?.find(task => task.id == Number(query.task_id))
+				const taskToGet = tasksToGet?.find(task => task.id == Number(query?.task_id))
 
 				return response.status(httpConstants.status.OK).json(
 					{
@@ -28,12 +28,12 @@ export default async function apiResponse(request: NextApiRequest, response: Nex
 
 			case "PUT":
 				const tasksToUpdate = await getTasksByUserId(Number(userToManipulateTask?.id))
-				const taskToUpdate = tasksToUpdate?.find(task => task.id == Number(query.task_id))
+				const taskToUpdate = tasksToUpdate?.find(task => task.id == Number(query?.task_id))
 				const hasTaskUpdated = await updateTask(
 					taskToUpdate,
-					Number(userToManipulateTask?.id), body.new_name,
-					body.new_deadline_date, body.new_deadline_time,
-					body.new_description
+					Number(userToManipulateTask?.id), body?.new_name,
+					body?.new_deadline_date, body?.new_deadline_time,
+					body?.new_description
 				)
 
 				return response.status(httpConstants.status.OK).json(
@@ -49,7 +49,7 @@ export default async function apiResponse(request: NextApiRequest, response: Nex
 
 			case "DELETE":
 				const tasksToDelete = await getTasksByUserId(Number(userToManipulateTask?.id))
-				const taskToDelete = tasksToDelete?.find(task => task.id == Number(query.task_id))
+				const taskToDelete = tasksToDelete?.find(task => task.id == Number(query?.task_id))
 				let hasTaskDeleted = false
 				if (userToManipulateTask?.id == taskToDelete?.user_id) {
 					hasTaskDeleted = await deleteTask(taskToDelete)

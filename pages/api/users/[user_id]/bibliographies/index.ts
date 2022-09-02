@@ -9,10 +9,10 @@ export default async function apiResponse(request: NextApiRequest, response: Nex
 	const { method, query, body } = request
 
 	try {
-		const userData = decodeToken(query.user_id)?.decoded
+		const userData = decodeToken(query?.user_id)?.decoded
 		const userToManipulateBibliography = await getUserById(userData.user_id)
 
-		switch (request.method) {
+		switch (request?.method) {
 			case "GET":
 				const bibliographiesToGet = await getBibliographiesByUserId(Number(userToManipulateBibliography?.id))
 
@@ -28,8 +28,8 @@ export default async function apiResponse(request: NextApiRequest, response: Nex
 			case "POST":
 				const bibliographyToCreate = await createBibliography(
 					Number(userToManipulateBibliography?.id),
-					body.author, body.name,
-					body.publication_date,
+					body?.author, body?.name,
+					body?.publication_date,
 					false
 				)
 
