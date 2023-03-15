@@ -57,7 +57,7 @@
 		"react-icons": "^4.3.1",
 		"sequelize": "^6.21.3",
 		"web-vitals": "^2.1.4",
-		"webpack": "^5.69.1"
+		"webpack": "^5.76.0"
 	},
 	"devDependencies": {
 		"@babel/preset-env": "^7.16.11",
